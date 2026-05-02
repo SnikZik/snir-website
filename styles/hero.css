@@ -192,10 +192,10 @@
   position: absolute;
   z-index: 2;
   pointer-events: none;
-  right: 36px;
-  bottom: 32px;
+  left: 0;
+  bottom: -10px;
   font-weight: 900;
-  font-size: 160px;
+  font-size: 260px;
   line-height: 0.85;
   letter-spacing: -0.05em;
   color: rgba(110, 60, 255, 0.10);
@@ -206,10 +206,10 @@
   position: absolute;
   z-index: 3;
   pointer-events: none;
-  width: 420px;
-  height: 420px;
-  right: 60px;
-  top: 100px;
+  width: 480px;
+  height: 480px;
+  right: 40px;
+  top: 80px;
 }
 
 /* Knight — z 4 */
@@ -217,7 +217,7 @@
   position: absolute;
   z-index: 4;
   pointer-events: none;
-  width: 440px;
+  width: 520px;
   height: auto;
   right: -60px;
   bottom: 0;
