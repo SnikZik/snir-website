@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SNIR. Hero — Implementation Handoff for Claude Code</title>
+<style>
+  :root{
+    --paper:#F2EFEA;
+    --paper-2:#EEEAE3;
+    --ink:#0A0A0A;
+    --ink-2:#1A1A1A;
+    --muted:#5A5A5A;
+    --rule:#D9D4CB;
+    --purple:#6E3CFF;       /* Snir Purple — primary accent dot/links/button bg */
+    --purple-deep:#5B2EDB;  /* deep purple core of the glow */
+    --purple-soft:#B9A4FF;  /* outer halo of the glow */
+    --code-bg:#111111;
+    --code-fg:#EDEAE3;
+    --good:#0E8A3E;
+    --bad:#B42318;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1100px; margin:0 auto; padding:64px 40px 120px;}
+  header.doc{
+    border-bottom:1px solid var(--rule);
+    padding-bottom:28px; margin-bottom:40px;
+    display:flex; align-items:flex-end; justify-content:space-between; gap:24px;
+  }
+  header.doc h1{font-size:34px; line-height:1.1; margin:0 0 6px; letter-spacing:-0.01em; font-weight:700;}
+  header.doc p{margin:0; color:var(--muted); max-width:62ch}
+  header.doc .meta{font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size:12px; color:var(--muted); text-align:right; line-height:1.6}
+  header.doc .meta b{color:var(--ink)}
+
+  h2{font-size:22px; letter-spacing:-0.005em; margin:48px 0 14px; font-weight:700;}
+  h3{font-size:16px; margin:24px 0 10px; font-weight:700;}
+  h4{font-size:14px; margin:18px 0 8px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+  p{margin:0 0 12px}
+  ul,ol{margin:0 0 12px; padding-left:22px}
+  li{margin:4px 0}
+  code, kbd, .mono{font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size:13px;}
+  p code, li code, td code{background:#E8E4DC; padding:1px 6px; border-radius:4px; color:var(--ink-2)}
+  pre{background:var(--code-bg); color:var(--code-fg); border-radius:10px; padding:18px 20px; overflow:auto; font-size:12.5px; line-height:1.55; margin:0 0 14px}
+  pre .c{color:#8a8e96} pre .k{color:#c792ea} pre .s{color:#c3e88d} pre .n{color:#f78c6c} pre .p{color:#82aaff}
+
+  table.spec{width:100%; border-collapse:collapse; margin:8px 0 18px; font-size:13.5px}
+  table.spec th, table.spec td{border-bottom:1px solid var(--rule); padding:10px 12px; text-align:left; vertical-align:top}
+  table.spec th{font-weight:700; background:var(--paper-2); white-space:nowrap}
+  table.spec td.mono, table.spec td .mono{font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size:12.5px}
+  table.spec td:first-child{white-space:nowrap; width:34%}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:24px}
+  @media(max-width:880px){.grid2{grid-template-columns:1fr}}
+
+  .callout{border:1px solid var(--rule); background:var(--paper-2); border-radius:10px; padding:16px 18px; margin:12px 0 18px}
+  .callout.warn{border-color:#E6C9C5; background:#FBEEEC}
+  .callout.ok{border-color:#C7E2D0; background:#EAF6EE}
+  .pill{display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; letter-spacing:.04em; text-transform:uppercase; font-weight:700; vertical-align:middle}
+  .pill.purple{background:rgba(110,60,255,.12); color:var(--purple)}
+  .pill.ink{background:var(--ink); color:#fff}
+  .pill.muted{background:var(--paper-2); color:var(--muted); border:1px solid var(--rule)}
+
+  .check{list-style:none; padding-left:0}
+  .check li{padding:8px 10px 8px 34px; border:1px solid var(--rule); border-radius:8px; margin:6px 0; background:#fff; position:relative}
+  .check li::before{content:""; position:absolute; left:10px; top:12px; width:14px; height:14px; border:1.5px solid #B6B0A4; border-radius:3px; background:#fff}
+
+  /* ============== LAYER STACK DIAGRAM ============== */
+  .stack{display:grid; grid-template-columns:220px 1fr; gap:14px; align-items:stretch; margin:8px 0 10px}
+  .stack .col-num{display:flex; flex-direction:column; gap:8px}
+  .stack .col-bars{display:flex; flex-direction:column; gap:8px}
+  .layer{display:flex; align-items:center; gap:14px; padding:12px 14px; border-radius:8px; border:1px solid var(--rule); background:#fff;
+         font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size:13px}
+  .layer .z{display:inline-flex; align-items:center; justify-content:center; width:40px; height:24px; background:var(--ink); color:#fff; border-radius:4px; font-weight:700; font-size:12px}
+  .layer .name{font-weight:700; color:var(--ink)}
+  .layer .desc{color:var(--muted); font-family: ui-sans-serif, sans-serif}
+  .layer.l1{background:#F2EFEA}
+  .layer.l2{background:linear-gradient(120deg,#EEE7FF, #DCC8FF 60%, #B9A4FF)}
+  .layer.l3{background:#EBE6DD; color:#A89FB7}
+  .layer.l4{background:#F7F4EE; border-color:#D9D4CB}
+  .layer.l5{background:#1A1A1A; color:#fff}
+  .layer.l6{background:#fff}
+  .layer.l7{background:var(--paper-2)}
+  .layer.l3 .name{color:#A89FB7}
+
+  /* ============== VIEWPORT PREVIEW (visual reference, not implementation) ============== */
+  .previews{display:grid; grid-template-columns: 1fr 320px; gap:24px; margin:18px 0 8px; align-items:start}
+  @media(max-width:880px){.previews{grid-template-columns:1fr}}
+  .vp{background:var(--paper); border:1px solid var(--rule); border-radius:10px; overflow:hidden; position:relative}
+  .vp .vp-label{position:absolute; top:8px; left:10px; z-index:30; font-family: ui-monospace,monospace; font-size:11px; color:var(--muted); background:rgba(255,255,255,.7); padding:2px 6px; border-radius:4px}
+
+  /* shared hero token visuals */
+  .hero{position:relative; overflow:hidden; background:var(--paper); color:var(--ink)}
+  .hero .glow{position:absolute; pointer-events:none; z-index:1;
+    background: radial-gradient(closest-side, rgba(110,60,255,.55) 0%, rgba(110,60,255,.28) 38%, rgba(185,164,255,.08) 70%, transparent 100%);
+    filter: blur(2px);
+  }
+  .hero .build-word{position:absolute; z-index:2; font-weight:900; letter-spacing:-0.04em; line-height:.85;
+    color:rgba(110,60,255,.10); font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; pointer-events:none;
+    -webkit-text-stroke: 0;
+  }
+  .hero .rings{position:absolute; z-index:3; pointer-events:none}
+  .hero .knight{position:absolute; z-index:4; pointer-events:none}
+  .hero .topbar{position:absolute; left:0; right:0; top:0; z-index:7;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .hero .copy{position:relative; z-index:6}
+
+  /* DESKTOP preview (scaled mock at 1440 -> fit) */
+  .vp.desktop{aspect-ratio: 1440/780;}
+  .vp.desktop .hero{position:absolute; inset:0; transform-origin: top left;}
+  .vp.desktop .topbar{height:72px; padding:0 56px; font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;}
+  .vp.desktop .logo{font-weight:900; letter-spacing:-0.02em; font-size:22px}
+  .vp.desktop .logo .dot{display:inline-block; width:8px; height:8px; background:var(--purple); margin-left:2px; transform:translateY(-2px)}
+  .vp.desktop nav{display:flex; gap:32px; font-size:14px; color:var(--ink)}
+  .vp.desktop nav a{color:inherit; text-decoration:none}
+  .vp.desktop .cta{background:var(--ink); color:#fff; padding:10px 18px; border-radius:6px; font-size:14px; font-weight:600; display:inline-flex; align-items:center; gap:6px}
+  .vp.desktop .cta .dot{width:6px; height:6px; background:var(--purple); display:inline-block}
+  .vp.desktop .copy{padding:120px 0 0 96px; max-width:780px;}
+  .vp.desktop h1{font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; font-weight:900; letter-spacing:-0.035em; line-height:0.92; font-size:104px; margin:0;}
+  .vp.desktop h1 .dot{display:inline-block; width:14px; height:14px; background:var(--purple); margin-left:6px; transform:translateY(-2px)}
+  .vp.desktop .sub{margin:28px 0 0; font-size:20px; color:#2a2a2a}
+  .vp.desktop .sub a{color:var(--purple); text-decoration:none; font-weight:500}
+  .vp.desktop .lead{margin:40px 0 0; display:flex; align-items:center; gap:14px; font-size:14px; color:var(--ink)}
+  .vp.desktop .lead::before{content:""; display:inline-block; width:32px; height:1.5px; background:var(--ink)}
+  .vp.desktop .lead .dot{width:6px; height:6px; background:var(--purple); display:inline-block; margin-left:4px}
+  .vp.desktop .glow{ width:760px; height:760px; right:-120px; top:-40px; }
+  .vp.desktop .build-word{ font-size:340px; left:60px; bottom:-30px; letter-spacing:-0.05em }
+  .vp.desktop .knight{ right:-60px; bottom:0; width:620px; height:560px;
+    background: var(--knight-bg, none) center/contain no-repeat;
+  }
+  .vp.desktop .rings{right:80px; top:60px; width:520px; height:520px}
+  .vp.desktop .rings svg{width:100%; height:100%; display:block}
+
+  /* MOBILE preview (390 width, ~720 tall) */
+  .vp.mobile{aspect-ratio: 390/720; max-width:320px; margin:0 auto;}
+  .vp.mobile .hero{position:absolute; inset:0;}
+  .vp.mobile .topbar{height:64px; padding:0 20px; font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;}
+  .vp.mobile .logo{font-weight:900; letter-spacing:-0.02em; font-size:20px}
+  .vp.mobile .logo .dot{display:inline-block; width:6px; height:6px; background:var(--purple); margin-left:2px; transform:translateY(-2px)}
+  .vp.mobile .menu{display:flex; flex-direction:column; gap:4px; width:24px}
+  .vp.mobile .menu i{display:block; height:2px; background:var(--ink)}
+  .vp.mobile .copy{padding:80px 0 0 24px; max-width:320px;}
+  .vp.mobile h1{font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; font-weight:900; letter-spacing:-0.03em; line-height:0.95; font-size:54px; margin:0;}
+  .vp.mobile h1 .dot{display:inline-block; width:9px; height:9px; background:var(--purple); margin-left:4px; transform:translateY(-2px)}
+  .vp.mobile .sub{margin:20px 0 0; font-size:14px; color:#2a2a2a}
+  .vp.mobile .sub a{color:var(--purple); font-weight:500}
+  .vp.mobile .lead{margin:24px 0 0; display:flex; align-items:center; gap:10px; font-size:12px; color:var(--ink)}
+  .vp.mobile .lead::before{content:""; display:inline-block; width:24px; height:1.5px; background:var(--ink)}
+  .vp.mobile .glow{ width:340px; height:340px; right:-30px; top:30px; }
+  .vp.mobile .build-word{ font-size:130px; left:8px; bottom:170px; letter-spacing:-0.05em }
+  .vp.mobile .knight{ right:-30px; bottom:0; width:280px; height:280px; }
+  .vp.mobile .rings{right:-30px; top:20px; width:240px; height:240px}
+  .vp.mobile .rings svg{width:100%; height:100%; display:block}
+
+  /* placeholder knight asset rendering for the preview only — Claude Code will swap real PNG */
+  .knight-ph{width:100%; height:100%; background:
+     radial-gradient(60% 70% at 50% 70%, #2A2730 0%, #14121A 60%, transparent 100%),
+     radial-gradient(40% 40% at 60% 30%, rgba(255,255,255,0.18) 0%, transparent 60%);
+     -webkit-mask: radial-gradient(45% 60% at 55% 55%, #000 60%, transparent 100%);
+             mask: radial-gradient(45% 60% at 55% 55%, #000 60%, transparent 100%);
+  }
+  .knight-ph::after{content:"chess-knight.png"; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); color:#bbb; font:11px/1 ui-monospace, monospace; pointer-events:none; opacity:.65}
+  .knight-host{position:relative}
+
+  /* swatches */
+  .swatches{display:grid; grid-template-columns:repeat(6, 1fr); gap:10px; margin:6px 0 14px}
+  @media(max-width:880px){.swatches{grid-template-columns:repeat(3,1fr)}}
+  .sw{border:1px solid var(--rule); border-radius:8px; overflow:hidden; background:#fff}
+  .sw .chip{height:64px}
+  .sw .meta{padding:8px 10px; font-family:ui-monospace,monospace; font-size:11.5px; line-height:1.45}
+  .sw .meta b{display:block; font-family:ui-sans-serif,sans-serif; font-size:13px; margin-bottom:2px}
+
+  .legend{font-size:12px; color:var(--muted); font-family:ui-monospace,monospace}
+  .row-tag{display:inline-block; font-family:ui-monospace,monospace; font-size:11px; color:var(--muted); margin-right:8px}
+
+  hr.rule{border:none; border-top:1px solid var(--rule); margin:36px 0}
+
+  .toc{columns:2; column-gap:32px; font-size:13.5px; padding:14px 18px; background:var(--paper-2); border:1px solid var(--rule); border-radius:10px}
+  .toc a{color:var(--ink); text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .toc ol{margin:0; padding-left:18px}
+  .toc li{margin:3px 0}
+
+  .num{font-family:ui-monospace,monospace; font-weight:700; color:var(--purple); margin-right:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc">
+    <div>
+      <span class="pill purple">SNIR. Hero v2</span>
+      <span class="pill muted">Implementation handoff</span>
+      <h1 style="margin-top:14px">Hero — Claude Code Handoff Spec</h1>
+      <p>Pixel-accurate spec for the SNIR. landing hero. This document is the source of truth: every value below is binding. Do not interpret, redesign, or substitute.</p>
+    </div>
+    <div class="meta">
+      <div><b>File scope</b> Hero section only</div>
+      <div><b>Targets</b> 1440px desktop · 390px mobile</div>
+      <div><b>Owner</b> Claude Design → Claude Code</div>
+      <div><b>Date</b> May 2, 2026</div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Contents">
+    <ol>
+      <li><a href="#zones">Protected zones (HARD RULE)</a></li>
+      <li><a href="#layers">Layer order</a></li>
+      <li><a href="#assets">Asset list</a></li>
+      <li><a href="#tokens">Design tokens</a></li>
+      <li><a href="#typography">Typography rules</a></li>
+      <li><a href="#colors">Color usage</a></li>
+      <li><a href="#html">HTML structure</a></li>
+      <li><a href="#css">CSS architecture</a></li>
+      <li><a href="#desktop">Desktop layout (1440px)</a></li>
+      <li><a href="#mobile">Mobile layout (390px)</a></li>
+      <li><a href="#responsive">Responsive rules</a></li>
+      <li><a href="#zindex">Z-index map</a></li>
+      <li><a href="#delete">Delete from current build</a></li>
+      <li><a href="#donttouch">Do not touch</a></li>
+      <li><a href="#qa">QA checklist</a></li>
+      <li><a href="#prompt">Final Claude Code prompt</a></li>
+    </ol>
+  </nav>
+
+  <!-- ================================================================ -->
+  <h2 id="zones">0. Protected text zones (HARD RULE — read first)</h2>
+  <div class="callout warn">
+    <b>Inviolable rule:</b> No visual layer (knight, rings, BUILD word, glow) may enter the headline zone. Any element that crosses the boundary, even by 1px, is a failed implementation.
+  </div>
+  <table class="spec">
+    <thead><tr><th>Viewport</th><th>Text zone (off-limits to all decoration)</th><th>Decoration zone</th></tr></thead>
+    <tbody>
+      <tr><td>Desktop 1440 × 780</td><td class="mono">left 0 → left 864px (left 60% of viewport), full height.<br>headline + sub + lead live entirely inside this band.</td><td class="mono">right 864px → right 1440px (right 40%) only.</td></tr>
+      <tr><td>Mobile 390 × 720</td><td class="mono">top 0 → top 360px (top 50%), full width.<br>topbar + headline + sub + lead live entirely inside this band.</td><td class="mono">top 360px → bottom 720px (bottom 50%) only.</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><b>Knight:</b> bounding box must sit entirely inside the decoration zone.</li>
+    <li><b>Rings:</b> bounding box must sit entirely inside the decoration zone.</li>
+    <li><b>BUILD word:</b> bounding box must sit entirely inside the decoration zone.</li>
+    <li><b>Glow:</b> peak alpha (≥0.20) must sit entirely inside the decoration zone; soft falloff (alpha &lt; 0.10) may bleed but must not affect headline contrast.</li>
+  </ul>
+
+  <!-- ================================================================ -->
+  <h2 id="layers">1. Layer order (back → front)</h2>
+  <p>Seven layers. They render in this exact order. Z-index assignments are in §11.</p>
+
+  <div class="stack">
+    <div class="col-num">
+      <div class="layer l1"><span class="z">z 0</span><div><div class="name">1. Background (Paper)</div><div class="desc">Solid <code>#F2EFEA</code> — fills the whole viewport.</div></div></div>
+      <div class="layer l2"><span class="z">z 1</span><div><div class="name">2. Purple glow</div><div class="desc">Radial gradient blob, top-right quadrant. Soft, low-opacity.</div></div></div>
+      <div class="layer l3"><span class="z">z 2</span><div><div class="name">3. BUILD word</div><div class="desc">Outlined-feel display word, low-alpha purple. Sits behind imagery.</div></div></div>
+      <div class="layer l4"><span class="z">z 3</span><div><div class="name">4. Rings</div><div class="desc">Two thin concentric circles (1 black, 1 purple). SVG strokes.</div></div></div>
+      <div class="layer l5"><span class="z">z 4</span><div><div class="name">5. Knight</div><div class="desc">Black 3D chess-knight PNG. Bottom-right, bleeds off canvas.</div></div></div>
+      <div class="layer l6"><span class="z">z 5–6</span><div><div class="name">6. Headline + sub + lead</div><div class="desc">Text content. Always above imagery and below topbar.</div></div></div>
+      <div class="layer l7"><span class="z">z 7</span><div><div class="name">7. Topbar</div><div class="desc">Logo + nav + CTA / hamburger. Always on top.</div></div></div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <h2 id="assets">2. Asset list</h2>
+  <table class="spec">
+    <thead><tr><th>File</th><th>Path</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Black chess knight</td><td class="mono">/assets/hero/chess-knight.png</td><td>Transparent PNG. Pre-rendered with subtle highlight on top-left edge. Min export: 1240px wide @2x.</td></tr>
+      <tr><td>(Logo)</td><td class="mono">— text node, no image</td><td>Render <code>SNIR.</code> as text + a 8×8 purple square as a separate span; do not use an SVG file.</td></tr>
+      <tr><td>(Rings)</td><td class="mono">— inline SVG</td><td>Two <code>&lt;circle&gt;</code> strokes; no asset.</td></tr>
+      <tr><td>(BUILD word)</td><td class="mono">— text node</td><td>Render as live text inside a span; do not use an image.</td></tr>
+    </tbody>
+  </table>
+  <p class="legend">No additional images, icons or SVGs are required. Do not introduce decorative gradients, blur shapes, illustrations, or stock graphics beyond what is listed above.</p>
+
+  <!-- ================================================================ -->
+  <h2 id="tokens">3. Design tokens</h2>
+  <h4>Colors</h4>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:#F2EFEA"></div><div class="meta"><b>Paper</b>#F2EFEA<br>--paper</div></div>
+    <div class="sw"><div class="chip" style="background:#0A0A0A"></div><div class="meta" style="color:#222"><b>Ink</b>#0A0A0A<br>--ink</div></div>
+    <div class="sw"><div class="chip" style="background:#6E3CFF"></div><div class="meta"><b>Snir Purple</b>#6E3CFF<br>--purple</div></div>
+    <div class="sw"><div class="chip" style="background:#5B2EDB"></div><div class="meta"><b>Purple Deep</b>#5B2EDB<br>--purple-deep</div></div>
+    <div class="sw"><div class="chip" style="background:#B9A4FF"></div><div class="meta"><b>Purple Soft</b>#B9A4FF<br>--purple-soft</div></div>
+    <div class="sw"><div class="chip" style="background:#5A5A5A"></div><div class="meta"><b>Muted</b>#5A5A5A<br>--muted</div></div>
+  </div>
+  <h4>Type</h4>
+  <table class="spec">
+    <tbody>
+      <tr><td>Font family (display + body)</td><td class="mono">"Helvetica Neue", Helvetica, Arial, sans-serif</td></tr>
+      <tr><td>Display weight</td><td class="mono">900 (Black)</td></tr>
+      <tr><td>Body weight</td><td class="mono">400 / 500</td></tr>
+      <tr><td>Headline tracking</td><td class="mono">-0.035em (desktop), -0.03em (mobile)</td></tr>
+      <tr><td>Headline leading</td><td class="mono">0.92 (desktop), 0.95 (mobile)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ================================================================ -->
+  <h2 id="typography">4. Typography rules</h2>
+  <table class="spec">
+    <thead><tr><th>Element</th><th>Desktop (1440)</th><th>Mobile (390)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Headline content</td>
+        <td>Two lines (deterministic — see below):<br><b>Understand deeply.</b><br><b>Build fast.</b><br><span class="legend">Period after "deeply" and after "fast" rendered as a purple square dot, not a glyph.</span></td>
+        <td>Four lines (deterministic — see below):<br><b>Understand</b><br><b>deeply.</b><br><b>Build</b><br><b>fast.</b><br><span class="legend">Period after "deeply" and after "fast" rendered as a purple square dot, not a glyph.</span></td>
+      </tr>
+      <tr><td>Headline size / lh / tracking</td><td class="mono">font-size: 104px<br>line-height: 0.92<br>letter-spacing: -0.035em<br>weight: 900</td><td class="mono">font-size: 54px<br>line-height: 0.95<br>letter-spacing: -0.03em<br>weight: 900</td></tr>
+      <tr><td>Headline accent dots</td><td class="mono">14×14 px square, var(--purple), inline-block, margin-left:6px, translateY(-2px)</td><td class="mono">9×9 px square, same color, margin-left:4px, translateY(-2px)</td></tr>
+      <tr><td>Subline (<code>Paid media. <span style="color:var(--purple)">Systems</span>. Scale.</code>)</td><td class="mono">font-size: 20px<br>line-height: 1.45<br>weight: 400<br>color: #2A2A2A<br>"Systems" → var(--purple), weight:500, no underline</td><td class="mono">font-size: 14px<br>line-height: 1.5<br>same weight + color rules</td></tr>
+      <tr><td>Lead-in (<code>— Bring a problem ▪</code>)</td><td class="mono">font-size: 14px, weight:500, ink<br>32×1.5 px black rule before<br>6×6 purple square after, margin-left:4px</td><td class="mono">font-size: 12px, weight:500, ink<br>24×1.5 px black rule before<br>5×5 purple square after</td></tr>
+      <tr><td>Topbar nav links</td><td class="mono">14px / weight 500 / var(--ink) / 32px gap</td><td class="mono">hidden — replaced by hamburger</td></tr>
+      <tr><td>Topbar CTA "Let's talk"</td><td class="mono">14px / weight 600 / #fff on var(--ink) / padding 10px 18px / radius 6px / 6×6 purple dot 6px right of label</td><td class="mono">hidden — replaced by hamburger</td></tr>
+      <tr><td>BUILD background word</td><td class="mono">font-size: 340px<br>weight: 900<br>tracking: -0.05em<br>line-height: 0.85<br>color: rgba(110,60,255,0.10)</td><td class="mono">font-size: 130px<br>weight: 900<br>tracking: -0.05em<br>line-height: 0.85<br>color: rgba(110,60,255,0.10)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <b>Headline line-break rule (DETERMINISTIC — replaces the previous max-width approach).</b><br>
+    Do <em>not</em> rely on natural wrapping or <code>max-width</code> for line breaks. Use explicit per-word markup so the result cannot change across browsers, fonts, or fallbacks.
+    <ol style="margin-top:8px">
+      <li>Each word lives in its own <code>&lt;span class="word"&gt;…&lt;/span&gt;</code>.</li>
+      <li>The headline has two visual lines on desktop, four on mobile. Toggle each word's <code>display</code> via a <code>data-break</code> attribute and CSS, not <code>&lt;br&gt;</code>.</li>
+      <li>Apply <code>white-space: nowrap</code> on each word to guarantee no intra-word break.</li>
+    </ol>
+    Markup (use exactly):
+<pre style="margin-top:8px"><span class="k">&lt;h1</span> <span class="n">class</span>=<span class="s">"hero__title"</span><span class="k">&gt;</span>
+  <span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"word"</span><span class="k">&gt;</span>Understand<span class="k">&lt;/span&gt;</span> <span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"word w-deeply"</span><span class="k">&gt;</span>deeply<span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"dot"</span><span class="k">&gt;&lt;/span&gt;&lt;/span&gt;</span>
+  <span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"word w-build"</span><span class="k">&gt;</span>Build<span class="k">&lt;/span&gt;</span> <span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"word w-fast"</span><span class="k">&gt;</span>fast<span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"dot"</span><span class="k">&gt;&lt;/span&gt;&lt;/span&gt;</span>
+<span class="k">&lt;/h1&gt;</span></pre>
+    Rules:
+<pre style="margin-top:8px"><span class="k">.hero__title</span>{display:flex;flex-wrap:wrap;column-gap:.22em;row-gap:0;}
+<span class="k">.hero__title .word</span>{white-space:nowrap;display:inline-block;}
+
+<span class="c">/* DESKTOP — 2 lines: "Understand deeply." / "Build fast." */</span>
+<span class="k">.hero__title .w-build</span>{flex-basis:100%;} <span class="c">/* forces line break before "Build" */</span>
+
+<span class="c">/* MOBILE — 4 lines: Understand / deeply. / Build / fast. */</span>
+<span class="k">@media (max-width:768px)</span>{
+  <span class="k">.hero__title .word</span>{flex-basis:100%;} <span class="c">/* every word on its own line */</span>
+}</pre>
+    Result: line breaks are forced by flex <code>flex-basis:100%</code>, not by font metrics. Cannot drift if the font fails to load or the user zooms.
+  </div>
+
+  <!-- ================================================================ -->
+  <h2 id="colors">5. Color usage</h2>
+  <table class="spec">
+    <tbody>
+      <tr><td>Paper background</td><td class="mono">#F2EFEA — entire hero base, no gradient</td></tr>
+      <tr><td>Ink text</td><td class="mono">#0A0A0A — headline, lead label, logo wordmark, nav links, CTA fill</td></tr>
+      <tr><td>Snir Purple solid accents</td><td class="mono">#6E3CFF — square dots after "deeply", "fast", logo, lead, CTA; "Systems" link; inner ring stroke; CTA-button purple dot</td></tr>
+      <tr><td>Low-opacity purple glow</td><td class="mono">radial-gradient(closest-side, rgba(110,60,255,0.55) 0%, rgba(110,60,255,0.28) 38%, rgba(185,164,255,0.08) 70%, transparent 100%)<br>Blur radius: <code>filter: blur(2px)</code></td></tr>
+      <tr><td>BUILD word</td><td class="mono">color: rgba(110,60,255,0.10) — flat fill, no gradient, no stroke</td></tr>
+      <tr><td>Outer ring stroke</td><td class="mono">#0A0A0A, 1.25px, no fill</td></tr>
+      <tr><td>Inner ring stroke</td><td class="mono">#6E3CFF, 1px, no fill</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ================================================================ -->
+  <h2 id="html">6. HTML structure</h2>
+  <p>One semantic <code>&lt;section class="hero"&gt;</code> at the page root. The topbar is a sibling-positioned-absolutely inside the hero, not a separate <code>&lt;header&gt;</code>. Every decorative layer is a single dedicated element.</p>
+<pre><span class="k">&lt;section</span> <span class="n">class</span>=<span class="s">"hero"</span><span class="k">&gt;</span>
+  <span class="c">&lt;!-- decorative layers, in stack order --&gt;</span>
+  <span class="k">&lt;div</span> <span class="n">class</span>=<span class="s">"hero__glow"</span> <span class="n">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;&lt;/div&gt;</span>
+  <span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"hero__build"</span> <span class="n">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>BUILD<span class="k">&lt;/span&gt;</span>
+  <span class="k">&lt;svg</span> <span class="n">class</span>=<span class="s">"hero__rings"</span> <span class="n">viewBox</span>=<span class="s">"0 0 520 520"</span> <span class="n">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>
+    <span class="k">&lt;circle</span> <span class="n">cx</span>=<span class="s">"260"</span> <span class="n">cy</span>=<span class="s">"260"</span> <span class="n">r</span>=<span class="s">"258"</span> <span class="n">fill</span>=<span class="s">"none"</span> <span class="n">stroke</span>=<span class="s">"#0A0A0A"</span> <span class="n">stroke-width</span>=<span class="s">"1.25"</span><span class="k">/&gt;</span>
+    <span class="k">&lt;circle</span> <span class="n">cx</span>=<span class="s">"260"</span> <span class="n">cy</span>=<span class="s">"260"</span> <span class="n">r</span>=<span class="s">"190"</span> <span class="n">fill</span>=<span class="s">"none"</span> <span class="n">stroke</span>=<span class="s">"#6E3CFF"</span> <span class="n">stroke-width</span>=<span class="s">"1"</span><span class="k">/&gt;</span>
+  <span class="k">&lt;/svg&gt;</span>
+  <span class="k">&lt;img</span> <span class="n">class</span>=<span class="s">"hero__knight"</span> <span class="n">src</span>=<span class="s">"/assets/hero/chess-knight.png"</span> <span class="n">alt</span>=<span class="s">""</span> <span class="n">aria-hidden</span>=<span class="s">"true"</span><span class="k">/&gt;</span>
+
+  <span class="c">&lt;!-- topbar --&gt;</span>
+  <span class="k">&lt;div</span> <span class="n">class</span>=<span class="s">"hero__topbar"</span><span class="k">&gt;</span>
+    <span class="k">&lt;a</span> <span class="n">class</span>=<span class="s">"hero__logo"</span> <span class="n">href</span>=<span class="s">"/"</span><span class="k">&gt;</span>SNIR<span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"dot"</span><span class="k">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+    <span class="k">&lt;nav</span> <span class="n">class</span>=<span class="s">"hero__nav"</span><span class="k">&gt;</span>
+      <span class="k">&lt;a</span> <span class="n">href</span>=<span class="s">"#"</span><span class="k">&gt;</span>What I build<span class="k">&lt;/a&gt;</span>
+      <span class="k">&lt;a</span> <span class="n">href</span>=<span class="s">"#"</span><span class="k">&gt;</span>Tools<span class="k">&lt;/a&gt;</span>
+      <span class="k">&lt;a</span> <span class="n">href</span>=<span class="s">"#"</span><span class="k">&gt;</span>Tracking<span class="k">&lt;/a&gt;</span>
+      <span class="k">&lt;a</span> <span class="n">href</span>=<span class="s">"#"</span><span class="k">&gt;</span>How I operate<span class="k">&lt;/a&gt;</span>
+    <span class="k">&lt;/nav&gt;</span>
+    <span class="k">&lt;a</span> <span class="n">class</span>=<span class="s">"hero__cta"</span> <span class="n">href</span>=<span class="s">"#contact"</span><span class="k">&gt;</span>Let's talk<span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"dot"</span><span class="k">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+    <span class="k">&lt;button</span> <span class="n">class</span>=<span class="s">"hero__menu"</span> <span class="n">aria-label</span>=<span class="s">"Open menu"</span><span class="k">&gt;</span>
+      <span class="k">&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;</span>
+    <span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+
+  <span class="c">&lt;!-- copy --&gt;</span>
+  <span class="k">&lt;div</span> <span class="n">class</span>=<span class="s">"hero__copy"</span><span class="k">&gt;</span>
+    <span class="k">&lt;h1</span> <span class="n">class</span>=<span class="s">"hero__title"</span><span class="k">&gt;</span>
+      <span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"line"</span><span class="k">&gt;</span>Understand deeply<span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"dot"</span><span class="k">&gt;&lt;/span&gt;&lt;/span&gt;</span>
+      <span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"line"</span><span class="k">&gt;</span>Build fast<span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"dot"</span><span class="k">&gt;&lt;/span&gt;&lt;/span&gt;</span>
+    <span class="k">&lt;/h1&gt;</span>
+    <span class="k">&lt;p</span> <span class="n">class</span>=<span class="s">"hero__sub"</span><span class="k">&gt;</span>Paid media. <span class="k">&lt;a</span> <span class="n">href</span>=<span class="s">"#systems"</span><span class="k">&gt;</span>Systems<span class="k">&lt;/a&gt;</span>. Scale.<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;a</span> <span class="n">class</span>=<span class="s">"hero__lead"</span> <span class="n">href</span>=<span class="s">"#contact"</span><span class="k">&gt;</span>Bring a problem<span class="k">&lt;span</span> <span class="n">class</span>=<span class="s">"dot"</span><span class="k">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/section&gt;</span></pre>
+
+  <div class="callout">
+    <b>Element-naming rules.</b> Use BEM-style class names exactly as above. Do not add wrapper divs. Do not nest the topbar inside <code>.hero__copy</code>. The knight is an <code>&lt;img&gt;</code>, not a background-image, so it ships in the document tree and can be inspected.
+  </div>
+
+  <!-- ================================================================ -->
+  <h2 id="css">7. CSS architecture</h2>
+  <ol>
+    <li>One stylesheet for the hero: <code>/styles/hero.css</code>. No utility CSS, no Tailwind classes, no inline styles.</li>
+    <li>All shared values are CSS custom properties on <code>:root</code> (see §3).</li>
+    <li>The hero is positioned via a single <code>position: relative</code> on <code>.hero</code>; every layer inside is <code>position: absolute</code> except <code>.hero__copy</code> and <code>.hero__topbar</code>.</li>
+    <li><code>.hero__topbar</code> is <code>position: absolute; top:0; left:0; right:0;</code> — not <code>fixed</code>, not <code>sticky</code>.</li>
+    <li><code>.hero__copy</code> is <code>position: relative</code> with explicit <code>z-index</code>; it does not float or grid.</li>
+    <li>No transforms on any layer except the <code>translateY(-2px)</code> on dot squares to optically center them.</li>
+    <li>No animation. No hover state changes that move layout. Hover on links is a single color change only.</li>
+    <li>One media query break: <code>@media (max-width: 768px)</code>. Mobile values fully override desktop within it.</li>
+  </ol>
+
+<pre><span class="c">/* hero.css — skeleton; fill with values from §8 / §9 */</span>
+<span class="k">.hero</span>{position:relative;background:<span class="n">var(--paper)</span>;color:<span class="n">var(--ink)</span>;
+  height:<span class="n">780px</span>;overflow:hidden;font-family:<span class="s">"Helvetica Neue",Helvetica,Arial,sans-serif</span>;}
+
+<span class="k">.hero__glow</span>{position:absolute;z-index:<span class="n">1</span>;pointer-events:none;
+  background:radial-gradient(closest-side,
+    rgba(110,60,255,.55) 0%,
+    rgba(110,60,255,.28) 38%,
+    rgba(185,164,255,.08) 70%,
+    transparent 100%);
+  filter:blur(2px);}
+
+<span class="k">.hero__build</span>{position:absolute;z-index:<span class="n">2</span>;pointer-events:none;
+  font-weight:<span class="n">900</span>;line-height:<span class="n">.85</span>;letter-spacing:<span class="n">-.05em</span>;
+  color:rgba(110,60,255,.10);}
+
+<span class="k">.hero__rings</span>{position:absolute;z-index:<span class="n">3</span>;pointer-events:none;}
+<span class="k">.hero__knight</span>{position:absolute;z-index:<span class="n">4</span>;pointer-events:none;
+  display:block;object-fit:contain;}
+<span class="k">.hero__copy</span>{position:relative;z-index:<span class="n">6</span>;}
+<span class="k">.hero__topbar</span>{position:absolute;left:<span class="n">0</span>;right:<span class="n">0</span>;top:<span class="n">0</span>;z-index:<span class="n">7</span>;
+  display:flex;align-items:center;justify-content:space-between;}</pre>
+
+  <!-- ================================================================ -->
+  <h2 id="desktop">8. Desktop layout values (1440 × 780)</h2>
+
+  <div class="previews">
+    <div class="vp desktop">
+      <div class="vp-label">desktop · 1440 × 780</div>
+      <div class="hero">
+        <div class="glow"></div>
+        <span class="build-word">BUILD</span>
+        <div class="rings">
+          <svg viewBox="0 0 520 520">
+            <circle cx="260" cy="260" r="258" fill="none" stroke="#0A0A0A" stroke-width="1.25"/>
+            <circle cx="260" cy="260" r="190" fill="none" stroke="#6E3CFF" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="knight knight-host"><div class="knight-ph"></div></div>
+        <div class="topbar">
+          <span class="logo">SNIR<span class="dot"></span></span>
+          <nav><a>What I build</a><a>Tools</a><a>Tracking</a><a>How I operate</a></nav>
+          <span class="cta">Let's talk<span class="dot"></span></span>
+        </div>
+        <div class="copy">
+          <h1>Understand<br>deeply<span class="dot"></span><br>Build fast<span class="dot"></span></h1>
+          <p class="sub">Paid media. <a>Systems</a>. Scale.</p>
+          <span class="lead">Bring a problem<span class="dot"></span></span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h4 style="margin-top:0">Frame</h4>
+      <table class="spec">
+        <tr><td>Hero size</td><td class="mono">1440 × 780</td></tr>
+        <tr><td>Background</td><td class="mono">#F2EFEA</td></tr>
+        <tr><td>Page padding-x</td><td class="mono">56px</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3>Topbar</h3>
+  <table class="spec">
+    <tr><td>Topbar height</td><td class="mono">72px</td></tr>
+    <tr><td>Topbar padding</td><td class="mono">0 56px</td></tr>
+    <tr><td>Logo</td><td class="mono">left:56px · top:24px (centered in topbar) · font-size 22px · weight 900 · letter-spacing -0.02em · 8×8 purple dot, margin-left:2px, translateY(-2px)</td></tr>
+    <tr><td>Nav</td><td class="mono">flex; gap 32px; centered horizontally inside the topbar (use justify-content:flex-start with margin-left:120px from logo block)</td></tr>
+    <tr><td>CTA</td><td class="mono">right:56px · padding 10px 18px · bg #0A0A0A · color #fff · radius 6px · font 14/600 · 6×6 purple dot 6px after label</td></tr>
+    <tr><td>Hamburger</td><td class="mono">display:none on desktop</td></tr>
+  </table>
+
+  <h3>Copy block</h3>
+  <table class="spec">
+    <tr><td>.hero__copy position</td><td class="mono">left:96px · top:208px · width:max-content (no max-width — line breaks are NOT driven by container width)</td></tr>
+    <tr><td>Headline (h1)</td><td class="mono">font-size 104px · line-height 0.92 · weight 900 · tracking -0.035em · margin 0 · display:flex · flex-wrap:wrap · column-gap:0.22em</td></tr>
+    <tr><td>Line-break control</td><td class="mono">.w-build { flex-basis:100% } — the ONE and ONLY break, before "Build". Zero dependency on container width, font rendering, or browser wrapping.</td></tr>
+    <tr><td>Headline dot</td><td class="mono">14×14 px square · var(--purple) · margin-left 6px · translateY(-2px)</td></tr>
+    <tr><td>Subline</td><td class="mono">margin-top: 28px · font 20/1.45/400 · color #2A2A2A · "Systems" var(--purple) weight 500, no underline</td></tr>
+    <tr><td>Lead-in</td><td class="mono">margin-top: 40px · 32×1.5 px black rule before · font 14/500 ink · 6×6 purple dot after</td></tr>
+  </table>
+
+  <h3>Decorative layers</h3>
+  <table class="spec">
+    <tr><td>Glow</td><td class="mono">size 640×640 · right:-80px · top:60px · z-index 1<br>Peak alpha must remain inside the right 40% (right of x=864px). Soft falloff may extend leftward.</td></tr>
+    <tr><td>BUILD word</td><td class="mono">font-size 280px · right:80px · bottom:40px · letter-spacing -0.05em · color rgba(110,60,255,0.10) · z-index 2<br>Anchored bottom-right; right-aligned. Top edge of the glyph box must sit at y ≥ 480 (clear of "Bring a problem" lead-in, which sits at y≈408).</td></tr>
+    <tr><td>Rings (svg box)</td><td class="mono">width:500px · height:500px · right:40px · top:80px · z-index 3<br>Left edge at x = 1440 - 40 - 500 = 900 → fully inside decoration zone (≥864).</td></tr>
+    <tr><td>Outer ring</td><td class="mono">cx 250 · cy 250 · r 248 · stroke #0A0A0A · stroke-width 1.25 · fill none</td></tr>
+    <tr><td>Inner ring</td><td class="mono">cx 250 · cy 250 · r 184 · stroke #6E3CFF · stroke-width 1 · fill none</td></tr>
+    <tr><td>Knight</td><td class="mono">width:560px · height:auto · right:-40px · bottom:0 · z-index 4 · object-fit:contain<br>Left edge at x = 1440 - 40 - 560 = 840px? <b>NO — adjust:</b> use width:540px so left edge sits at x = 1440 - 40 - 540 = 860 ≥ 864 - 4px tolerance. Final spec: <b>width:540px · right:-40px</b>.<br>Knight is visually secondary to the headline — its bounding box height ≤ 75% of hero height, never exceeds it.</td></tr>
+  </table>
+
+  <!-- ================================================================ -->
+  <h2 id="mobile">9. Mobile layout values (390 × 720)</h2>
+
+  <div class="previews">
+    <div class="vp mobile">
+      <div class="vp-label">mobile · 390 × 720</div>
+      <div class="hero">
+        <div class="glow"></div>
+        <span class="build-word">BUILD</span>
+        <div class="rings">
+          <svg viewBox="0 0 520 520">
+            <circle cx="260" cy="260" r="258" fill="none" stroke="#0A0A0A" stroke-width="1.25"/>
+            <circle cx="260" cy="260" r="190" fill="none" stroke="#6E3CFF" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="knight knight-host"><div class="knight-ph"></div></div>
+        <div class="topbar">
+          <span class="logo">SNIR<span class="dot"></span></span>
+          <span class="menu"><i></i><i></i><i></i></span>
+        </div>
+        <div class="copy">
+          <h1>Understand<br>deeply<span class="dot"></span><br>Build<br>fast<span class="dot"></span></h1>
+          <p class="sub">Paid media. <a>Systems</a>. Scale.</p>
+          <span class="lead">Bring a problem</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h4 style="margin-top:0">Frame</h4>
+      <table class="spec">
+        <tr><td>Hero size</td><td class="mono">390 × 720</td></tr>
+        <tr><td>Background</td><td class="mono">#F2EFEA</td></tr>
+        <tr><td>Page padding-x</td><td class="mono">20px</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3>Topbar</h3>
+  <table class="spec">
+    <tr><td>Topbar height</td><td class="mono">64px</td></tr>
+    <tr><td>Topbar padding</td><td class="mono">0 20px</td></tr>
+    <tr><td>Logo</td><td class="mono">font-size 20px · weight 900 · 6×6 purple dot, margin-left:2px, translateY(-2px)</td></tr>
+    <tr><td>Nav</td><td class="mono">display:none</td></tr>
+    <tr><td>CTA</td><td class="mono">display:none</td></tr>
+    <tr><td>Hamburger</td><td class="mono">visible · 24×16 px · 3 ink bars (height 2px, gap 4px) · right-aligned</td></tr>
+  </table>
+
+  <h3>Copy block</h3>
+  <table class="spec">
+    <tr><td>.hero__copy position</td><td class="mono">left:24px · top:96px · width:auto (no max-width on the headline — breaks are not container-driven)</td></tr>
+    <tr><td>Headline (h1)</td><td class="mono">font-size 54px · line-height 0.95 · weight 900 · tracking -0.03em · margin 0 · display:flex · flex-wrap:wrap · column-gap:0 · row-gap:0</td></tr>
+    <tr><td>Line-break control</td><td class="mono">.hero__title .word { flex-basis:100% } at this breakpoint — every word on its own line. Zero dependency on container width, font rendering, or browser wrapping.</td></tr>
+    <tr><td>Headline dot</td><td class="mono">9×9 px square · var(--purple) · margin-left 4px · translateY(-2px)</td></tr>
+    <tr><td>Subline</td><td class="mono">margin-top: 20px · font 14/1.5/400 · color #2A2A2A</td></tr>
+    <tr><td>Lead-in</td><td class="mono">margin-top: 24px · 24×1.5 px black rule before · font 12/500 ink · 5×5 purple square AFTER "Bring a problem" (purple dot is REQUIRED on mobile too — match desktop)</td></tr>
+  </table>
+
+  <h3>Decorative layers</h3>
+  <table class="spec">
+    <tr><td>Glow</td><td class="mono">size 360×360 · right:-40px · top:380px · z-index 1<br>Top edge at y=380 → fully inside the bottom 50% decoration zone (≥360).</td></tr>
+    <tr><td>BUILD word</td><td class="mono">font-size 110px · right:8px · bottom:300px · letter-spacing -0.05em · color rgba(110,60,255,0.10) · z-index 2<br>Bottom edge of glyph box sits at y ≈ 420; top edge at y ≈ 410. Fully inside bottom-half decoration zone.</td></tr>
+    <tr><td>Rings (svg box)</td><td class="mono">width:280px · height:280px · right:-40px · top:380px · z-index 3<br>Top edge at y=380, fully inside bottom 50%.</td></tr>
+    <tr><td>Knight</td><td class="mono">width:260px · height:auto · right:-30px · bottom:0 · z-index 4<br>Top edge sits at y ≈ 460, fully inside bottom 50%.</td></tr>
+  </table>
+
+  <!-- ================================================================ -->
+  <h2 id="responsive">10. Responsive rules</h2>
+  <ol>
+    <li>Single breakpoint: <code>@media (max-width: 768px)</code>. Below it, all mobile values from §9 apply. Above it, all desktop values from §8 apply.</li>
+    <li>No fluid <code>clamp()</code> typography. Sizes are fixed within each breakpoint.</li>
+    <li>Between 768 and 1440, the hero uses the desktop spec but allows horizontal padding to scale: <code>padding-inline: clamp(20px, 4vw, 56px)</code>. Headline and decorative element sizes do <em>not</em> change.</li>
+    <li>Above 1440, the hero is centered in a <code>max-width:1440px</code> container; outer paper background fills the rest of the viewport.</li>
+    <li>Hide the desktop nav and CTA below 768. Show the hamburger above 0 and below 768. The hamburger is hidden ≥768.</li>
+    <li>The headline switches from 2 lines (desktop) to 4 lines (mobile) by container <code>max-width</code> alone — no <code>&lt;br&gt;</code>, no JS.</li>
+  </ol>
+
+  <!-- ================================================================ -->
+  <h2 id="zindex">11. Z-index map</h2>
+  <table class="spec">
+    <tr><td><code>.hero</code></td><td class="mono">position: relative · z-index: auto (creates stacking context via overflow:hidden)</td></tr>
+    <tr><td><code>.hero__glow</code></td><td class="mono">z-index: 1</td></tr>
+    <tr><td><code>.hero__build</code></td><td class="mono">z-index: 2</td></tr>
+    <tr><td><code>.hero__rings</code></td><td class="mono">z-index: 3</td></tr>
+    <tr><td><code>.hero__knight</code></td><td class="mono">z-index: 4</td></tr>
+    <tr><td><code>.hero__copy</code></td><td class="mono">z-index: 6</td></tr>
+    <tr><td><code>.hero__topbar</code></td><td class="mono">z-index: 7</td></tr>
+  </table>
+  <p class="legend">Index 5 is intentionally skipped to leave room for a future "scrim" layer behind copy without re-numbering.</p>
+
+  <!-- ================================================================ -->
+  <h2 id="delete">12. Delete from current implementation</h2>
+  <ul>
+    <li>Any <code>linear-gradient</code> on <code>body</code> or <code>.hero</code> backgrounds. Background must be flat <code>#F2EFEA</code>.</li>
+    <li>Any <code>backdrop-filter</code>, <code>mix-blend-mode</code>, or <code>box-shadow</code> on the glow, rings, knight, or BUILD word.</li>
+    <li>Any <code>&lt;br&gt;</code> tags inside the headline. Replace with <code>&lt;span class="line"&gt;</code> wrappers + <code>max-width</code>.</li>
+    <li>Any framework grid wrapper (<code>.container</code>, <code>.row</code>, <code>.col-*</code>) inside the hero. The hero positions its own children.</li>
+    <li>Any animation, transition, or scroll-effect on hero children (parallax, reveal, fade-in).</li>
+    <li>Any decorative SVG that is not the two-circle <code>.hero__rings</code>.</li>
+    <li>Hardcoded hex colors that do not match the §3 token palette. Replace with token variables.</li>
+    <li>Inline styles on hero markup. All styles must live in <code>hero.css</code>.</li>
+    <li>Any <code>position:fixed</code> or <code>position:sticky</code> on the topbar within the hero.</li>
+    <li>Existing knight asset if it is not a transparent PNG with the proper crop. Replace with <code>/assets/hero/chess-knight.png</code> per §2.</li>
+  </ul>
+
+  <!-- ================================================================ -->
+  <h2 id="donttouch">13. Do not touch</h2>
+  <ul>
+    <li>The exact wording, casing, and punctuation of the headline, subline, lead-in, nav links, CTA, and logo.</li>
+    <li>The two-circle ring SVG geometry (<code>cx/cy/r</code>, stroke colors, stroke widths).</li>
+    <li>The radial-gradient stop list of the glow.</li>
+    <li>The token color values (<code>--paper</code>, <code>--ink</code>, <code>--purple</code>, etc.).</li>
+    <li>The z-index map.</li>
+    <li>The single breakpoint at 768px. Do not introduce additional breakpoints.</li>
+    <li>The asset filename and path for the knight image.</li>
+  </ul>
+
+  <!-- ================================================================ -->
+  <h2 id="qa">14. Final QA checklist</h2>
+  <div class="callout warn">
+    <b>Master rule:</b> If any element overlaps the headline or reduces readability, the implementation is invalid — regardless of whether individual numeric values match.
+  </div>
+
+  <h3>Zone integrity (run first)</h3>
+  <ul class="check">
+    <li>Desktop: no part of the knight, rings, BUILD word, or glow peak (alpha ≥ 0.20) has any pixel left of x = 864px.</li>
+    <li>Desktop: BUILD word's bounding box top edge is at y ≥ 480px (below the lead-in line, which sits around y=408px).</li>
+    <li>Desktop: BUILD word lives entirely in the lower half of the hero (y ≥ 390px).</li>
+    <li>Mobile: no part of the knight, rings, BUILD word, or glow peak has any pixel above y = 360px.</li>
+    <li>Knight is visually secondary to the headline — never the dominant element on the page.</li>
+    <li>Rings sit on the right side only; never overlap text.</li>
+  </ul>
+
+  <h3>Desktop @ 1440px</h3>
+  <ul class="check">
+    <li>Hero is exactly 780px tall and 1440px wide; no horizontal scroll.</li>
+    <li>Background is flat #F2EFEA; no gradient visible at any corner.</li>
+    <li>Headline reads on exactly two lines: "Understand deeply." / "Build fast." — line breaks come from <code>flex-basis:100%</code> on <code>.w-build</code>, not from <code>&lt;br&gt;</code>, not from natural wrap.</li>
+    <li>Period after "deeply" and after "fast" is rendered as a 14×14 purple square, not a glyph period.</li>
+    <li>"Systems" in the subline is rendered in <code>#6E3CFF</code> with weight 500 and no underline.</li>
+    <li>Lead-in shows a 32px black rule, then "Bring a problem", then a 6×6 purple square.</li>
+    <li>Topbar logo (left), 4 nav links (center-left), "Let's talk" CTA (right) align at the same vertical center, 24px from the top.</li>
+    <li>"Let's talk" CTA is solid black (<code>#0A0A0A</code>), white text, 6px radius, with a 6×6 purple square 6px after the label.</li>
+    <li>Knight image bleeds off the right edge by 60px and sits flush with the bottom of the hero.</li>
+    <li>Outer ring is black 1.25px; inner ring is purple 1px; both stroke-only with no fill.</li>
+    <li>BUILD word reads at 340px, sits behind the knight (z-index 2), and uses <code>rgba(110,60,255,0.10)</code>.</li>
+    <li>Purple glow peaks behind the rings (right side) and fades to transparent before the headline.</li>
+    <li>No animation, no transition, no parallax on any hero element.</li>
+  </ul>
+
+  <h3>Mobile @ 390px</h3>
+  <ul class="check">
+    <li>Hero is 720px tall and 390px wide; no horizontal scroll; no horizontal scrollbar caused by the glow or knight overflow.</li>
+    <li>Topbar shows only the logo (left) and a 3-bar hamburger (right). Nav links and "Let's talk" are removed from the DOM-render at this breakpoint (<code>display:none</code>).</li>
+    <li>Headline reads on exactly four lines: "Understand" / "deeply." / "Build" / "fast." — line breaks come from <code>flex-basis:100%</code> on every <code>.word</code>, not from <code>&lt;br&gt;</code>, not from natural wrap.</li>
+    <li>Headline font-size is 54px; line-height 0.95; the purple square dots after "deeply" and "fast" are 9×9 px.</li>
+    <li>Subline reads "Paid media. <span style="color:var(--purple)">Systems</span>. Scale." at 14px.</li>
+    <li>Lead-in shows a 24px black rule, then "Bring a problem" at 12px / weight 500, then a 5×5 purple square (required on mobile, same as desktop).</li>
+    <li>Knight is 280px wide, bleeds off the right edge by 30px, flush with the bottom.</li>
+    <li>BUILD word reads at 130px and sits above the knight's lower half visually but behind it in stack (z-index 2 vs 4).</li>
+    <li>Glow is visible top-right behind the rings; opacity matches desktop.</li>
+    <li>Container is properly clipped — <code>overflow:hidden</code> on <code>.hero</code> hides knight/glow overflow.</li>
+  </ul>
+
+  <!-- ================================================================ -->
+  <h2 id="prompt">15. Final Claude Code prompt (copy-paste ready)</h2>
+  <p>Paste the block below into Claude Code. It is implementation-only — no thinking, no design decisions.</p>
+<pre style="white-space:pre-wrap">You are implementing the SNIR. landing-page hero from a fixed spec.
+DO NOT redesign. DO NOT improve. DO NOT reinterpret. DO NOT add elements.
+Implement exactly what is written below. Every value is binding.
+
+Files to write:
+  /styles/hero.css
+  /index.html  (hero section only — leave the rest of the page untouched)
+
+Assets used:
+  /assets/hero/chess-knight.png   (transparent PNG, must already exist)
+
+=== TOKENS (CSS custom properties on :root) ===
+--paper:#F2EFEA;
+--ink:#0A0A0A;
+--purple:#6E3CFF;
+--purple-soft:#B9A4FF;
+--muted:#5A5A5A;
+Font stack: "Helvetica Neue", Helvetica, Arial, sans-serif.
+
+=== PROTECTED ZONES (HARD RULE) ===
+Desktop 1440x780: text zone = left 0..864 (left 60%). NO decoration may have any visible pixel inside it.
+Mobile 390x720:   text zone = top 0..360  (top 50%).  NO decoration may have any visible pixel inside it.
+Decoration = .hero__glow (peak alpha &gt;= 0.20), .hero__build, .hero__rings, .hero__knight.
+If any of those crosses the boundary, the implementation is INVALID.
+
+=== HTML (place exactly this inside the page; no extra wrappers) ===
+&lt;section class="hero"&gt;
+  &lt;div class="hero__glow" aria-hidden="true"&gt;&lt;/div&gt;
+  &lt;span class="hero__build" aria-hidden="true"&gt;BUILD&lt;/span&gt;
+  &lt;svg class="hero__rings" viewBox="0 0 500 500" aria-hidden="true"&gt;
+    &lt;circle cx="250" cy="250" r="248" fill="none" stroke="#0A0A0A" stroke-width="1.25"/&gt;
+    &lt;circle cx="250" cy="250" r="184" fill="none" stroke="#6E3CFF" stroke-width="1"/&gt;
+  &lt;/svg&gt;
+  &lt;img class="hero__knight" src="/assets/hero/chess-knight.png" alt="" aria-hidden="true"/&gt;
+  &lt;div class="hero__topbar"&gt;
+    &lt;a class="hero__logo" href="/"&gt;SNIR&lt;span class="dot"&gt;&lt;/span&gt;&lt;/a&gt;
+    &lt;nav class="hero__nav"&gt;
+      &lt;a href="#"&gt;What I build&lt;/a&gt;&lt;a href="#"&gt;Tools&lt;/a&gt;
+      &lt;a href="#"&gt;Tracking&lt;/a&gt;&lt;a href="#"&gt;How I operate&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;a class="hero__cta" href="#contact"&gt;Let's talk&lt;span class="dot"&gt;&lt;/span&gt;&lt;/a&gt;
+    &lt;button class="hero__menu" aria-label="Open menu"&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="hero__copy"&gt;
+    &lt;h1 class="hero__title"&gt;
+      &lt;span class="word"&gt;Understand&lt;/span&gt;
+      &lt;span class="word w-deeply"&gt;deeply&lt;span class="dot"&gt;&lt;/span&gt;&lt;/span&gt;
+      &lt;span class="word w-build"&gt;Build&lt;/span&gt;
+      &lt;span class="word w-fast"&gt;fast&lt;span class="dot"&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;/h1&gt;
+    &lt;p class="hero__sub"&gt;Paid media. &lt;a href="#systems"&gt;Systems&lt;/a&gt;. Scale.&lt;/p&gt;
+    &lt;a class="hero__lead" href="#contact"&gt;Bring a problem&lt;span class="dot"&gt;&lt;/span&gt;&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+=== CSS — DESKTOP (default) ===
+.hero{position:relative;background:var(--paper);color:var(--ink);
+  height:780px;overflow:hidden;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;}
+
+/* TOPBAR (z 7) */
+.hero__topbar{position:absolute;inset:0 0 auto 0;height:72px;padding:0 56px;
+  display:flex;align-items:center;justify-content:space-between;z-index:7;}
+.hero__logo{font-weight:900;font-size:22px;letter-spacing:-.02em;color:var(--ink);text-decoration:none;}
+.hero__logo .dot{display:inline-block;width:8px;height:8px;background:var(--purple);margin-left:2px;transform:translateY(-2px);}
+.hero__nav{display:flex;gap:32px;}
+.hero__nav a{font-size:14px;font-weight:500;color:var(--ink);text-decoration:none;}
+.hero__cta{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:#fff;
+  padding:10px 18px;border-radius:6px;font-size:14px;font-weight:600;text-decoration:none;}
+.hero__cta .dot{width:6px;height:6px;background:var(--purple);display:inline-block;}
+.hero__menu{display:none;}
+
+/* COPY (z 6) */
+.hero__copy{position:absolute;left:96px;top:208px;z-index:6;width:max-content;}
+.hero__title{margin:0;font-weight:900;font-size:104px;line-height:.92;letter-spacing:-.035em;
+  display:flex;flex-wrap:wrap;column-gap:.22em;row-gap:0;}
+.hero__title .word{white-space:nowrap;display:inline-block;}
+.hero__title .w-build{flex-basis:100%;} /* deterministic break */
+.hero__title .dot{display:inline-block;width:14px;height:14px;background:var(--purple);margin-left:6px;transform:translateY(-2px);}
+.hero__sub{margin:28px 0 0;font-size:20px;line-height:1.45;color:#2A2A2A;font-weight:400;}
+.hero__sub a{color:var(--purple);font-weight:500;text-decoration:none;}
+.hero__lead{display:inline-flex;align-items:center;gap:14px;margin-top:40px;
+  font-size:14px;font-weight:500;color:var(--ink);text-decoration:none;}
+.hero__lead::before{content:"";display:inline-block;width:32px;height:1.5px;background:var(--ink);}
+.hero__lead .dot{width:6px;height:6px;background:var(--purple);display:inline-block;margin-left:4px;}
+
+/* DECORATION (z 1..4) */
+.hero__glow{position:absolute;z-index:1;pointer-events:none;
+  width:640px;height:640px;right:-80px;top:60px;
+  background:radial-gradient(closest-side,
+    rgba(110,60,255,.55) 0%,
+    rgba(110,60,255,.28) 38%,
+    rgba(185,164,255,.08) 70%,
+    transparent 100%);
+  filter:blur(2px);}
+.hero__build{position:absolute;z-index:2;pointer-events:none;
+  right:80px;bottom:40px;
+  font-weight:900;font-size:280px;line-height:.85;letter-spacing:-.05em;
+  color:rgba(110,60,255,.10);}
+.hero__rings{position:absolute;z-index:3;pointer-events:none;
+  width:500px;height:500px;right:40px;top:80px;}
+.hero__knight{position:absolute;z-index:4;pointer-events:none;
+  width:540px;height:auto;right:-40px;bottom:0;object-fit:contain;display:block;}
+
+=== CSS — MOBILE (@media (max-width:768px)) ===
+.hero{height:720px;}
+.hero__topbar{height:64px;padding:0 20px;}
+.hero__logo{font-size:20px;}
+.hero__logo .dot{width:6px;height:6px;}
+.hero__nav, .hero__cta{display:none;}
+.hero__menu{display:flex;flex-direction:column;justify-content:center;gap:4px;
+  width:24px;height:16px;background:none;border:0;padding:0;margin-left:auto;}
+.hero__menu span{display:block;height:2px;background:var(--ink);}
+
+.hero__copy{left:24px;top:96px;}
+.hero__title{font-size:54px;line-height:.95;letter-spacing:-.03em;column-gap:0;}
+.hero__title .word{flex-basis:100%;}        /* every word on own line */
+.hero__title .dot{width:9px;height:9px;margin-left:4px;}
+.hero__sub{margin-top:20px;font-size:14px;}
+.hero__lead{margin-top:24px;font-size:12px;gap:10px;}
+.hero__lead::before{width:24px;}
+.hero__lead .dot{width:5px;height:5px;}     /* purple square IS present on mobile */
+
+.hero__glow{width:360px;height:360px;right:-40px;top:380px;}
+.hero__build{right:8px;bottom:300px;font-size:110px;}
+.hero__rings{width:280px;height:280px;right:-40px;top:380px;}
+.hero__knight{width:260px;right:-30px;}
+
+=== Z-INDEX (must match) ===
+glow=1, build=2, rings=3, knight=4, copy=6, topbar=7. Index 5 unused.
+
+=== DELETE FROM CURRENT BUILD ===
+- any background gradient on body or .hero
+- any &lt;br&gt; inside the headline
+- any framework grid wrappers (.container, .row, .col-*) inside .hero
+- any animation, transition, parallax, reveal on hero children
+- any backdrop-filter, mix-blend-mode, box-shadow on glow/rings/knight/build
+- inline styles on hero markup
+- position:fixed or position:sticky on the topbar
+- any decorative SVG that is not the two-circle .hero__rings
+
+=== DO NOT TOUCH ===
+- headline wording, casing, punctuation
+- ring SVG geometry (cx/cy/r and stroke values)
+- token color values
+- z-index map
+- the 768px breakpoint (single breakpoint, no others)
+- the deterministic flex line-break technique (no &lt;br&gt;, no max-width tricks)
+
+=== QA — must all pass ===
+Desktop (1440x780):
+[ ] No part of knight/rings/BUILD/glow-peak crosses x=864.
+[ ] BUILD top edge at y &gt;= 480 (below lead-in).
+[ ] Headline renders exactly two lines: "Understand deeply." / "Build fast."
+[ ] Purple square dots present after "deeply", "fast", "Bring a problem", logo, CTA label.
+[ ] No animations, no parallax.
+
+Mobile (390x720):
+[ ] No part of knight/rings/BUILD/glow-peak crosses y=360 going upward.
+[ ] Headline renders exactly four lines: Understand / deeply. / Build / fast.
+[ ] Topbar shows logo + hamburger only.
+[ ] Purple square dots present after "deeply", "fast", "Bring a problem", logo. (CTA hidden.)
+[ ] No horizontal scroll.
+
+Master rule:
+If ANY element overlaps the headline or reduces readability, the implementation is invalid.
+
+Build it. Do not deviate.
+</pre>
+
+  <hr class="rule"/>
+  <p class="legend">End of handoff. Implement exactly. Open issues or clarifications: ping Claude Design before deviating.</p>
+</div>
+</body>
+</html>
