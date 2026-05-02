@@ -10,11 +10,19 @@
    HERO — Desktop (default, 1440 × 780)
    ============================================================ */
 
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+}
+
 .hero {
   position: relative;
   background: var(--paper);
   color: var(--ink);
   height: 780px;
+  max-width: 1440px;
+  margin: 0 auto;
   overflow: hidden;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -217,10 +225,10 @@
   position: absolute;
   z-index: 4;
   pointer-events: none;
-  width: 460px;
+  width: 520px;
   height: auto;
-  right: -60px;
-  bottom: -80px;
+  right: -40px;
+  bottom: -40px;
   object-fit: contain;
   display: block;
 }
