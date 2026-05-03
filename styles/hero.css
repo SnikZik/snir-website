@@ -367,7 +367,7 @@ html, body {
 
   .hero__knight {
     width: 200px;
-    right: 0;
+    right: -25px;
     bottom: 0;
   }
 }
