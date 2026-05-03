@@ -363,11 +363,11 @@ html, body {
   }
 
   .hero__rings {
-    width: 380px;
-    height: 380px;
-    right: -50px;
+    width: 480px;
+    height: 480px;
+    right: -100px;
     top: auto;
-    bottom: -60px;
+    bottom: -120px;
   }
 
   .hero__knight {
