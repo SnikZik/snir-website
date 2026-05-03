@@ -211,15 +211,15 @@ html, body {
   color: rgba(110, 60, 255, 0.12);
 }
 
-/* Rings — z 3 — pushed down so bottom half is cut off */
+/* Rings — z 3 — encircles knight head */
 .hero__rings {
   position: absolute;
   z-index: 3;
   pointer-events: none;
-  width: 520px;
-  height: 520px;
-  right: -60px;
-  bottom: -260px;
+  width: 480px;
+  height: 480px;
+  right: -50px;
+  top: 200px;
 }
 
 /* Knight — z 4 — head sits inside rings */
