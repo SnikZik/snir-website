@@ -257,7 +257,8 @@ body {
 
 @media (max-width: 768px) {
   .hero {
-    height: 720px;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   /* Topbar */
