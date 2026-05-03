@@ -208,9 +208,9 @@ html, body {
   bottom: -20px;
   text-align: center;
   font-weight: 900;
-  font-size: 320px;
+  font-size: 380px;
   line-height: 0.82;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.02em;
   color: rgba(110, 60, 255, 0.12);
 }
 
