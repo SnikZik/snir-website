@@ -340,10 +340,10 @@ html, body {
 
   /* Decoration */
   .hero__glow {
-    width: 500px;
-    height: 500px;
-    right: -120px;
-    top: 280px;
+    width: 800px;
+    height: 900px;
+    right: -200px;
+    top: 100px;
   }
 
   .hero__build {
