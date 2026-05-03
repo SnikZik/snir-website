@@ -22,6 +22,7 @@ html, body {
   background: var(--paper);
   color: var(--ink);
   height: 100vh;
+  height: 100dvh;
   min-height: 100%;
   width: 100%;
   overflow: hidden;
@@ -366,6 +367,6 @@ html, body {
   .hero__knight {
     width: 200px;
     right: 10px;
-    bottom: 20px;
+    bottom: 0;
   }
 }
