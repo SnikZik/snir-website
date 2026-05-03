@@ -13,6 +13,7 @@
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
   background: var(--paper);
 }
 
@@ -21,7 +22,7 @@ html, body {
   background: var(--paper);
   color: var(--ink);
   height: 100vh;
-  min-height: 780px;
+  min-height: 100%;
   width: 100%;
   overflow: hidden;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
