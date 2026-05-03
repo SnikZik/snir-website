@@ -211,14 +211,14 @@ html, body {
   color: rgba(110, 60, 255, 0.12);
 }
 
-/* Rings — z 5 — IN FRONT of knight, top cuts at ears, bottom broken off */
+/* Rings — z 3 — BEHIND knight, large, centered on head, bottom cut off */
 .hero__rings {
   position: absolute;
-  z-index: 5;
+  z-index: 3;
   pointer-events: none;
-  width: 600px;
-  height: 600px;
-  right: -60px;
+  width: 720px;
+  height: 720px;
+  right: -120px;
   bottom: -120px;
 }
 
