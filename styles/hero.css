@@ -116,12 +116,11 @@ html, body {
 .hero__title .word {
   white-space: nowrap;
   display: inline-block;
+  flex-basis: 100%; /* every word on its own line — desktop matches mobile */
 }
 
-/* Line break: 0-height element forces wrap before "Build", leaving Build+fast on line 2 */
 .hero__lb {
-  flex-basis: 100%;
-  height: 0;
+  display: none;
 }
 
 .hero__title .dot {
@@ -181,18 +180,19 @@ html, body {
   position: absolute;
   z-index: 1;
   pointer-events: none;
-  width: 800px;
-  height: 800px;
-  right: -160px;
-  top: 0;
+  width: 1200px;
+  height: 1000px;
+  right: -300px;
+  top: -100px;
   background: radial-gradient(
     closest-side,
-    rgba(110, 60, 255, 0.65) 0%,
-    rgba(110, 60, 255, 0.40) 35%,
-    rgba(185, 164, 255, 0.18) 65%,
+    rgba(110, 60, 255, 0.70) 0%,
+    rgba(110, 60, 255, 0.45) 30%,
+    rgba(110, 60, 255, 0.22) 55%,
+    rgba(185, 164, 255, 0.10) 80%,
     transparent 100%
   );
-  filter: blur(4px);
+  filter: blur(6px);
 }
 
 /* BUILD word — z 2 */
@@ -200,13 +200,15 @@ html, body {
   position: absolute;
   z-index: 2;
   pointer-events: none;
-  left: 0;
-  bottom: -10px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  text-align: center;
   font-weight: 900;
-  font-size: 200px;
-  line-height: 0.85;
-  letter-spacing: -0.05em;
-  color: rgba(110, 60, 255, 0.10);
+  font-size: 320px;
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  color: rgba(110, 60, 255, 0.12);
 }
 
 /* Rings — z 3 — encircles knight head */
@@ -220,7 +222,7 @@ html, body {
   top: 180px;
 }
 
-/* Knight — z 4 — head sits inside rings, bottom fades out */
+/* Knight — z 4 — head sits inside rings */
 .hero__knight {
   position: absolute;
   z-index: 4;
@@ -231,8 +233,6 @@ html, body {
   bottom: 0;
   object-fit: contain;
   display: block;
-  -webkit-mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
 }
 
 /* ============================================================
