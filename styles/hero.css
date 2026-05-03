@@ -21,8 +21,7 @@ html, body {
   background: var(--paper);
   color: var(--ink);
   height: 780px;
-  max-width: 1440px;
-  margin: 0 auto;
+  width: 100%;
   overflow: hidden;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
