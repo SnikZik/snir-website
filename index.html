@@ -1,51 +1,132 @@
 <!doctype html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>SNIR.</title>
+  <title>SNIR. — בבנייה</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="האתר בבנייה. בקרוב כאן." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/hero.css?v=50" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=Heebo:wght@400;500;700;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --ink: #0A0A0A;
+      --purple: #6E3CFF;
+      --paper: #F4F2EE;
+      --muted: #6B6B6B;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: "Heebo", "Archivo", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .glow {
+      position: absolute;
+      width: 60vmax; height: 60vmax;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(110,60,255,0.22), transparent 60%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(20px);
+      pointer-events: none;
+    }
+    .rings {
+      position: absolute;
+      width: 90vmin; height: 90vmin;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+      pointer-events: none;
+      animation: spin 60s linear infinite;
+    }
+    @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+    .stage {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 24px;
+    }
+    .logo {
+      font-family: "Archivo Black", "Archivo", sans-serif;
+      font-size: clamp(48px, 12vw, 120px);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      display: inline-flex;
+      align-items: flex-end;
+      direction: ltr;
+    }
+    .logo .dot {
+      width: 0.16em; height: 0.16em;
+      background: var(--purple);
+      border-radius: 50%;
+      margin-inline-start: 0.06em;
+      margin-bottom: 0.08em;
+    }
+    .tag {
+      margin-top: 22px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: clamp(11px, 2.6vw, 14px);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--purple);
+      direction: ltr;
+    }
+    h1 {
+      margin-top: 28px;
+      font-size: clamp(28px, 7vw, 56px);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+    p {
+      margin-top: 14px;
+      font-size: clamp(15px, 3.6vw, 19px);
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .contact {
+      margin-top: 34px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ink);
+      color: var(--paper);
+      text-decoration: none;
+      padding: 14px 26px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: clamp(14px, 3.4vw, 17px);
+      transition: transform .18s ease, background .18s ease;
+    }
+    .contact:hover { transform: translateY(-2px); background: var(--purple); }
+    .contact .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--purple); }
+    .contact:hover .dot { background: var(--paper); }
+  </style>
 </head>
 <body>
-
-<section class="hero">
-  <div class="hero__glow" aria-hidden="true"></div>
-  <span class="hero__build" aria-hidden="true">BUILD</span>
-  <svg class="hero__rings" viewBox="0 0 500 500" aria-hidden="true">
+  <div class="glow" aria-hidden="true"></div>
+  <svg class="rings" viewBox="0 0 500 500" aria-hidden="true">
     <circle cx="250" cy="250" r="248" fill="none" stroke="#0A0A0A" stroke-width="1.25"/>
-    <circle cx="250" cy="250" r="184" fill="none" stroke="#6E3CFF"  stroke-width="1"/>
+    <circle cx="250" cy="250" r="184" fill="none" stroke="#6E3CFF" stroke-width="1"/>
+    <circle cx="250" cy="250" r="120" fill="none" stroke="#0A0A0A" stroke-width="0.75"/>
   </svg>
-  <img class="hero__knight" src="assets/hero/chess-knight.png?v=54" alt="" aria-hidden="true"/>
 
-  <div class="hero__topbar">
-    <a class="hero__logo" href="/">SNIR<span class="dot"></span></a>
-    <nav class="hero__nav">
-      <a href="#">What I build</a>
-      <a href="#">Tools</a>
-      <a href="#">Tracking</a>
-      <a href="#">How I operate</a>
-    </nav>
-    <a class="hero__cta" href="#contact">Let's talk<span class="dot"></span></a>
-    <button class="hero__menu" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-
-  <div class="hero__copy">
-    <h1 class="hero__title">
-      <span class="word">Understand</span>
-      <span class="word w-deeply">deeply<span class="dot"></span></span>
-      <span class="hero__lb" aria-hidden="true"></span>
-      <span class="word w-build">Build</span>
-      <span class="word w-fast">fast<span class="dot"></span></span>
-    </h1>
-    <p class="hero__sub">Paid media. <a href="#systems">Systems</a>. Scale.</p>
-    <a class="hero__lead" href="#contact">Bring a problem<span class="dot"></span></a>
-  </div>
-</section>
-
+  <main class="stage">
+    <div class="logo">SNIR<span class="dot"></span></div>
+    <div class="tag">Under Construction</div>
+    <h1>האתר בבנייה</h1>
+    <p>אנחנו עובדים על משהו חדש. בקרוב כאן.</p>
+    <a class="contact" href="mailto:snirziv1@gmail.com">
+      דברו איתי<span class="dot"></span>
+    </a>
+  </main>
 </body>
 </html>
