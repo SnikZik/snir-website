@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=5">
   <link rel="icon" type="image/png" href="assets/brand/favicon.png">
 
   <meta property="og:title" content="SNIR. · פרפורמנס ומדידה">
@@ -38,8 +38,7 @@
       <div class="wrap">
         <div class="hero-text">
           <span class="eyebrow reveal">פרפורמנס · מדידה · תוצאות</span>
-          <h1 class="reveal" data-d="1">בסוף היום,<br>אם זה לא עובד,<br><span class="grad line2">שניר עובד.</span></h1>
-          <p class="hero-tag reveal" data-d="2">אני לא סוכנות. אני מכונת תוצאות.</p>
+          <h1 class="reveal hero-rotate" id="hero-rotate" data-d="1">בסוף היום, אם זה לא עובד,<br><span class="grad">שניר עובד.</span></h1>
           <p class="hero-sub reveal" data-d="3">
             משנת 2014 אני מנהל קמפיינים ומודד כל שקל שיוצא. מחבר את כל מערכות הפרסום שלך לדוח אחד חי, מוצא איפה הכסף דולף, ומזיז את המספרים שחשובים לעסק. <strong>לא מיתוג, לא אתרים, לא סיפורים. תוצאות.</strong>
           </p>
@@ -272,6 +271,21 @@
       if(!('IntersectionObserver'in window)){els.forEach(e=>e.classList.add('is-visible'));return;}
       const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}}),{threshold:0.1,rootMargin:'0px 0px -6% 0px'});
       els.forEach(e=>io.observe(e));
+    })();
+
+    (function(){
+      const el=document.getElementById('hero-rotate'); if(!el)return;
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+      const HOOKS=[
+        'בסוף היום, אם זה לא עובד,<br><span class="grad">שניר עובד.</span>',
+        'אני לא סוכנות.<br><span class="grad">אני מכונת תוצאות.</span>'
+      ];
+      let i=0;
+      setInterval(function(){
+        i=(i+1)%HOOKS.length;
+        el.style.opacity='0'; el.style.transform='translateY(10px)';
+        setTimeout(function(){ el.innerHTML=HOOKS[i]; el.style.opacity='1'; el.style.transform='none'; },380);
+      },4200);
     })();
 
     const LOGOS=[["elal","אל על"],["1848","יקב 1848"],["nicolleti","Nicoletti"],["select","Select"],["sefer-atora","ספר התורה"],["barzilai","ברזילי"],["dori-kimhi","דורי קמחי"],["ilan-car-galss","אילן קאר גלאס"],["tapacula","Tapachula"],["ashuk-shel-givataim","השוק של גבעתיים"],["gilad-mor","גלעד מור"],["gilad_yazamut","גלעד יזמות"],["online-car-parts","Online Car Parts"],["tiltal","תלתל"],["aef","אפעל"],["be","Be"],["chill","Chill"],["shades","Shades"]];
