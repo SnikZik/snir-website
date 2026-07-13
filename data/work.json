@@ -24,6 +24,145 @@
   "img": "assets/work/p01/00_main-poster-image-2.jpg"
  },
  {
+  "id": "p17",
+  "title": "DORI KIMHI",
+  "client": "DORI KIMHI - Architectural Lighting",
+  "category": "קמפיינים",
+  "industry": "תאורה",
+  "services": [
+   "קמפיינים דיגיטליים",
+   "ניהול רשתות חברתיות"
+  ],
+  "desc": "דורי קמחי תאורה אדריכלית מתגאה בלמעלה מ-48 שנים של ניסיון ואהבה לאור. החברה יודעת לשלב בכל מרחב פרטי, ציבורי או מסחרי את ההשלמות והנגיעות העיצוביות באמצעות גופי תאורה היוצרים אווירה עוצרת נשימה.\nבמסגרת ניהול הרשתות החברתיות עבור דורי קמחי תאורה אדריכלית הצגנו פרויקטים מוצלחים, גופי תאורה מרשימים ושיתופי פעולה עם האדריכלים המובילים בישראל. השפה והעיצוב שידרו יוקרה ואלגנטיות. ניהול הקמפיינים כלל דפי נחיתה, באנרים ומודעות שהפנו כולם לימי מבצעים שהצליחו באופן חסר תקדים.",
+  "link": null,
+  "logo": "assets/logos/dori-kimhi.jpg",
+  "featured": false,
+  "images": [
+   "assets/work/p17/00_MaimPoster-image.jpg",
+   "assets/work/p17/01_comb-1_1-5.jpg",
+   "assets/work/p17/02_comb-1_2-7.jpg",
+   "assets/work/p17/03_comb-1_5-3.jpg"
+  ],
+  "videos": [
+   "assets/work/p17/00_comb_1-3..mp4",
+   "assets/work/p17/01_comb-1_4..mp4"
+  ],
+  "img": "assets/work/p17/00_MaimPoster-image.jpg"
+ },
+ {
+  "id": "p20",
+  "title": "אילן קארגלאס",
+  "client": "אילן קארגלאס - שקופים מול הלקוח",
+  "category": "רשתות חברתיות",
+  "industry": "זגגות",
+  "services": [
+   "ניהול רשתות חברתיות"
+  ],
+  "desc": "חברת \"אילן קארגלס\" הינה החברה הגדולה והמובילה בתחום זגגות הרכב ששמה דגש משמעותי על השקיפות מול הלקוחות שלהם לפחות כמו השמשות שלהם. החברה פועלת אל מול חברות הביטוח הגדולות והמובילו במשק. אם יש לכפ ביטוח, כנראה אתם מבוטחים\nכאשר אילן קארגלס הגיעו אלינו לניהול מדיה חברתית, שמנו חגורות ויצאנו לדרך: הקמנו להם דף פייסבוק עסקי לכל דבר עם קריאייטיב חזק לצד שפה גרפית המשקפת את תכונות המותג בצורה המבריקה ביותר.",
+  "link": null,
+  "logo": "assets/logos/ilan-car-galss.jpg",
+  "featured": false,
+  "images": [
+   "assets/work/p20/00_mainposter-image.jpg",
+   "assets/work/p20/01_comb-1_1-2.jpg",
+   "assets/work/p20/02_comb-1_2.jpg",
+   "assets/work/p20/03_comb-1_3.jpg"
+  ],
+  "videos": [],
+  "img": "assets/work/p20/00_mainposter-image.jpg"
+ },
+ {
+  "id": "p32",
+  "title": "Nicoletti Sleep",
+  "client": "Nicoletti Sleep",
+  "category": "אתרים ו-UX/UI",
+  "industry": "אורתופדיה",
+  "services": [
+   "איפיון",
+   "עיצוב ופיתוח אתרים UX UI",
+   "קמפיינים דיגיטליים"
+  ],
+  "desc": "חברת Nicoletti Sleep הינה מפיץ מורשה ובלעדי של מזרוני חברת Nicoletti המתמחה בעיצוב וייצור מגוון רחב של מערכות ישיבה וריהוט ביתי, בעלת פריסה גלובלית עם אלפי נקודות מכירה בארץ.\nלסדרת מזרוני האיכות Side by Side מבוססי הטכנולוגיה המתקדמת בעולם מגיע אתר מתקדם לא פחות. אז ישנו על זה וביצענו איפיון,עיצוב ופיתוח שמעניק לקהל היעד חווית גלישה מענגת, רציפה וללא הפרעות, בשילוב עם קמפיין דיגיטלי מהחלומות. מה שבטוח, הלקוח שלנו עכשיו יכול לישון בשקט.",
+  "link": "https://www.nicoletti-sleep.co.il/%d7%90%d7%95%d7%93%d7%95%d7%aa/",
+  "logo": "assets/logos/nicolleti.jpg",
+  "featured": true,
+  "images": [
+   "assets/work/p32/00_MainPoster-image-5.jpg",
+   "assets/work/p32/01_comp-1-1-2.jpg",
+   "assets/work/p32/02_comp-1-2-2.jpg"
+  ],
+  "videos": [
+   "assets/work/p32/00_COMP-1_3-1.mp4",
+   "assets/work/p32/01_comb-1_4.mp4"
+  ],
+  "img": "assets/work/p32/00_MainPoster-image-5.jpg"
+ },
+ {
+  "id": "p43",
+  "title": "Teqball Israel",
+  "client": "טקבול ישראל",
+  "category": "אתרים ו-UX/UI",
+  "industry": "ספורט, לקוחות מחו״ל",
+  "services": [
+   "אפיון",
+   "עיצוב ופיתוח אתר תדמית UX UI",
+   "עיצוב גרפי"
+  ],
+  "desc": "טקבול הוא ספורט בינלאומי חדש המבוסס על כדורגל, מושלם עבור כדורגלנים מקצועיים וחובבי ספורט במטרה לפתח מיומנויות טכניות, ריכוז וסיבולת.\nהטקבול הגיע לישראל אחרי שכבש אחריו מועדוני כדורגל ברחבי העולם ושחקנים בינלאומיים כמו רונלדינאו וניימר.\nהחברה בחרה בנו לקחת ולהוביל את המותג, באתר חדש, שמותאם לשוק הישראלי.\nאחת המטרות החשובות ביותר היו לשמור על מיצוג בינלאומי גבוה ושמירה על חדשנות. ליווינו את איציק זהר, שהביא את טקבול לארץ, החל מרמת אפיון מעמיק למוצר ובהמשך לעיצוב קפדני שכלל אינפוגרפיקות ואיורים ונמנע והעמסת תוכן שימושי ע״י סמלים פשוטים ותוכן ממוקד וברור. משם עברנו לפיתוח רספונסיבי מלא שמתאים לדסקטופ ולמובייל בצורה מושלמת ששם דגש על כל פרט קטן. ועד לעיצוב גרפי בתערוכת ההצגה שנערכה בתל אביב ביולי 2019.",
+  "link": "https://teqball.co.il/",
+  "logo": null,
+  "featured": false,
+  "images": [
+   "assets/work/p43/00_MainPoster-image-7.jpg",
+   "assets/work/p43/01_comb-1_1.jpg",
+   "assets/work/p43/02_comb-2_-2_left.jpg",
+   "assets/work/p43/03_comb-2_2_right.jpg",
+   "assets/work/p43/04_comb-1_3.jpg",
+   "assets/work/p43/05_comb-3_4_right-up-880x499.jpg",
+   "assets/work/p43/06_comb-3_4_right-down-880x499.jpg",
+   "assets/work/p43/07_comb-3_4_left.jpg"
+  ],
+  "videos": [],
+  "img": "assets/work/p43/00_MainPoster-image-7.jpg"
+ },
+ {
+  "id": "p34",
+  "title": "Be",
+  "client": "קבוצת בריזלי וגלעד מור",
+  "category": "אתרים ו-UX/UI",
+  "industry": "נדל״ן",
+  "services": [
+   "ניהול פרויקטים נדל״ן",
+   "קמפיינים דיגיטליים",
+   "עיצוב גרפי",
+   "ניהול מדיה חברתית",
+   "קידום אתרים אורגני SEO",
+   "אפיון",
+   "עיצוב ופיתוח UX UI"
+  ],
+  "desc": "Be הוא פרויקט נדל\"ן ייחודי, מטעם היזמים גלעד מור וקבוצת ברזילי, שמביא לישראל את בשורת הדיור השיתופי - Co-Living. מודל המגורים החדשני מיועד לסטודנטים (שהם שוכרי הדירות) ומספק להם חוויה כוללת שטרם נראתה כמותה בארץ. והמשקיעים? הם נהנים מהכנסה פסיבית ללא התעסקות, תוך שחברת הניהול מטפלת עבורם בהכול מא' ועד ת'.\nעברנו מסע ארוך מלא בהגשמה עם היזמים גלעד, נדב ועידו, במהלכו הם נכנסו ללב של כולנו. ליווינו אותם במסירות מהפן השיווקי כבר מהיום הראשון באמצעות מעטפת שירותים מלאה הכוללת מיתוג ועיצוב גרפי קונספטואליים, ניהול רשתות חברתיות מפולפל, אפיון ופיתוח מדויקים של מיניסייט ודפי נחיתה, קידום אורגני עקבי וקמפיינים דיגיטליים שכל אחד ואחד מהם תפקד כמגנט לידים איכותיים.\nאנו מרגישים שותפים מלאים להצלחת הפרויקט, שנותנת למספרים לדבר בעד עצמם: מעל 250 דירות שנמכרו!",
+  "link": "https://www.be-startliving.com/",
+  "logo": "assets/logos/gilad-mor.jpg",
+  "featured": false,
+  "images": [
+   "assets/work/p34/00_MainPoster-image-9.jpg",
+   "assets/work/p34/01_comp-1_2-6.jpg",
+   "assets/work/p34/02_comp-1_3-4.jpg",
+   "assets/work/p34/03_comp-2_4_right-2.jpg",
+   "assets/work/p34/04_comp-1_5-4-scaled.jpg",
+   "assets/work/p34/05_comb-3_6_right-up-880x499.jpg",
+   "assets/work/p34/06_comb-3_6_left.jpg",
+   "assets/work/p34/07_comb-2_7_right.jpg",
+   "assets/work/p34/08_comb-2_7_left.jpg"
+  ],
+  "videos": [
+   "assets/work/p34/00_comp-1_1-3.mp4",
+   "assets/work/p34/01_comp-2_4_left.mp4",
+   "assets/work/p34/02_comb-3_6_right-down.mp4"
+  ],
+  "img": "assets/work/p34/00_MainPoster-image-9.jpg"
+ },
+ {
   "id": "p02",
   "title": "אפעל בפארק",
   "client": "ל.י.ב.א טאואר",
@@ -416,32 +555,6 @@
   "img": "assets/work/p16/00_mainposter-image-13.jpg"
  },
  {
-  "id": "p17",
-  "title": "DORI KIMHI",
-  "client": "DORI KIMHI - Architectural Lighting",
-  "category": "קמפיינים",
-  "industry": "תאורה",
-  "services": [
-   "קמפיינים דיגיטליים",
-   "ניהול רשתות חברתיות"
-  ],
-  "desc": "דורי קמחי תאורה אדריכלית מתגאה בלמעלה מ-48 שנים של ניסיון ואהבה לאור. החברה יודעת לשלב בכל מרחב פרטי, ציבורי או מסחרי את ההשלמות והנגיעות העיצוביות באמצעות גופי תאורה היוצרים אווירה עוצרת נשימה.\nבמסגרת ניהול הרשתות החברתיות עבור דורי קמחי תאורה אדריכלית הצגנו פרויקטים מוצלחים, גופי תאורה מרשימים ושיתופי פעולה עם האדריכלים המובילים בישראל. השפה והעיצוב שידרו יוקרה ואלגנטיות. ניהול הקמפיינים כלל דפי נחיתה, באנרים ומודעות שהפנו כולם לימי מבצעים שהצליחו באופן חסר תקדים.",
-  "link": null,
-  "logo": "assets/logos/dori-kimhi.jpg",
-  "featured": false,
-  "images": [
-   "assets/work/p17/00_MaimPoster-image.jpg",
-   "assets/work/p17/01_comb-1_1-5.jpg",
-   "assets/work/p17/02_comb-1_2-7.jpg",
-   "assets/work/p17/03_comb-1_5-3.jpg"
-  ],
-  "videos": [
-   "assets/work/p17/00_comb_1-3..mp4",
-   "assets/work/p17/01_comb-1_4..mp4"
-  ],
-  "img": "assets/work/p17/00_MaimPoster-image.jpg"
- },
- {
   "id": "p18",
   "title": "Loft",
   "client": "לופט",
@@ -489,28 +602,6 @@
    "assets/work/p19/02_comb-1_4.mp4"
   ],
   "img": "assets/work/p19/00_MainPoster-image.-1.jpg"
- },
- {
-  "id": "p20",
-  "title": "אילן קארגלאס",
-  "client": "אילן קארגלאס - שקופים מול הלקוח",
-  "category": "רשתות חברתיות",
-  "industry": "זגגות",
-  "services": [
-   "ניהול רשתות חברתיות"
-  ],
-  "desc": "חברת \"אילן קארגלס\" הינה החברה הגדולה והמובילה בתחום זגגות הרכב ששמה דגש משמעותי על השקיפות מול הלקוחות שלהם לפחות כמו השמשות שלהם. החברה פועלת אל מול חברות הביטוח הגדולות והמובילו במשק. אם יש לכפ ביטוח, כנראה אתם מבוטחים\nכאשר אילן קארגלס הגיעו אלינו לניהול מדיה חברתית, שמנו חגורות ויצאנו לדרך: הקמנו להם דף פייסבוק עסקי לכל דבר עם קריאייטיב חזק לצד שפה גרפית המשקפת את תכונות המותג בצורה המבריקה ביותר.",
-  "link": null,
-  "logo": "assets/logos/ilan-car-galss.jpg",
-  "featured": false,
-  "images": [
-   "assets/work/p20/00_mainposter-image.jpg",
-   "assets/work/p20/01_comb-1_1-2.jpg",
-   "assets/work/p20/02_comb-1_2.jpg",
-   "assets/work/p20/03_comb-1_3.jpg"
-  ],
-  "videos": [],
-  "img": "assets/work/p20/00_mainposter-image.jpg"
  },
  {
   "id": "p21",
@@ -827,32 +918,6 @@
   "img": "assets/work/p31/00_MainPoster-image-11.jpg"
  },
  {
-  "id": "p32",
-  "title": "Nicoletti Sleep",
-  "client": "Nicoletti Sleep",
-  "category": "אתרים ו-UX/UI",
-  "industry": "אורתופדיה",
-  "services": [
-   "איפיון",
-   "עיצוב ופיתוח אתרים UX UI",
-   "קמפיינים דיגיטליים"
-  ],
-  "desc": "חברת Nicoletti Sleep הינה מפיץ מורשה ובלעדי של מזרוני חברת Nicoletti המתמחה בעיצוב וייצור מגוון רחב של מערכות ישיבה וריהוט ביתי, בעלת פריסה גלובלית עם אלפי נקודות מכירה בארץ.\nלסדרת מזרוני האיכות Side by Side מבוססי הטכנולוגיה המתקדמת בעולם מגיע אתר מתקדם לא פחות. אז ישנו על זה וביצענו איפיון,עיצוב ופיתוח שמעניק לקהל היעד חווית גלישה מענגת, רציפה וללא הפרעות, בשילוב עם קמפיין דיגיטלי מהחלומות. מה שבטוח, הלקוח שלנו עכשיו יכול לישון בשקט.",
-  "link": "https://www.nicoletti-sleep.co.il/%d7%90%d7%95%d7%93%d7%95%d7%aa/",
-  "logo": "assets/logos/nicolleti.jpg",
-  "featured": true,
-  "images": [
-   "assets/work/p32/00_MainPoster-image-5.jpg",
-   "assets/work/p32/01_comp-1-1-2.jpg",
-   "assets/work/p32/02_comp-1-2-2.jpg"
-  ],
-  "videos": [
-   "assets/work/p32/00_COMP-1_3-1.mp4",
-   "assets/work/p32/01_comb-1_4.mp4"
-  ],
-  "img": "assets/work/p32/00_MainPoster-image-5.jpg"
- },
- {
   "id": "p33",
   "title": "Ambient Tech",
   "client": "Ambient Tech",
@@ -876,43 +941,6 @@
    "assets/work/p33/00_MainPoster-Video-1.mp4"
   ],
   "img": "assets/work/p33/00_comp-1_1-4-scaled.jpg"
- },
- {
-  "id": "p34",
-  "title": "Be",
-  "client": "קבוצת בריזלי וגלעד מור",
-  "category": "אתרים ו-UX/UI",
-  "industry": "נדל״ן",
-  "services": [
-   "ניהול פרויקטים נדל״ן",
-   "קמפיינים דיגיטליים",
-   "עיצוב גרפי",
-   "ניהול מדיה חברתית",
-   "קידום אתרים אורגני SEO",
-   "אפיון",
-   "עיצוב ופיתוח UX UI"
-  ],
-  "desc": "Be הוא פרויקט נדל\"ן ייחודי, מטעם היזמים גלעד מור וקבוצת ברזילי, שמביא לישראל את בשורת הדיור השיתופי - Co-Living. מודל המגורים החדשני מיועד לסטודנטים (שהם שוכרי הדירות) ומספק להם חוויה כוללת שטרם נראתה כמותה בארץ. והמשקיעים? הם נהנים מהכנסה פסיבית ללא התעסקות, תוך שחברת הניהול מטפלת עבורם בהכול מא' ועד ת'.\nעברנו מסע ארוך מלא בהגשמה עם היזמים גלעד, נדב ועידו, במהלכו הם נכנסו ללב של כולנו. ליווינו אותם במסירות מהפן השיווקי כבר מהיום הראשון באמצעות מעטפת שירותים מלאה הכוללת מיתוג ועיצוב גרפי קונספטואליים, ניהול רשתות חברתיות מפולפל, אפיון ופיתוח מדויקים של מיניסייט ודפי נחיתה, קידום אורגני עקבי וקמפיינים דיגיטליים שכל אחד ואחד מהם תפקד כמגנט לידים איכותיים.\nאנו מרגישים שותפים מלאים להצלחת הפרויקט, שנותנת למספרים לדבר בעד עצמם: מעל 250 דירות שנמכרו!",
-  "link": "https://www.be-startliving.com/",
-  "logo": "assets/logos/gilad-mor.jpg",
-  "featured": false,
-  "images": [
-   "assets/work/p34/00_MainPoster-image-9.jpg",
-   "assets/work/p34/01_comp-1_2-6.jpg",
-   "assets/work/p34/02_comp-1_3-4.jpg",
-   "assets/work/p34/03_comp-2_4_right-2.jpg",
-   "assets/work/p34/04_comp-1_5-4-scaled.jpg",
-   "assets/work/p34/05_comb-3_6_right-up-880x499.jpg",
-   "assets/work/p34/06_comb-3_6_left.jpg",
-   "assets/work/p34/07_comb-2_7_right.jpg",
-   "assets/work/p34/08_comb-2_7_left.jpg"
-  ],
-  "videos": [
-   "assets/work/p34/00_comp-1_1-3.mp4",
-   "assets/work/p34/01_comp-2_4_left.mp4",
-   "assets/work/p34/02_comb-3_6_right-down.mp4"
-  ],
-  "img": "assets/work/p34/00_MainPoster-image-9.jpg"
  },
  {
   "id": "p35",
@@ -1145,33 +1173,5 @@
    "assets/work/p42/01_comp-1_3-2.mp4"
   ],
   "img": "assets/work/p42/00_MainPoster-image-17.jpg"
- },
- {
-  "id": "p43",
-  "title": "Teqball Israel",
-  "client": "טקבול ישראל",
-  "category": "אתרים ו-UX/UI",
-  "industry": "ספורט, לקוחות מחו״ל",
-  "services": [
-   "אפיון",
-   "עיצוב ופיתוח אתר תדמית UX UI",
-   "עיצוב גרפי"
-  ],
-  "desc": "טקבול הוא ספורט בינלאומי חדש המבוסס על כדורגל, מושלם עבור כדורגלנים מקצועיים וחובבי ספורט במטרה לפתח מיומנויות טכניות, ריכוז וסיבולת.\nהטקבול הגיע לישראל אחרי שכבש אחריו מועדוני כדורגל ברחבי העולם ושחקנים בינלאומיים כמו רונלדינאו וניימר.\nהחברה בחרה בנו לקחת ולהוביל את המותג, באתר חדש, שמותאם לשוק הישראלי.\nאחת המטרות החשובות ביותר היו לשמור על מיצוג בינלאומי גבוה ושמירה על חדשנות. ליווינו את איציק זהר, שהביא את טקבול לארץ, החל מרמת אפיון מעמיק למוצר ובהמשך לעיצוב קפדני שכלל אינפוגרפיקות ואיורים ונמנע והעמסת תוכן שימושי ע״י סמלים פשוטים ותוכן ממוקד וברור. משם עברנו לפיתוח רספונסיבי מלא שמתאים לדסקטופ ולמובייל בצורה מושלמת ששם דגש על כל פרט קטן. ועד לעיצוב גרפי בתערוכת ההצגה שנערכה בתל אביב ביולי 2019.",
-  "link": "https://teqball.co.il/",
-  "logo": null,
-  "featured": false,
-  "images": [
-   "assets/work/p43/00_MainPoster-image-7.jpg",
-   "assets/work/p43/01_comb-1_1.jpg",
-   "assets/work/p43/02_comb-2_-2_left.jpg",
-   "assets/work/p43/03_comb-2_2_right.jpg",
-   "assets/work/p43/04_comb-1_3.jpg",
-   "assets/work/p43/05_comb-3_4_right-up-880x499.jpg",
-   "assets/work/p43/06_comb-3_4_right-down-880x499.jpg",
-   "assets/work/p43/07_comb-3_4_left.jpg"
-  ],
-  "videos": [],
-  "img": "assets/work/p43/00_MainPoster-image-7.jpg"
  }
 ]
