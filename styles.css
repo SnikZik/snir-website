@@ -100,6 +100,8 @@ strong { color: var(--text); font-weight: 700; }
 }
 .topbar .brand { justify-self:start; }
 .topbar .btn { justify-self:end; }
+.nav-toggle { display:none; background:none; border:none; color:var(--text); cursor:pointer; padding:.4rem; justify-self:end; }
+.nav-toggle svg { width:26px; height:26px; display:block; }
 .brand { font-family: var(--font-round); font-size: 26px; color: var(--text); text-decoration:none; unicode-bidi:plaintext; direction:ltr; display:inline-flex; align-items:baseline; }
 .brand-logo { height:26px; width:auto; display:block; }
 footer .brand-logo{ height:20px; }
@@ -224,6 +226,8 @@ footer .brand-logo{ height:20px; }
 .work-card .work-client { font-size:13px; color:rgba(255,255,255,0.72); margin-top:.2rem; max-height:0; opacity:0; overflow:hidden; transition:max-height .3s ease, opacity .25s ease; }
 .work-card:hover .work-client { max-height:3em; opacity:1; }
 .work-card .work-badge { position:absolute; top:.7rem; inset-inline-start:.7rem; z-index:2; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#fff; background:var(--purple); padding:.28rem .6rem; border-radius:999px; }
+.work-card .work-logo { display:inline-flex; align-items:center; background:#fff; border-radius:8px; padding:5px 9px; margin-bottom:.55rem; align-self:flex-start; box-shadow:0 4px 14px rgba(0,0,0,.3); }
+.work-card .work-logo img { max-height:22px; max-width:110px; object-fit:contain; display:block; }
 .work-card .work-logo { display:inline-flex; align-items:center; justify-content:center; background:#fff; border-radius:8px; padding:5px 9px; margin-bottom:.55rem; align-self:flex-start; box-shadow:0 4px 14px rgba(0,0,0,.35); }
 .work-card .work-logo img { max-height:22px; max-width:100px; object-fit:contain; display:block; }
 .work-card::after { content:""; position:absolute; top:.65rem; inset-inline-end:.65rem; width:30px; height:30px; background:url(assets/brand/snir-seal-white.png) center/contain no-repeat; opacity:.5; z-index:2; pointer-events:none; filter: drop-shadow(0 1px 3px rgba(0,0,0,.55)); transition: opacity .25s; }

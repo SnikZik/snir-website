@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=11">
   <link rel="icon" type="image/png" href="assets/brand/favicon.png">
 
   <meta property="og:title" content="SNIR. · פרפורמנס ומדידה">
@@ -300,7 +300,7 @@
     (function(){
       const grid=document.getElementById('work-grid'), filterBar=document.getElementById('work-filter'), countEl=document.getElementById('work-count');
       if(!grid)return;
-      fetch('data/work.json?v=3').then(r=>r.json()).then(items=>{
+      fetch('data/work.json?v=8').then(r=>r.json()).then(items=>{
         if(!Array.isArray(items)||!items.length){return;}
         if(countEl)countEl.textContent=items.length+' פרויקטים';
         grid.innerHTML=items.map((it,i)=>{
