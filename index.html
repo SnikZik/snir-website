@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
   <link rel="icon" type="image/png" href="assets/brand/favicon.png">
 
   <meta property="og:title" content="SNIR. · פרפורמנס ומדידה">
@@ -26,7 +26,7 @@
       <a href="#capabilities">מה אני עושה</a>
       <a href="#work">עבודות</a>
       <a href="#method">איך עובדים</a>
-      <a href="#about">מי אני</a>
+      <a href="about.html">אודות</a>
     </nav>
     <a href="#contact" class="btn">בוא נדבר</a>
   </header>
@@ -324,7 +324,7 @@
         applyView();
         const lb=document.getElementById('lightbox'),lbg=document.getElementById('lb-gallery'),set=(id,t)=>{document.getElementById(id).textContent=t||'';};
         const open=it=>{
-          const media=[].concat(it.images||[],(it.videos||[])).slice(0,12);
+          const media=[].concat(it.images||[],(it.videos||[]));
           lbg.innerHTML=media.map(m=>m.match(/\.mp4($|\?)/i)?`<video src="${m}" controls muted loop playsinline></video>`:`<img src="${m}" alt="${it.title||''}" loading="lazy">`).join('')||(it.img?`<img src="${it.img}" alt="">`:'');
           set('lb-cat',it.category);set('lb-title',it.title);set('lb-client',it.client?'לקוח · '+it.client:'');set('lb-desc',it.desc);
           document.getElementById('lb-subs').innerHTML=(it.services||[]).map(s=>`<span>${s}</span>`).join('');
