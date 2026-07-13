@@ -20,7 +20,8 @@
    "assets/work/p01/00_presetation2.mp4"
   ],
   "link": null,
-  "featured": true
+  "featured": true,
+  "logo": "assets/logos/elal.jpg"
  },
  {
   "id": "p02",
@@ -48,7 +49,8 @@
   ],
   "videos": [],
   "link": "https://efal.all-ims.com/",
-  "featured": false
+  "featured": false,
+  "logo": "assets/logos/aef.jpg"
  },
  {
   "id": "p03",
@@ -76,7 +78,8 @@
    "assets/work/p03/01_comb-2_3_left.mp4"
   ],
   "link": "https://www.facebook.com/pg/belkind215/about/?ref=page_internal",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p04",
@@ -104,7 +107,8 @@
   ],
   "videos": [],
   "link": "https://www.facebook.com/%D7%91%D7%A0%D7%A2%D7%A0%D7%A2-%D7%91%D7%95%D7%98%D7%99%D7%A7-%D7%A4%D7%99%D7%A8%D7%95%D7%AA-%D7%95%D7%99%D7%A8%D7%A7%D7%95%D7%AA-1233096043504547/",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p05",
@@ -128,7 +132,8 @@
   ],
   "videos": [],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": "assets/logos/1848.jpg"
  },
  {
   "id": "p06",
@@ -148,7 +153,8 @@
   ],
   "videos": [],
   "link": "https://www.facebook.com/ReBride.by.Einat.Safra.fashion.designer/",
-  "featured": true
+  "featured": true,
+  "logo": null
  },
  {
   "id": "p07",
@@ -168,7 +174,8 @@
   ],
   "videos": [],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": "assets/logos/select.jpg"
  },
  {
   "id": "p08",
@@ -191,7 +198,8 @@
   ],
   "videos": [],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p09",
@@ -216,7 +224,8 @@
    "assets/work/p09/00_comp-1_1.mp4"
   ],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": "assets/logos/barzilai.jpg"
  },
  {
   "id": "p10",
@@ -239,7 +248,8 @@
    "assets/work/p10/00_comb-1_1-1.mp4"
   ],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p11",
@@ -260,7 +270,8 @@
   ],
   "videos": [],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p12",
@@ -284,7 +295,8 @@
    "assets/work/p12/00_comb-1_1-2.mp4"
   ],
   "link": null,
-  "featured": true
+  "featured": true,
+  "logo": null
  },
  {
   "id": "p13",
@@ -307,7 +319,8 @@
    "assets/work/p13/01_comb-1_1.mp4"
   ],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p14",
@@ -331,7 +344,8 @@
    "assets/work/p14/00_comb-1_1-3.mp4"
   ],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p15",
@@ -353,7 +367,8 @@
   ],
   "videos": [],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p16",
@@ -377,7 +392,8 @@
   ],
   "videos": [],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p17",
@@ -402,7 +418,8 @@
    "assets/work/p17/01_comb-1_4..mp4"
   ],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": "assets/logos/dori-kimhi.jpg"
  },
  {
   "id": "p18",
@@ -425,7 +442,8 @@
    "assets/work/p18/00_comb-1_2-1.mp4"
   ],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p19",
@@ -449,7 +467,8 @@
    "assets/work/p19/02_comb-1_4.mp4"
   ],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": "assets/logos/tapacula.jpg"
  },
  {
   "id": "p20",
@@ -470,7 +489,8 @@
   ],
   "videos": [],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": "assets/logos/ilan-car-galss.jpg"
  },
  {
   "id": "p21",
@@ -496,7 +516,8 @@
   ],
   "videos": [],
   "link": null,
-  "featured": true
+  "featured": true,
+  "logo": null
  },
  {
   "id": "p22",
@@ -516,7 +537,8 @@
   ],
   "videos": [],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p23",
@@ -541,7 +563,8 @@
    "assets/work/p23/01_comb-1_4-2.mp4"
   ],
   "link": "https://beyahad-ins.com/",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p24",
@@ -567,7 +590,8 @@
   ],
   "videos": [],
   "link": "https://www.gadpeer.co.il/",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p25",
@@ -595,7 +619,8 @@
    "assets/work/p25/01_comp-1_2-2.mp4"
   ],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": "assets/logos/sefer-atora.jpg"
  },
  {
   "id": "p26",
@@ -621,7 +646,8 @@
    "assets/work/p26/02_comb-2_3_left.mp4"
   ],
   "link": "https://www.medita.co.il/",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p27",
@@ -644,7 +670,8 @@
   ],
   "videos": [],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p28",
@@ -673,7 +700,8 @@
    "assets/work/p28/00_comp-1_4-2.mp4"
   ],
   "link": "https://www.butcherbirkatshmuel.co.il/",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p30",
@@ -702,7 +730,8 @@
   ],
   "videos": [],
   "link": "https://www.shulchanaruch.co.il/",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p31",
@@ -730,7 +759,8 @@
    "assets/work/p31/00_comb-1_2-new.mp4"
   ],
   "link": "https://www.shm-moving.co.il/",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p32",
@@ -755,7 +785,8 @@
    "assets/work/p32/01_comb-1_4.mp4"
   ],
   "link": "https://www.nicoletti-sleep.co.il/%d7%90%d7%95%d7%93%d7%95%d7%aa/",
-  "featured": true
+  "featured": true,
+  "logo": "assets/logos/nicolleti.jpg"
  },
  {
   "id": "p33",
@@ -779,7 +810,8 @@
    "assets/work/p33/00_MainPoster-Video-1.mp4"
   ],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p34",
@@ -813,7 +845,8 @@
    "assets/work/p34/02_comb-3_6_right-down.mp4"
   ],
   "link": "https://www.be-startliving.com/",
-  "featured": false
+  "featured": false,
+  "logo": "assets/logos/gilad-mor.jpg"
  },
  {
   "id": "p35",
@@ -841,7 +874,8 @@
    "assets/work/p35/01_comb-1_3-4.mp4"
   ],
   "link": "https://www.black-eye.co.il/",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p36",
@@ -866,7 +900,8 @@
    "assets/work/p36/02_comp-1_3-1.mp4"
   ],
   "link": null,
-  "featured": true
+  "featured": true,
+  "logo": null
  },
  {
   "id": "p37",
@@ -896,7 +931,8 @@
    "assets/work/p37/00_comb-1_3-1.mp4"
   ],
   "link": "https://www.facebook.com/danapens1/",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p38",
@@ -922,7 +958,8 @@
   ],
   "videos": [],
   "link": "https://www.domanikitchens.co.il/",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p39",
@@ -950,7 +987,8 @@
    "assets/work/p39/01_comp-1_5.mp4"
   ],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p40",
@@ -977,7 +1015,8 @@
    "assets/work/p40/02_Comp-1_3.mp4"
   ],
   "link": null,
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p41",
@@ -1009,7 +1048,8 @@
    "assets/work/p41/00_comb-1_1..mp4"
   ],
   "link": "https://www.facebook.com/m091080/?__tn__=%2Cd%2CP-R&eid=ARCo7xoBrl9tH_voFPzqWbVwz5a9bcS8J9jHwn-OP4h2osvYHIqW4XvYUQcT8tJkaLo82B_CzH-9x3KY",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p42",
@@ -1033,7 +1073,8 @@
    "assets/work/p42/01_comp-1_3-2.mp4"
   ],
   "link": "https://www.pamehouse.com/",
-  "featured": false
+  "featured": false,
+  "logo": null
  },
  {
   "id": "p43",
@@ -1060,6 +1101,7 @@
   ],
   "videos": [],
   "link": "https://teqball.co.il/",
-  "featured": false
+  "featured": false,
+  "logo": null
  }
 ]

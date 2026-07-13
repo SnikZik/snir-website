@@ -163,7 +163,7 @@ footer .brand-logo{ height:20px; }
 .about-text p { font-size: clamp(1.05rem,1.4vw,1.2rem); color: var(--text-dim); margin-bottom:1rem; max-width:60ch; }
 .about-punch { font-family:var(--font-round); color:#fff !important; font-size: clamp(1.2rem,2vw,1.6rem); margin-top:1.25rem !important; }
 .about-media img { width:100%; border-radius:20px; border:1px solid var(--stroke); display:block; box-shadow: 0 30px 60px -30px rgba(0,0,0,0.7); }
-.moments { display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; }
+.moments { display:grid; grid-template-columns: repeat(4,1fr); gap:1rem; }
 @media (max-width:640px){ .moments { grid-template-columns:1fr 1fr; } }
 .moments img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:16px; border:1px solid var(--stroke); filter:grayscale(.15); transition:filter .3s, transform .3s; }
 .moments img:hover { filter:grayscale(0); transform:translateY(-3px); }
@@ -210,6 +210,8 @@ footer .brand-logo{ height:20px; }
 .work-card .work-client { font-size:13px; color:rgba(255,255,255,0.72); margin-top:.2rem; max-height:0; opacity:0; overflow:hidden; transition:max-height .3s ease, opacity .25s ease; }
 .work-card:hover .work-client { max-height:3em; opacity:1; }
 .work-card .work-badge { position:absolute; top:.7rem; inset-inline-start:.7rem; z-index:2; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#fff; background:var(--purple); padding:.28rem .6rem; border-radius:999px; }
+.work-card .work-logo { display:inline-flex; align-items:center; justify-content:center; background:#fff; border-radius:8px; padding:5px 9px; margin-bottom:.55rem; align-self:flex-start; box-shadow:0 4px 14px rgba(0,0,0,.35); }
+.work-card .work-logo img { max-height:22px; max-width:100px; object-fit:contain; display:block; }
 .work-card::after { content:""; position:absolute; top:.65rem; inset-inline-end:.65rem; width:30px; height:30px; background:url(assets/brand/snir-seal-white.png) center/contain no-repeat; opacity:.5; z-index:2; pointer-events:none; filter: drop-shadow(0 1px 3px rgba(0,0,0,.55)); transition: opacity .25s; }
 .work-card:hover::after { opacity:.85; }
 .work-card[hidden]{ display:none; }

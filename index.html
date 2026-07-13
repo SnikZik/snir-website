@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
   <link rel="icon" type="image/png" href="assets/brand/favicon.png">
 
   <meta property="og:title" content="SNIR. · פרפורמנס ומדידה">
@@ -303,7 +303,8 @@
         grid.innerHTML=items.map((it,i)=>{
           const media=it.img?`<img src="${it.img}" alt="${it.title||''}" loading="lazy">`:(it.videos&&it.videos[0]?`<video src="${it.videos[0]}" muted loop playsinline></video>`:'');
           const badge=it.featured?`<span class="work-badge">נבחר</span>`:'';
-          return `<button class="work-card${it.featured?' is-featured':''}" data-cat="${it.category||''}" data-i="${i}">${badge}${media}<span class="work-overlay"><span class="work-cat">${it.category||''}</span><span class="work-title">${it.title||''}</span>${it.client?`<span class="work-client">${it.client}</span>`:''}</span></button>`;
+          const logo=it.logo?`<span class="work-logo"><img src="${it.logo}" alt="${it.title||''}" loading="lazy"></span>`:'';
+          return `<button class="work-card${it.featured?' is-featured':''}" data-cat="${it.category||''}" data-i="${i}">${badge}${media}<span class="work-overlay">${logo}<span class="work-cat">${it.category||''}</span><span class="work-title">${it.title||''}</span>${it.client?`<span class="work-client">${it.client}</span>`:''}</span></button>`;
         }).join('');
         const cats=Array.from(new Set(items.map(i=>i.category).filter(Boolean)));
         const mk=(l,v,a)=>`<button role="tab" class="${a?'is-active':''}" data-filter="${v}">${l}</button>`;
