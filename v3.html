@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="v3.css?v=4">
+  <link rel="stylesheet" href="v3.css?v=5">
   <link rel="icon" type="image/png" href="assets/brand/favicon.png">
 </head>
 <body>
@@ -24,7 +24,7 @@
   <main id="top">
 
     <!-- Hero (dark, 2-col like DAP) -->
-    <section class="hero dark">
+    <section class="hero navy">
       <div class="wrap hero-grid">
         <div class="hero-text">
           <span class="qual reveal">משקיעים 10K+ ₪ בחודש בפרסום?</span>
@@ -52,7 +52,7 @@
 
     <!-- Clients marquee -->
     <section style="padding-block:clamp(1rem,3vw,2.5rem)">
-      <div class="wrap"><div class="eyebrow reveal" style="display:block;text-align:center;background:none;border:none;color:var(--mute)">מותגים שסמכו עלי</div></div>
+      <div class="wrap" style="text-align:center"><span class="biglabel reveal">OUR CLIENTS</span><h2 class="reveal" data-d="1" style="margin-bottom:2rem">מותגים שסמכו עלי</h2></div>
       <div class="marquee reveal"><div class="marquee-track" id="logo-track"></div></div>
     </section>
 
@@ -119,10 +119,9 @@
     </section>
 
     <!-- Portfolio (dark) -->
-    <section class="dark" id="work">
-      <div class="wrap" style="text-align:center">
-        <div class="port-title reveal"><h2>העבודות שלי</h2></div>
-        <p class="lead reveal" data-d="1" style="margin:1.5rem auto 0">43 פרויקטים לעשרות מותגים, מאל על ועד עסקים מקומיים.</p>
+    <section id="work">
+      <div class="wrap">
+        <div class="section-head center reveal"><span class="biglabel">OUR WORK</span><h2>העבודות שלי</h2><p class="lead" style="margin-inline:auto">43 פרויקטים לעשרות מותגים, מאל על ועד עסקים מקומיים.</p></div>
         <div class="work-filter reveal" data-d="2" id="work-filter" role="tablist" aria-label="סינון"></div>
         <div class="work-grid" id="work-grid" style="text-align:start"></div>
       </div>
@@ -131,7 +130,7 @@
     <!-- Case studies -->
     <section id="cases">
       <div class="wrap">
-        <div class="section-head center reveal"><span class="eyebrow">קייס סטאדיז</span><h2>מהעבודה, למספרים</h2><p class="lead" style="margin-inline:auto">בחירה מהתיק. <strong>המספרים כאן תבנית — שלח לי אמיתיים ואמלא.</strong></p></div>
+        <div class="section-head center reveal"><span class="biglabel">OUR CASE STUDIES</span><h2>מהעבודה, למספרים</h2><p class="lead" style="margin-inline:auto">בחירה מהתיק. <strong>המספרים כאן תבנית — שלח לי אמיתיים ואמלא.</strong></p></div>
         <div class="cases">
           <article class="case reveal" data-d="1"><div class="thumb"><span class="tag">תעופה</span><img src="assets/work/p01/00_main-poster-image-2.jpg" alt="אל על" loading="lazy"></div><div class="body"><h3>אל על</h3><p class="desc">קריאייטיב ומיתוג לחברת התעופה הלאומית.</p><div class="kpis"><div class="kpi"><span class="kn">ROAS ▲</span><span class="kl">החזר מדיה</span></div><div class="kpi"><span class="kn">CPA ▼</span><span class="kl">עלות המרה</span></div><div class="kpi"><span class="kn">CTR ▲</span><span class="kl">קליקים</span></div></div></div></article>
           <article class="case reveal" data-d="2"><div class="thumb"><span class="tag">מזרנים</span><img src="assets/logos/nicolleti.jpg" alt="Nicoletti" loading="lazy" style="object-fit:contain;background:#fff;padding:2rem"></div><div class="body"><h3>Nicoletti Sleep</h3><p class="desc">אתר מכירה וקמפיינים למותג מזרנים.</p><div class="kpis"><div class="kpi"><span class="kn">CVR ▲</span><span class="kl">המרה</span></div><div class="kpi"><span class="kn">CPA ▼</span><span class="kl">עלות ליד</span></div><div class="kpi"><span class="kn">ROAS ▲</span><span class="kl">החזר</span></div></div></div></article>
@@ -171,6 +170,16 @@
           <div class="step reveal" data-d="3"><span class="sn">05</span><h3>הפעלה ו-A/B</h3><p>קמפיינים חיים, בדיקות מתמשכות, אופטימיזציה יומיומית.</p></div>
           <div class="step reveal" data-d="3"><span class="sn">06</span><h3>סקייל</h3><p>מרחיב את מה שעובד, סוגר את מה שלא. רווח שגדל חודש אחרי חודש.</p></div>
         </div>
+      </div>
+    </section>
+
+    <!-- Ideal fit (blue) -->
+    <section class="blue">
+      <div class="wrap">
+        <div class="section-head reveal"><span class="eyebrow">מתאים לך אם</span><h2>אנחנו מתאימים כשאתה</h2></div>
+        <ul class="fit-list reveal" data-d="1">
+          <li>משקיע 10K+ בחודש במדיה</li><li>רוצה לשלוט בשוק, לא רק לשרוד</li><li>עייף מסוכנויות שלא פרואקטיביות</li><li>צריך ביצוע מהיר ואיכותי</li><li>פתוח לאוטומציה וחדשנות</li><li>מאמין במדידה, לא בניחושים</li>
+        </ul>
       </div>
     </section>
 
