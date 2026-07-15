@@ -236,8 +236,7 @@ footer .brand-logo{ height:20px; }
 @media (max-width:560px){ .work-grid{ grid-template-columns:1fr;} }
 .work-card { position:relative; display:block; width:100%; padding:0; text-align:start; cursor:pointer; border:1px solid var(--stroke); border-radius: var(--radius); overflow:hidden; aspect-ratio: 4/3; background: var(--bg-2); font:inherit; color:inherit; transition: border-color .25s, transform .25s, box-shadow .25s; }
 .work-card:hover { transform: translateY(-3px); border-color: rgba(75,43,224,0.55); box-shadow:0 24px 50px -26px var(--purple-glow); }
-.work-card.is-featured { grid-column: span 2; aspect-ratio: 16/10; }
-@media (max-width:560px){ .work-card.is-featured{ grid-column: span 1; } }
+.work-card.is-featured { border-color: rgba(199,187,245,0.35); }
 .work-card img, .work-card video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition: transform .6s ease; }
 .work-card:hover img, .work-card:hover video { transform: scale(1.05); }
 .work-card .work-overlay { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:1.15rem; background: linear-gradient(0deg, rgba(7,7,14,0.88) 0%, rgba(7,7,14,0.12) 42%, transparent 66%); opacity:1; transition: background .3s; }
@@ -329,3 +328,7 @@ footer .brand { font-size:20px; }
 .reveal[data-d="1"]{ transition-delay:.06s; } .reveal[data-d="2"]{ transition-delay:.14s; }
 .reveal[data-d="3"]{ transition-delay:.22s; } .reveal[data-d="4"]{ transition-delay:.3s; }
 @media (prefers-reduced-motion: reduce){ *{ transition:none!important; animation:none!important; } .reveal{ opacity:1; transform:none; } html{ scroll-behavior:auto; } }
+
+/* Platforms strip when placed mid-page */
+.tools-mid { border-top: none; padding-block: clamp(2rem,4vw,3.2rem); }
+.tools-mid .tools-label { margin-bottom: 1rem; }
