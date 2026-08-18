@@ -381,3 +381,6 @@ footer .brand { font-size:20px; }
 /* tighter band -> services spacing */
 .band{ padding-block-end: clamp(1rem,3vw,2rem); }
 #services{ padding-block-start: clamp(1rem,3vw,2rem); }
+
+/* band removed: restore comfortable top space for services */
+#services{ padding-block-start: clamp(3rem,6vw,5rem); }
