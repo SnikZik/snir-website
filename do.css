@@ -377,3 +377,7 @@ footer .brand { font-size:20px; }
 .case-stats .cs{ display:flex; flex-direction:column; gap:.15rem; }
 .case-stats .csn{ font-family:var(--font-round); font-size:clamp(1.8rem,4vw,2.4rem); line-height:1; color:transparent; background:linear-gradient(92deg,var(--purple-2),var(--lilac)); -webkit-background-clip:text; background-clip:text; }
 .case-stats .csl{ color:var(--text-dim); font-size:.9rem; }
+
+/* tighter band -> services spacing */
+.band{ padding-block-end: clamp(1rem,3vw,2rem); }
+#services{ padding-block-start: clamp(1rem,3vw,2rem); }
