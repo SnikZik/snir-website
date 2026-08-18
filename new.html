@@ -157,14 +157,19 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .stat .lbl{color:var(--dim);margin-top:.7rem;font-size:.98rem}
 .src{margin-top:1.6rem;text-align:center;color:var(--mute);font-size:.88rem}
 .src .mono{margin-top:.5rem}
-/* marquee */
-.marq{margin-top:clamp(2.5rem,6vw,4rem);overflow:hidden;position:relative;
-  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-.marq .row{display:flex;gap:3.4rem;width:max-content;animation:marq 42s linear infinite}
+/* clients marquee */
+.clients-head{margin-top:clamp(2.5rem,6vw,4rem);text-align:center}
+.marq{margin-top:1.2rem;overflow:hidden;position:relative;
+  mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marq .row{display:flex;gap:.9rem;width:max-content;animation:marq 60s linear infinite}
+.marq .row.rev{animation-direction:reverse;animation-duration:70s}
 .marq:hover .row{animation-play-state:paused}
 @keyframes marq{to{transform:translateX(50%)}}
-.marq img{height:52px;width:auto;border-radius:10px;filter:grayscale(1) brightness(1.6) opacity(.42);transition:filter .3s}
-.marq img:hover{filter:grayscale(0) opacity(1)}
+.cchip{display:flex;flex-direction:column;gap:.1rem;background:var(--card);border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;padding:.7rem 1.25rem;white-space:nowrap;transition:border-color .25s,transform .25s}
+.cchip:hover{border-color:rgba(153,0,192,.55);transform:translateY(-2px)}
+.cchip b{font-size:.95rem;font-weight:700;color:var(--text)}
+.cchip span{font-size:.78rem;color:var(--mute)}
 
 /* ============ ecosystem ============ */
 .eco-stage{position:relative;max-width:680px;margin-inline:auto}
@@ -417,8 +422,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="src reveal">שלושה חודשים, אתר לקוח אחד, נתוני Search Console
         <span class="mono">VERIFIED / GSC</span>
       </div>
+      <div class="clients-head reveal">
+        <span class="mono p">/ CLIENTS</span>
+        <p class="lead" style="margin-top:.6rem">העסקים שרצים איתי עכשיו</p>
+      </div>
       <div class="marq reveal" aria-label="לקוחות">
-        <div class="row" id="logo-row"></div>
+        <div class="row" id="cli-row-a"></div>
+      </div>
+      <div class="marq reveal" aria-label="לקוחות נוספים">
+        <div class="row rev" id="cli-row-b"></div>
       </div>
     </div>
   </section>
@@ -646,10 +658,38 @@ var tog=bar.querySelector('.nav-toggle');
 tog.addEventListener('click',function(){var o=bar.classList.toggle('open');tog.setAttribute('aria-expanded',o);});
 bar.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',function(){bar.classList.remove('open');});});
 
-/* logos marquee (doubled for loop) */
-var LOGOS=[["elal","אל על"],["1848","יקב 1848"],["nicolleti","Nicoletti"],["select","Select"],["sefer-atora","ספר התורה"],["barzilai","ברזילי"],["dori-kimhi","דורי קמחי"],["ilan-car-galss","אילן קאר גלאס"],["tapacula","Tapachula"],["ashuk-shel-givataim","השוק של גבעתיים"],["gilad-mor","גלעד מור"],["gilad_yazamut","גלעד יזמות"],["online-car-parts","Online Car Parts"],["tiltal","תלתל"],["aef","אפעל"],["be","Be"],["chill","Chill"],["shades","Shades"]];
-var row=document.getElementById('logo-row');
-row.innerHTML=LOGOS.concat(LOGOS).map(function(l){return '<img src="assets/logos/'+l[0]+'.jpg" alt="'+l[1]+'" loading="lazy">';}).join('');
+/* clients marquee (doubled rows for loop) */
+var CLIENTS=[
+  ["מרכז גמילה פניקס","מרכז גמילה פרטי"],
+  ["קונטגארד","ניטור מטענים בזמן אמת"],
+  ["ניב המנעולן","מנעולן 24/7"],
+  ["שהם","שירותי הובלה מתקדמים"],
+  ["גיא מצברים","שירות מצברים לרכב"],
+  ["IGL","מעבדה גמולוגית"],
+  ["טום לייט לאבס EnoLed","פתרונות תאורת LED"],
+  ["ואן לימוזין","הסעות VIP"],
+  ["דביר נדלן","פרויקט הרצליה"],
+  ["סו סושי","מסעדת סושי"],
+  ["מונטסורי יער","בית ספר פרטי"],
+  ["צ׳אטוצ׳אק","מסעדה תאילנדית"],
+  ["אודל","בגדי מעצבים"],
+  ["מתנאל","רכבים לפירוק"],
+  ["שיש אלחי","עבודות שיש"],
+  ["ליאור רוזנטל","ליווי לגמילה מהימורים"],
+  ["בליקמח בעמ",""],
+  ["C Cler ים אסולין",""],
+  ["מכון צמיחה",""],
+  ["שני מנצור",""],
+  ["מבטח קרנות",""],
+  ["בואו",""],
+  ["אמבר אמריקה",""],
+  ["Play Ground",""]
+];
+function chip(c){return '<div class="cchip"><b>'+c[0]+'</b>'+(c[1]?'<span>'+c[1]+'</span>':'')+'</div>';}
+var half=Math.ceil(CLIENTS.length/2);
+var rowA=CLIENTS.slice(0,half), rowB=CLIENTS.slice(half);
+document.getElementById('cli-row-a').innerHTML=rowA.concat(rowA).map(chip).join('');
+document.getElementById('cli-row-b').innerHTML=rowB.concat(rowB).map(chip).join('');
 
 /* unified reveal */
 var io=new IntersectionObserver(function(es){es.forEach(function(e){
