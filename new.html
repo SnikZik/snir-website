@@ -92,8 +92,8 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 /* ============ hero ============ */
 .hero{min-height:100svh;display:flex;align-items:center;padding-top:5.5rem;
   background:
-    radial-gradient(52vw 46vh at 12% 8%,rgba(199,125,255,.10),transparent 60%),
-    radial-gradient(44vw 40vh at 88% 82%,rgba(153,0,192,.12),transparent 60%),
+    radial-gradient(52vw 46vh at 12% 8%,rgba(199,125,255,.05),transparent 60%),
+    radial-gradient(44vw 40vh at 88% 82%,rgba(153,0,192,.06),transparent 60%),
     var(--bg)}
 .hero::before{content:"";position:absolute;inset:0;
   background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);
@@ -110,36 +110,44 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 
 @keyframes drawline{to{stroke-dashoffset:0}}
 /* hero growth engine */
-.plats{margin-top:1.8rem;font-size:.66rem;color:var(--mute)}
+.hdot{display:inline-block;width:.15em;height:.15em;border-radius:50%;background:var(--purple);
+  margin-inline-start:.1em;box-shadow:0 0 10px rgba(153,0,192,.55)}
 .engine{padding:1.4rem 1.5rem 1.2rem;background:linear-gradient(165deg,rgba(255,255,255,.035),rgba(255,255,255,0)) ,var(--card);
   box-shadow:0 40px 80px -40px rgba(0,0,0,.8);max-width:430px;justify-self:end;width:100%}
 .eng-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;
   padding-bottom:.9rem;border-bottom:1px solid rgba(255,255,255,.06)}
 .eng-live{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;color:var(--dim);display:flex;align-items:center;gap:.5rem;direction:ltr}
-.eng-live .pdot{width:8px;height:8px;border-radius:50%;background:var(--purple);animation:dotpulse 2s infinite}
-.eng-flow{position:relative;display:flex;flex-direction:column;gap:.35rem;padding-inline-start:6px}
-.eng-line{position:absolute;top:14px;bottom:14px;inset-inline-start:13px;width:2px;
-  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(153,0,192,.45))}
-.sig{position:absolute;inset-inline-start:9.5px;top:0;width:9px;height:9px;border-radius:50%;
-  background:var(--blue);box-shadow:0 0 10px 2px rgba(46,124,246,.7);animation:sigfall 3.4s linear infinite;opacity:0}
-.sig.s2{animation-delay:1.15s;background:var(--purple);box-shadow:0 0 10px 2px rgba(153,0,192,.75)}
-.sig.s3{animation-delay:2.3s}
-@keyframes sigfall{0%{top:2%;opacity:0}10%{opacity:1}86%{opacity:1}96%{top:94%;opacity:0}100%{top:94%;opacity:0}}
-.erow{display:flex;align-items:center;gap:.85rem;padding:.5rem .2rem;position:relative;
-  opacity:0;transform:translateY(8px);animation:rowin .6s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(.25s + var(--d)*.14s)}
+.eng-live .pdot{width:7px;height:7px;border-radius:50%;background:#4ADE80;opacity:.75;animation:livepulse 2.4s infinite}
+@keyframes livepulse{0%,100%{opacity:.75}50%{opacity:.35}}
+.eng-flow{position:relative;display:flex;flex-direction:column;gap:.35rem;padding-inline-start:6px;padding-inline-end:30px}
+.eng-line{position:absolute;top:14px;bottom:52px;inset-inline-start:13px;width:2px;
+  background:rgba(255,255,255,.12)}
+.eng-return{position:absolute;top:14px;bottom:52px;inset-inline-end:6px;width:20px;
+  border:1px dashed rgba(255,255,255,.14);border-inline-start:none;
+  border-start-end-radius:12px;border-end-end-radius:12px}
+.eng-return-label{position:absolute;inset-inline-end:-6px;top:50%;transform:translateY(-50%) rotate(90deg);
+  font-size:.6rem;color:var(--mute);letter-spacing:.12em;white-space:nowrap}
+.sig{position:absolute;inset-inline-start:9.5px;top:0;width:8px;height:8px;border-radius:50%;
+  background:var(--blue);box-shadow:0 0 7px 1px rgba(46,124,246,.45);animation:sigfall 4.2s linear infinite;opacity:0}
+.sig.s2{animation-delay:2.1s;background:rgba(184,74,214,.85);box-shadow:0 0 7px 1px rgba(153,0,192,.4)}
+@keyframes sigfall{0%{top:2%;opacity:0}10%{opacity:1}80%{opacity:1}92%{top:82%;opacity:0}100%{top:82%;opacity:0}}
+.erow{display:flex;align-items:center;gap:.85rem;padding:.44rem .5rem;border-radius:10px;position:relative;
+  opacity:0;transform:translateY(8px);animation:rowin .6s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(.25s + var(--d)*.12s)}
 @keyframes rowin{to{opacity:1;transform:none}}
-.edot{width:16px;height:16px;border-radius:50%;flex:0 0 auto;background:var(--raise);
-  border:2px solid rgba(255,255,255,.22);position:relative;z-index:1}
-.erow.rev .edot{background:var(--purple);border-color:transparent;box-shadow:0 0 16px 3px rgba(153,0,192,.75);animation:dotpulse 2.6s infinite}
+.eng-flow.cycling .erow{transition:opacity .45s,background .45s}
+.eng-flow.cycling .erow:not(.act){opacity:.38}
+.eng-flow.cycling .erow.act{opacity:1;background:var(--raise)}
+.edot{width:14px;height:14px;border-radius:50%;flex:0 0 auto;background:var(--raise);
+  border:2px solid rgba(255,255,255,.2);position:relative;z-index:1;transition:background .45s,border-color .45s,box-shadow .45s}
+.erow.act .edot{background:var(--purple);border-color:transparent;box-shadow:0 0 12px 2px rgba(153,0,192,.55)}
 .etxt{display:flex;flex-direction:column;line-height:1.25;flex:1}
-.etxt b{font-size:.98rem;font-weight:700}
-.emono{font-family:var(--mono);font-size:.58rem;letter-spacing:.24em;color:var(--mute);direction:ltr;text-align:start;unicode-bidi:isolate;align-self:flex-start}
+.etxt b{font-size:.96rem;font-weight:700}
+.emono{font-family:var(--mono);font-size:.56rem;letter-spacing:.22em;color:var(--mute);direction:ltr;text-align:start;unicode-bidi:isolate;align-self:flex-start}
+.loop-chip-wrap{display:flex;justify-content:flex-end;margin-top:.6rem;min-height:2.1em}
 .echip{font-family:var(--mono);font-size:.7rem;color:var(--dim);background:var(--bg);
-  border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:.3rem .6rem;direction:ltr;white-space:nowrap}
-.echip b{color:var(--text);font-weight:500}
-.echip.hot{border-color:rgba(153,0,192,.5)}
-.echip.hot b{color:var(--pink)}
-.erow.rev .etxt b{color:#fff}
+  border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:.3rem .7rem;direction:ltr;white-space:nowrap;
+  transition:opacity .3s}
+.echip.swap{opacity:0}
 @media(max-width:900px){
   .hero .wrap{grid-template-columns:1fr}
   .engine{justify-self:center;max-width:420px}
@@ -347,17 +355,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="hero">
     <div class="wrap">
       <div>
-        <span class="mono p eyebrow">/ GROWTH &amp; TECHNOLOGY PARTNER</span>
         <h1>
           <span class="line"><span>קמפיינים הם רק ההתחלה.</span></span>
-          <span class="line"><span class="grad">אנחנו בונים את כל מנוע הצמיחה.</span></span>
+          <span class="line"><span>אנחנו בונים את מנוע הצמיחה<span class="hdot"></span></span></span>
         </h1>
-        <p class="lead sub">אנחנו מחברים פרפורמנס, דאטה, CRO, אוטומציה ו-AI למערכת אחת, מהקליק ועד להכנסה. מנהלים את המדיה חזק, ולא עוצרים בחשבון המודעות.</p>
+        <p class="lead sub">מנהלים מדיה חזק, ואז ממשיכים הלאה. דאטה, CRO, אוטומציה ו-CRM מתחברים למערכת אחת שהופכת קליקים להכנסה.</p>
         <div class="ctas">
           <a href="#cta" class="btn magnetic">בואו נצמח</a>
           <a href="#method" class="btn ghost">ראו איך זה עובד</a>
         </div>
-        <span class="mono plats">GOOGLE ADS · META · TIKTOK · LINKEDIN · TABOOLA</span>
       </div>
 
       <div class="engine kcard" aria-hidden="true">
@@ -365,42 +371,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="mono">GROWTH ENGINE</span>
           <span class="eng-live"><span class="pdot"></span>LIVE</span>
         </div>
-        <div class="eng-flow">
+        <div class="eng-flow" id="loop">
           <span class="eng-line"></span>
-          <span class="sig"></span><span class="sig s2"></span><span class="sig s3"></span>
-          <div class="erow" style="--d:0">
+          <span class="eng-return"></span>
+          <span class="eng-return-label">הסבב הבא</span>
+          <span class="sig"></span><span class="sig s2"></span>
+          <div class="erow" style="--d:0" data-chip="מה עובד, מה דולף">
             <span class="edot"></span>
-            <div class="etxt"><b>קמפיינים</b><span class="emono">GOOGLE / META / TIKTOK</span></div>
-            <span class="echip">ROAS <b data-tick="roas">4.2</b></span>
+            <div class="etxt"><b>ניתוח</b><span class="emono">ANALYZE</span></div>
           </div>
-          <div class="erow" style="--d:1">
+          <div class="erow" style="--d:1" data-chip="CR 3.1%">
             <span class="edot"></span>
-            <div class="etxt"><b>תנועה</b><span class="emono">TRAFFIC</span></div>
-            <span class="echip">CPA <b data-tick="cpa">38₪</b></span>
+            <div class="etxt"><b>טיפול CRO</b><span class="emono">CONVERT</span></div>
           </div>
-          <div class="erow" style="--d:2">
+          <div class="erow" style="--d:2" data-chip="ROAS 4.2">
             <span class="edot"></span>
-            <div class="etxt"><b>אתר ודף נחיתה</b><span class="emono">WEBSITE</span></div>
+            <div class="etxt"><b>קמפיינים דיגיטליים</b><span class="emono">GOOGLE / META</span></div>
           </div>
-          <div class="erow" style="--d:3">
+          <div class="erow" style="--d:3" data-chip="כל המרה נספרת">
             <span class="edot"></span>
-            <div class="etxt"><b>המרה</b><span class="emono">CONVERSION</span></div>
-            <span class="echip">CR <b data-tick="cr">3.1%</b></span>
+            <div class="etxt"><b>מדידה</b><span class="emono">MEASURE</span></div>
           </div>
-          <div class="erow" style="--d:4">
+          <div class="erow" style="--d:4" data-chip="CPA יורד">
             <span class="edot"></span>
-            <div class="etxt"><b>דאטה ו-CRM</b><span class="emono">DATA / CRM</span></div>
+            <div class="etxt"><b>שיפור</b><span class="emono">OPTIMIZE</span></div>
           </div>
-          <div class="erow" style="--d:5">
+          <div class="erow" style="--d:5" data-chip="רץ לבד">
             <span class="edot"></span>
-            <div class="etxt"><b>אוטומציה ו-AI</b><span class="emono">AUTOMATION</span></div>
-            <span class="echip">לידים <b data-tick="leads">27</b></span>
+            <div class="etxt"><b>אוטומציה</b><span class="emono">AUTOMATE</span></div>
           </div>
-          <div class="erow rev" style="--d:6">
+          <div class="erow rev" style="--d:6" data-chip="₪184K">
             <span class="edot"></span>
-            <div class="etxt"><b>הכנסה</b><span class="emono">REVENUE</span></div>
-            <span class="echip hot"><b data-tick="rev">₪184K</b></span>
+            <div class="etxt"><b>מכירה</b><span class="emono">REVENUE</span></div>
           </div>
+          <div class="loop-chip-wrap"><span class="echip" id="loop-chip">מה עובד, מה דולף</span></div>
         </div>
       </div>
     </div>
@@ -810,23 +814,24 @@ if(!reduced){
   fill.style.transform='scaleY(1)';head.style.display='none';
 }
 
-/* engine metric ticker: gentle drift inside a fixed range */
-if(!reduced){
-  var TICKS={
-    roas:{v:4.2,min:3.9,max:4.6,fmt:function(v){return v.toFixed(1);}},
-    cpa:{v:38,min:34,max:42,fmt:function(v){return Math.round(v)+'₪';}},
-    cr:{v:3.1,min:2.8,max:3.5,fmt:function(v){return v.toFixed(1)+'%';}},
-    leads:{v:27,min:24,max:31,fmt:function(v){return String(Math.round(v));}},
-    rev:{v:184,min:178,max:192,fmt:function(v){return '₪'+Math.round(v)+'K';}}
-  };
-  setInterval(function(){
-    Object.keys(TICKS).forEach(function(k){
-      var t=TICKS[k];
-      t.v=Math.min(t.max,Math.max(t.min,t.v+(Math.random()-.48)*(t.max-t.min)*.14));
-      document.querySelectorAll('[data-tick="'+k+'"]').forEach(function(el){el.textContent=t.fmt(t.v);});
-    });
-  },2400);
-}
+/* optimization loop: one active step at a time, chip follows */
+(function(){
+  var loop=document.getElementById('loop');if(!loop)return;
+  var rows=loop.querySelectorAll('.erow'),chip=document.getElementById('loop-chip');
+  if(reduced){rows[0].classList.add('act');return;}
+  var i=0;
+  setTimeout(function(){
+    loop.classList.add('cycling');
+    rows[0].classList.add('act');
+    setInterval(function(){
+      rows[i].classList.remove('act');
+      i=(i+1)%rows.length;
+      rows[i].classList.add('act');
+      chip.classList.add('swap');
+      setTimeout(function(){chip.textContent=rows[i].dataset.chip;chip.classList.remove('swap');},280);
+    },1900);
+  },1600);
+})();
 
 /* magnetic CTAs (desktop only) */
 if(matchMedia('(hover:hover)').matches&&!reduced){
