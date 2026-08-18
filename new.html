@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WCPBBN33');</script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNIR. · מנוע צמיחה, דאטה ואוטומציה</title>
+  <meta name="description" content="שניר זיו מחבר פרסום ממומן, דאטה, CRO ואוטומציה למערכת אחת שמייצרת צמיחה. מאז 2014, עם שליטה מלאה בכל המספרים.">
+  <meta name="theme-color" content="#101014">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="assets/brand/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============ tokens ============ */
+:root{
+  --bg:#101014; --panel:#16181D; --card:#1D2026; --raise:#26262E;
+  --purple:#9900C0; --purple-soft:#B84AD6; --blue:#2E7CF6; --pink:#C77DFF;
+  --text:#ECEAF2; --dim:#A6A6B0; --mute:#6E6E78;
+  --mono:'IBM Plex Mono',monospace; --sans:'Heebo',system-ui,sans-serif;
+  --maxw:1200px; --pad:clamp(1.25rem,4.5vw,4rem);
+  --keyline:linear-gradient(90deg,transparent,rgba(153,0,192,.55),transparent);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+section{padding-block:clamp(5rem,11vw,10rem);position:relative}
+h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;line-height:1.15}
+.lead{color:var(--dim);font-size:clamp(1rem,2.2vw,1.15rem);max-width:56ch}
+.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mute);display:block;direction:ltr;unicode-bidi:isolate}
+.mono.p{color:var(--purple-soft)}
+.grad{background:linear-gradient(92deg,var(--purple-soft),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.dot{display:inline-block;width:.16em;height:.16em;border-radius:50%;background:var(--purple);vertical-align:baseline;margin-inline-start:.08em;box-shadow:0 0 14px rgba(153,0,192,.8)}
+.sec-head{margin-bottom:clamp(2.5rem,6vw,4.5rem)}
+.sec-head .mono{margin-bottom:.9rem}
+
+/* keyline top edge for cards */
+.kcard{background:var(--card);border-radius:18px;position:relative;border:1px solid rgba(255,255,255,.06)}
+.kcard::before{content:"";position:absolute;top:0;inset-inline:12%;height:1px;background:var(--keyline)}
+
+/* ============ reveal system ============ */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*75ms)}
+.reveal.on{opacity:1;transform:none}
+
+/* ============ signal thread ============ */
+#thread{position:fixed;inset-block:0;inset-inline-end:26px;width:2px;z-index:5;pointer-events:none}
+#thread .track{position:absolute;inset:0;background:rgba(255,255,255,.05)}
+#thread .fill{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,var(--purple),var(--pink));transform:scaleY(0);transform-origin:top;box-shadow:0 0 10px rgba(153,0,192,.6)}
+#thread .head{position:absolute;left:50%;top:0;width:10px;height:10px;border-radius:50%;background:var(--purple);box-shadow:0 0 16px 4px rgba(153,0,192,.55);transform:translate(-50%,-50%)}
+@media(max-width:900px){#thread{display:none}}
+
+/* ============ cursor glow ============ */
+#cursor{position:fixed;width:460px;height:460px;border-radius:50%;pointer-events:none;z-index:1;
+  background:radial-gradient(circle,rgba(153,0,192,.09),transparent 65%);transform:translate(-50%,-50%);left:0;top:0}
+@media(hover:none){#cursor{display:none}}
+
+/* ============ topbar ============ */
+.topbar{position:fixed;inset-inline:0;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem var(--pad);backdrop-filter:blur(14px);background:rgba(16,16,20,.72);border-bottom:1px solid rgba(255,255,255,.05)}
+.brand{font-weight:900;font-size:1.5rem;letter-spacing:-.02em;direction:ltr}
+.brand .dot{width:.2em;height:.2em;animation:dotpulse 2.6s ease-in-out infinite}
+@keyframes dotpulse{0%,100%{box-shadow:0 0 10px rgba(153,0,192,.55)}50%{box-shadow:0 0 22px 4px rgba(153,0,192,.95)}}
+.topbar nav{display:flex;gap:1.8rem}
+.topbar nav a{color:var(--dim);font-size:.95rem;font-weight:500;transition:color .2s}
+.topbar nav a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:.55rem;background:var(--purple);color:#fff;font-weight:700;
+  padding:.85rem 1.7rem;border-radius:999px;border:none;cursor:pointer;font-size:1rem;font-family:var(--sans);
+  transition:transform .2s,box-shadow .2s,background .2s;will-change:transform}
+.btn:hover{box-shadow:0 8px 34px -8px rgba(153,0,192,.75);background:#AB0FD4}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.18);color:var(--text)}
+.btn.ghost:hover{border-color:var(--purple-soft);color:#fff;box-shadow:none}
+.nav-toggle{display:none;background:none;border:none;color:var(--text);cursor:pointer}
+@media(max-width:900px){
+  .topbar nav{display:none;position:absolute;top:100%;inset-inline:0;background:rgba(16,16,20,.97);flex-direction:column;padding:1.4rem var(--pad);gap:1.1rem;border-bottom:1px solid rgba(255,255,255,.07)}
+  .topbar.open nav{display:flex}
+  .nav-toggle{display:block}
+  .topbar .btn{display:none}
+}
+
+/* ============ hero ============ */
+.hero{min-height:100svh;display:flex;align-items:center;padding-top:5.5rem;
+  background:
+    radial-gradient(52vw 46vh at 12% 8%,rgba(199,125,255,.10),transparent 60%),
+    radial-gradient(44vw 40vh at 88% 82%,rgba(153,0,192,.12),transparent 60%),
+    var(--bg)}
+.hero::before{content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:34px 34px;mask-image:radial-gradient(60% 60% at 50% 40%,#000 20%,transparent 100%);pointer-events:none}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,5rem);align-items:center;position:relative;z-index:2}
+.hero h1{font-size:clamp(2.5rem,6.2vw,4.6rem);font-weight:900;line-height:1.08;letter-spacing:-.015em}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line>span{display:inline-block;transform:translateY(110%);animation:riseup .9s cubic-bezier(.2,.75,.2,1) forwards}
+.hero h1 .line:nth-child(2)>span{animation-delay:.12s}
+@keyframes riseup{to{transform:none}}
+.hero .sub{margin-top:1.5rem;max-width:54ch}
+.hero .ctas{margin-top:2.3rem;display:flex;gap:1rem;flex-wrap:wrap}
+.hero .eyebrow{margin-bottom:1.2rem}
+
+/* hero flow svg */
+.flow{position:relative}
+.flow svg{width:100%;height:auto;overflow:visible}
+.flow .fl{stroke:rgba(255,255,255,.16);stroke-width:1.5;fill:none}
+.flow .fl.draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:drawline 1.5s .3s cubic-bezier(.6,0,.3,1) forwards}
+@keyframes drawline{to{stroke-dashoffset:0}}
+.flow .node{fill:var(--card);stroke:rgba(255,255,255,.14);stroke-width:1.5}
+.flow .nlabel{fill:var(--text);font-family:var(--sans);font-weight:700;font-size:17px;text-anchor:middle}
+.flow .nsub{fill:var(--mute);font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-anchor:middle}
+.flow .end{fill:var(--purple);filter:drop-shadow(0 0 14px rgba(153,0,192,.9))}
+.flow .pulse{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--purple);box-shadow:0 0 12px 2px rgba(153,0,192,.8);
+  offset-rotate:0deg;animation:travel 3.2s linear infinite;opacity:0}
+.flow .pulse.b{background:var(--blue);box-shadow:0 0 12px 2px rgba(46,124,246,.8)}
+@keyframes travel{0%{opacity:0;offset-distance:0%}8%{opacity:1}88%{opacity:1}100%{opacity:0;offset-distance:100%}}
+@media(max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .flow{max-width:420px;margin-inline:auto}
+  .flow .pulse{display:none}
+}
+
+/* ============ proof band ============ */
+#proof{background:var(--panel)}
+#proof::before,#proof::after{content:"";position:absolute;inset-inline:8%;height:1px;background:var(--keyline)}
+#proof::before{top:0}#proof::after{bottom:0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+@media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{padding:1.9rem 1.2rem;text-align:center}
+.stat .num{font-weight:900;font-size:clamp(2.3rem,4.6vw,3.4rem);line-height:1;letter-spacing:-.02em;direction:ltr}
+.stat.hot .num{background:linear-gradient(92deg,var(--purple-soft),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .lbl{color:var(--dim);margin-top:.7rem;font-size:.98rem}
+.src{margin-top:1.6rem;text-align:center;color:var(--mute);font-size:.88rem}
+.src .mono{margin-top:.5rem}
+/* marquee */
+.marq{margin-top:clamp(2.5rem,6vw,4rem);overflow:hidden;position:relative;
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marq .row{display:flex;gap:3.4rem;width:max-content;animation:marq 42s linear infinite}
+.marq:hover .row{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(50%)}}
+.marq img{height:52px;width:auto;border-radius:10px;filter:grayscale(1) brightness(1.6) opacity(.42);transition:filter .3s}
+.marq img:hover{filter:grayscale(0) opacity(1)}
+
+/* ============ ecosystem ============ */
+.eco-stage{position:relative;max-width:680px;margin-inline:auto}
+.eco-stage svg{width:100%;height:auto;display:block}
+.eco-stage .cl{stroke:rgba(255,255,255,.10);stroke-width:1.2;fill:none;transition:stroke .25s,stroke-width .25s}
+.eco-stage .cl.hot{stroke:var(--blue);stroke-width:2}
+.eco-node{position:absolute;transform:translate(-50%,-50%);background:var(--card);border:1px solid rgba(255,255,255,.09);
+  border-radius:999px;padding:.65rem 1.15rem;font-weight:700;font-size:.92rem;white-space:nowrap;cursor:default;
+  transition:transform .25s,border-color .25s,opacity .25s,box-shadow .25s}
+.eco-node:hover{transform:translate(-50%,-50%) translateY(-4px);border-color:var(--purple-soft);box-shadow:0 10px 30px -12px rgba(153,0,192,.6)}
+.eco-stage.dimmed .eco-node:not(:hover):not(.core){opacity:.45}
+.eco-node.core{background:var(--purple);border-color:transparent;font-weight:900;font-size:1.05rem;direction:ltr;
+  box-shadow:0 0 40px -6px rgba(153,0,192,.8);padding:.85rem 1.5rem}
+.eco-tip{min-height:3.2em;margin-top:1.6rem;text-align:center;color:var(--dim);font-size:1.02rem;transition:opacity .25s}
+.eco-cards{display:none}
+@media(max-width:760px){
+  .eco-stage,.eco-tip{display:none}
+  .eco-cards{display:flex;flex-direction:column;gap:.9rem}
+  .eco-cards .kcard{padding:1.3rem 1.4rem}
+  .eco-cards h3{font-size:1.05rem;margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem}
+  .eco-cards p{color:var(--dim);font-size:.95rem}
+}
+
+/* ============ method ============ */
+#method{background:var(--panel)}
+.method-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,6vw,5rem)}
+@media(max-width:860px){.method-grid{grid-template-columns:1fr}}
+.method-sticky{position:sticky;top:7rem;align-self:start}
+@media(max-width:860px){.method-sticky{position:static}}
+.steps{display:flex;flex-direction:column;gap:1.2rem;position:relative;padding-inline-start:64px}
+.steps .knight{position:absolute;inset-inline-start:0;top:8px;width:44px;height:44px;transition:top .55s cubic-bezier(.5,-.25,.3,1.4)}
+.steps .knight img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 12px rgba(153,0,192,.7))}
+.step{padding:1.6rem 1.6rem;opacity:.5;transition:opacity .4s,background .4s}
+.step.on{opacity:1;background:var(--raise)}
+.step .n{font-family:var(--mono);color:var(--mute);font-size:.8rem;letter-spacing:.25em}
+.step.on .n{color:var(--purple-soft)}
+.step h3{font-size:1.25rem;font-weight:800;margin:.35rem 0 .4rem}
+.step p{color:var(--dim);font-size:.97rem}
+
+/* ============ results ============ */
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+@media(max-width:900px){.cases{grid-template-columns:1fr}}
+.case{padding:clamp(1.5rem,3.5vw,2.4rem)}
+.case .mono{margin-bottom:1rem}
+.case h3{font-size:1.35rem;font-weight:800;margin-bottom:1.2rem}
+/* chart */
+.chart{position:relative}
+.chart svg{width:100%;height:auto;overflow:visible}
+.chart .grid-l{stroke:rgba(255,255,255,.05);stroke-width:1}
+.chart .line{stroke:var(--blue);stroke-width:2.5;fill:none;filter:drop-shadow(0 0 8px rgba(46,124,246,.5))}
+.chart .area{fill:url(#areaGrad);opacity:0}
+.chart.on .area{animation:fadein 1s 1.2s forwards}
+@keyframes fadein{to{opacity:1}}
+.chart .line.go{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:drawline 1.6s .2s cubic-bezier(.5,0,.3,1) forwards}
+.chip{position:absolute;background:var(--raise);border:1px solid rgba(255,255,255,.1);border-radius:999px;
+  padding:.3rem .8rem;font-size:.82rem;font-weight:700;white-space:nowrap;opacity:0;transform:translateY(6px);
+  transition:opacity .5s,transform .5s;direction:ltr}
+.chart.on .chip{opacity:1;transform:none}
+.chip b{color:var(--pink)}
+/* ledclub feed */
+.feed{display:flex;flex-direction:column;gap:.7rem}
+.bub{background:var(--raise);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:.85rem 1.1rem;
+  font-size:.95rem;color:var(--text);opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}
+.feed.play .bub{opacity:1;transform:none}
+.feed.play .bub:nth-child(1){transition-delay:.1s}
+.feed.play .bub:nth-child(2){transition-delay:.7s}
+.feed.play .bub:nth-child(3){transition-delay:1.3s}
+.feed.play .bub:nth-child(4){transition-delay:1.9s}
+.bub .t{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;color:var(--purple-soft);display:block;margin-bottom:.15rem}
+.case-nums{display:flex;gap:1.6rem;margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.07);flex-wrap:wrap}
+.cn{display:flex;flex-direction:column}
+.cn .v{font-weight:900;font-size:2rem;line-height:1;direction:ltr}
+.cn.hot .v{color:var(--pink)}
+.cn .l{color:var(--dim);font-size:.85rem;margin-top:.3rem;max-width:15ch}
+.replay{margin-top:1.2rem;background:none;border:1px solid rgba(255,255,255,.15);color:var(--dim);border-radius:999px;
+  padding:.45rem 1.1rem;font-family:var(--sans);font-size:.85rem;cursor:pointer;transition:color .2s,border-color .2s}
+.replay:hover{color:#fff;border-color:var(--purple-soft)}
+
+/* ============ why ============ */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+@media(max-width:980px){.why-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.why-grid{grid-template-columns:1fr}}
+.why{padding:1.7rem 1.4rem;min-height:190px;display:flex;flex-direction:column;gap:.6rem;opacity:.45;transition:opacity .6s,box-shadow .6s}
+.why.lit{opacity:1;box-shadow:0 14px 40px -18px rgba(153,0,192,.45)}
+.why .mono{font-size:.65rem}
+.why h3{font-size:1.08rem;font-weight:800;line-height:1.35}
+.why p{color:var(--dim);font-size:.92rem}
+.contrast{margin-top:2.2rem;text-align:center;color:var(--mute);font-size:1rem}
+
+/* ============ founder ============ */
+#founder .card{display:grid;grid-template-columns:auto 1fr;gap:clamp(1.6rem,4vw,3.2rem);align-items:center;
+  padding:clamp(1.8rem,4vw,3rem);position:relative;overflow:hidden}
+@media(max-width:720px){#founder .card{grid-template-columns:1fr}}
+.bigdot{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#C24BE0,var(--purple) 65%);
+  box-shadow:0 0 80px 10px rgba(153,0,192,.5);animation:breathe 8s ease-in-out infinite;justify-self:center}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+#founder .role{color:var(--purple-soft);font-weight:700;margin:.2rem 0 .9rem}
+#founder blockquote{font-size:clamp(1.15rem,2.4vw,1.5rem);font-weight:800;line-height:1.45;margin-bottom:1rem}
+.chips{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.1rem}
+.chips span{background:var(--raise);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:.4rem 1rem;font-size:.88rem;color:var(--dim)}
+.chips a{border-color:rgba(153,0,192,.5);color:var(--text)}
+
+/* ============ final cta ============ */
+#cta{background:
+  radial-gradient(50vw 40vh at 50% 100%,rgba(153,0,192,.14),transparent 65%),var(--panel)}
+#cta::before{content:"";position:absolute;inset:auto 0 0 0;height:46%;
+  background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:56px 56px;mask-image:linear-gradient(180deg,transparent,#000);pointer-events:none}
+.cta-mark{font-size:clamp(3.4rem,10vw,7rem);font-weight:900;letter-spacing:-.03em;direction:ltr;text-align:center;line-height:1}
+.cta-mark .dot{width:.17em;height:.17em;position:relative}
+.cta-mark .dot::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(153,0,192,.6);
+  opacity:0;transform:scale(.4)}
+.cta-mark.on .dot::after{animation:ring 1.2s .3s ease-out}
+@keyframes ring{0%{opacity:1;transform:scale(.4)}100%{opacity:0;transform:scale(2.6)}}
+#cta h2{text-align:center;margin-top:1.6rem}
+#cta .lead{text-align:center;margin-inline:auto;margin-top:1rem}
+.cta-shell{max-width:640px;margin:3rem auto 0;padding:clamp(1.6rem,4vw,2.6rem)}
+.cta-shell form{display:flex;flex-direction:column;gap:1rem}
+.field label{display:block;font-size:.85rem;color:var(--dim);margin-bottom:.35rem;font-weight:500}
+.field input{width:100%;background:var(--bg);border:1px solid rgba(255,255,255,.1);border-radius:12px;
+  padding:.9rem 1.1rem;color:var(--text);font-family:var(--sans);font-size:1rem;transition:border-color .2s}
+.field input:focus{outline:none;border-color:var(--purple-soft)}
+.cta-row{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:.4rem}
+.cta-row .btn{flex:1;justify-content:center;min-width:200px}
+.note{color:var(--mute);font-size:.85rem;text-align:center;margin-top:1rem}
+
+/* ============ footer ============ */
+footer{padding:2.6rem var(--pad);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,.06)}
+footer .links{display:flex;gap:1.6rem;color:var(--dim);font-size:.92rem}
+footer .links a:hover{color:var(--text)}
+
+/* whatsapp float */
+.wa-float{position:fixed;inset-inline-start:1.2rem;bottom:1.2rem;z-index:60;width:54px;height:54px;border-radius:50%;
+  background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff;
+  box-shadow:0 10px 26px -8px rgba(0,0,0,.6);transition:transform .2s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:28px;height:28px}
+
+/* ============ reduced motion ============ */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  .flow .pulse{display:none}
+  #cursor{display:none}
+}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WCPBBN33"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div id="cursor" aria-hidden="true"></div>
+<div id="thread" aria-hidden="true"><div class="track"></div><div class="fill"></div><div class="head"></div></div>
+
+<header class="topbar" id="topbar">
+  <a href="#top" class="brand">SNIR<span class="dot"></span></a>
+  <nav aria-label="ניווט">
+    <a href="#eco">מה אני בונה</a>
+    <a href="#method">המנוע</a>
+    <a href="#results">תוצאות</a>
+    <a href="#founder">מי מאחורי זה</a>
+  </nav>
+  <a href="#cta" class="btn">בואו נדבר</a>
+  <button class="nav-toggle" aria-label="תפריט" aria-expanded="false">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="mono p eyebrow">/ GROWTH &amp; TECHNOLOGY PARTNER</span>
+        <h1>
+          <span class="line"><span>העסק שלך צריך מנוע צמיחה,</span></span>
+          <span class="line"><span class="grad">לא עוד קמפיינים.</span></span>
+        </h1>
+        <p class="lead sub">שניר זיו מחבר מאז 2014 פרסום ממומן, דאטה, CRO ואוטומציה למערכת אחת שרואים אותה עובדת. בלי צוות מנופח ובלי שכבות תיווך, עם שליטה מלאה בכל המספרים.</p>
+        <div class="ctas">
+          <a href="#cta" class="btn magnetic">בואו נבנה את המנוע שלכם</a>
+          <a href="https://wa.me/972543232999?text=%D7%94%D7%99%20SNIR" target="_blank" rel="noopener" class="btn ghost">וואטסאפ 054-323-2999</a>
+        </div>
+      </div>
+
+      <div class="flow" aria-hidden="true">
+        <svg viewBox="0 0 480 260">
+          <path id="fp1" class="fl draw" style="--len:150" d="M420,70 C380,70 350,110 310,118"/>
+          <path id="fp2" class="fl draw" style="--len:150" d="M250,124 C200,132 170,160 120,178"/>
+          <path id="fp3" class="fl draw" style="--len:70" d="M92,184 C75,190 65,194 52,198"/>
+          <circle class="node" cx="420" cy="70" r="34"/>
+          <text class="nlabel" x="420" y="66">תנועה</text>
+          <text class="nsub" x="420" y="84">TRAFFIC</text>
+          <circle class="node" cx="280" cy="121" r="34"/>
+          <text class="nlabel" x="280" y="117">המרה</text>
+          <text class="nsub" x="280" y="135">CONVERT</text>
+          <circle class="node" cx="120" cy="178" r="34"/>
+          <text class="nlabel" x="120" y="174">הכנסה</text>
+          <text class="nsub" x="120" y="192">REVENUE</text>
+          <circle class="end" cx="44" cy="200" r="9"/>
+        </svg>
+        <span class="pulse" style="offset-path:path('M420,70 C380,70 350,110 310,118 C270,126 200,132 150,160 C120,175 80,192 44,200');animation-delay:0s"></span>
+        <span class="pulse b" style="offset-path:path('M420,70 C380,70 350,110 310,118 C270,126 200,132 150,160 C120,175 80,192 44,200');animation-delay:1.1s"></span>
+        <span class="pulse" style="offset-path:path('M420,70 C380,70 350,110 310,118 C270,126 200,132 150,160 C120,175 80,192 44,200');animation-delay:2.2s"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROOF ============ -->
+  <section id="proof">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono p">/ PROOF</span>
+        <h2>מספרים שנבנו ולא הובטחו</h2>
+      </div>
+      <div class="stats">
+        <div class="stat kcard hot reveal" style="--i:0"><div class="num" data-count="151" data-prefix="+" data-suffix="%">+151%</div><div class="lbl">קליקים אורגניים</div></div>
+        <div class="stat kcard reveal" style="--i:1"><div class="num" data-count="105" data-prefix="+" data-suffix="%">+105%</div><div class="lbl">CTR</div></div>
+        <div class="stat kcard reveal" style="--i:2"><div class="num" data-count="22" data-prefix="+" data-suffix="%">+22%</div><div class="lbl">הופעות</div></div>
+        <div class="stat kcard reveal" style="--i:3"><div class="num" data-count="8">8</div><div class="lbl">מקומות קדימה בדירוג</div></div>
+      </div>
+      <div class="src reveal">שלושה חודשים, אתר לקוח אחד, נתוני Search Console
+        <span class="mono">VERIFIED / GSC</span>
+      </div>
+      <div class="marq reveal" aria-label="לקוחות">
+        <div class="row" id="logo-row"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ECOSYSTEM ============ -->
+  <section id="eco">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono p">/ SYSTEM</span>
+        <h2>שישה תחומים, מנוע אחד</h2>
+        <p class="lead" style="margin-top:1rem">אצל סוכנות כל שירות הוא מחלקה. כאן כל חלק מזין את השאר.</p>
+      </div>
+
+      <div class="eco-stage reveal" id="eco-stage">
+        <svg viewBox="0 0 600 480" aria-hidden="true">
+          <path class="cl" data-l="0" d="M300,240 L510,240"/>
+          <path class="cl" data-l="1" d="M300,240 L405,100"/>
+          <path class="cl" data-l="2" d="M300,240 L195,100"/>
+          <path class="cl" data-l="3" d="M300,240 L90,240"/>
+          <path class="cl" data-l="4" d="M300,240 L195,380"/>
+          <path class="cl" data-l="5" d="M300,240 L405,380"/>
+        </svg>
+        <div class="eco-node core" style="left:50%;top:50%">SNIR<span class="dot"></span></div>
+        <div class="eco-node" data-i="0" data-tip="הדאטה מכוון את הקמפיינים בגוגל, מטא, טיקטוק, לינקדאין וטאבולה." style="left:85%;top:50%">פרסום ממומן</div>
+        <div class="eco-node" data-i="1" data-tip="עמוד מוצר, עגלה וצ׳קאאוט שנמדדים ומשתפרים כל חודש." style="left:67.5%;top:20.8%">CRO לחנויות</div>
+        <div class="eco-node" data-i="2" data-tip="GA4 ומדידה צד שרת. כל קליק וכל שקל נספרים." style="left:32.5%;top:20.8%">דאטה ומדידה</div>
+        <div class="eco-node" data-i="3" data-tip="סוכני AI ואוטומציות שסוגרים תהליכים בלי מגע יד." style="left:15%;top:50%">AI ואוטומציה</div>
+        <div class="eco-node" data-i="4" data-tip="אתרים ודפי נחיתה שנבנים סביב המרה, לא סביב יופי." style="left:32.5%;top:79.2%">אתרים ודפי נחיתה</div>
+        <div class="eco-node" data-i="5" data-tip="הלקוח שקנה פעם קונה שוב. CRM, מיילים ושימור." style="left:67.5%;top:79.2%">CRM ושימור</div>
+      </div>
+      <p class="eco-tip" id="eco-tip">עברו על תחום כדי לראות איך הוא מזין את המערכת.</p>
+
+      <div class="eco-cards">
+        <div class="kcard reveal" style="--i:0"><h3><span class="dot"></span>פרסום ממומן</h3><p>הדאטה מכוון את הקמפיינים בגוגל, מטא, טיקטוק, לינקדאין וטאבולה.</p></div>
+        <div class="kcard reveal" style="--i:1"><h3><span class="dot"></span>CRO לחנויות</h3><p>עמוד מוצר, עגלה וצ׳קאאוט שנמדדים ומשתפרים כל חודש.</p></div>
+        <div class="kcard reveal" style="--i:2"><h3><span class="dot"></span>דאטה ומדידה</h3><p>GA4 ומדידה צד שרת. כל קליק וכל שקל נספרים.</p></div>
+        <div class="kcard reveal" style="--i:3"><h3><span class="dot"></span>AI ואוטומציה</h3><p>סוכני AI ואוטומציות שסוגרים תהליכים בלי מגע יד.</p></div>
+        <div class="kcard reveal" style="--i:4"><h3><span class="dot"></span>אתרים ודפי נחיתה</h3><p>אתרים ודפי נחיתה שנבנים סביב המרה, לא סביב יופי.</p></div>
+        <div class="kcard reveal" style="--i:5"><h3><span class="dot"></span>CRM ושימור</h3><p>הלקוח שקנה פעם קונה שוב. CRM, מיילים ושימור.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ METHOD ============ -->
+  <section id="method">
+    <div class="wrap method-grid">
+      <div class="method-sticky reveal">
+        <span class="mono p">/ METHOD</span>
+        <h2 style="margin-top:.9rem">המנוע נבנה בארבעה מהלכים</h2>
+        <p class="lead" style="margin-top:1.1rem">כל מהלך נשען על הקודם. בלי מדידה אין תנועה חכמה, בלי המרה אין הכנסה, בלי אוטומציה אין שקט.</p>
+      </div>
+      <div class="steps" id="steps">
+        <div class="knight" id="knight"><img src="assets/hero/chess-knight.png" alt=""></div>
+        <div class="step kcard" data-step="0">
+          <span class="n">01 / MEASURE</span>
+          <h3>אבחון ומדידה</h3>
+          <p>GA4, מדידה צד שרת, חיבור המרות. כל שקל שנכנס ויוצא נספר לפני שמפעילים כלום.</p>
+        </div>
+        <div class="step kcard" data-step="1">
+          <span class="n">02 / TRAFFIC</span>
+          <h3>תנועה שמייצרת כסף</h3>
+          <p>Google, Meta, TikTok, LinkedIn, Taboola. הפלטפורמה נבחרת לפי מה שהדאטה אומר, לא לפי הרגל.</p>
+        </div>
+        <div class="step kcard" data-step="2">
+          <span class="n">03 / CONVERT</span>
+          <h3>המרה</h3>
+          <p>עמוד מוצר, עגלה וצ׳קאאוט שנמדדים ומשתפרים כל חודש. אותה תנועה, יותר הזמנות.</p>
+        </div>
+        <div class="step kcard" data-step="3">
+          <span class="n">04 / RETAIN</span>
+          <h3>אוטומציה ושימור</h3>
+          <p>CRM, מיילים ואוטומציות שרצות לבד. המערכת עובדת גם כשאתה ישן.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="results">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono p">/ RESULTS</span>
+        <h2>תוצאות עם שם ומספר</h2>
+      </div>
+      <div class="cases">
+        <div class="case kcard reveal" style="--i:0">
+          <span class="mono">CASE / ORGANIC</span>
+          <h3>אורגני בשלושה חודשים</h3>
+          <div class="chart" id="chart">
+            <svg viewBox="0 0 400 180">
+              <defs>
+                <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="rgba(46,124,246,.25)"/>
+                  <stop offset="100%" stop-color="rgba(46,124,246,0)"/>
+                </linearGradient>
+              </defs>
+              <line class="grid-l" x1="0" y1="45" x2="400" y2="45"/>
+              <line class="grid-l" x1="0" y1="90" x2="400" y2="90"/>
+              <line class="grid-l" x1="0" y1="135" x2="400" y2="135"/>
+              <path class="area" d="M395,30 C330,55 280,80 220,105 C160,128 100,142 5,152 L5,180 L395,180 Z"/>
+              <path class="line" id="chart-line" d="M5,152 C100,142 160,128 220,105 C280,80 330,55 395,30"/>
+            </svg>
+            <span class="chip" style="inset-inline-start:4%;bottom:24%"><b>+22%</b> הופעות</span>
+            <span class="chip" style="inset-inline-start:38%;bottom:48%"><b>+105%</b> CTR</span>
+            <span class="chip" style="inset-inline-end:2%;bottom:78%"><b>+151%</b> קליקים</span>
+          </div>
+          <div class="case-nums">
+            <div class="cn"><span class="v">8</span><span class="l">מקומות קדימה בדירוג</span></div>
+            <div class="cn"><span class="v" style="direction:rtl">3</span><span class="l">חודשים בלבד</span></div>
+          </div>
+        </div>
+
+        <div class="case kcard reveal" style="--i:1">
+          <span class="mono">CASE / AUTOMATION · LEDCLUB</span>
+          <h3>מליד בפייסבוק להזמנה בשופיפיי, בלי מגע יד</h3>
+          <div class="feed" id="feed">
+            <div class="bub"><span class="t">TRIGGER</span>ליד נכנס מקמפיין בפייסבוק</div>
+            <div class="bub"><span class="t">בתוך דקה</span>מייל והודעה יוצאים ללקוח אוטומטית</div>
+            <div class="bub"><span class="t">ONE CLICK</span>הלקוח מאשר או מתקן כתובת בקליק אחד</div>
+            <div class="bub"><span class="t">SHOPIFY</span>ההזמנה נפתחת בשופיפיי לבד</div>
+          </div>
+          <div class="case-nums">
+            <div class="cn"><span class="v" data-count="13">13</span><span class="l">הזמנות נפתחו אוטומטית</span></div>
+            <div class="cn"><span class="v" data-count="4">4</span><span class="l">לקוחות תיקנו כתובת לפני משלוח</span></div>
+            <div class="cn hot"><span class="v" data-count="0">0</span><span class="l">תקלות</span></div>
+          </div>
+          <button class="replay" id="replay" type="button">הפעל שוב</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY ============ -->
+  <section id="why" style="background:var(--panel)">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono p">/ WHY SNIR</span>
+        <h2>המהלך של הפרש</h2>
+        <p class="lead" style="margin-top:1rem">הפרש הוא הכלי היחיד שמדלג מעל התור. ככה גם העבודה כאן.</p>
+      </div>
+      <div class="why-grid" id="why-grid">
+        <div class="why kcard"><span class="mono">01</span><h3>מי שמדבר איתך הוא מי שעובד</h3><p>בלי מסירות בין מחלקות ובלי טלפון שבור.</p></div>
+        <div class="why kcard"><span class="mono">02</span><h3>החלטות מהדאטה</h3><p>לא מתחושת בטן ולא ממצגת.</p></div>
+        <div class="why kcard"><span class="mono">03</span><h3>טכנולוגיה שנבנית בבית</h3><p>סוכנים, אוטומציות ודוחות שנתפרים לעסק, לא נקנים במדף.</p></div>
+        <div class="why kcard"><span class="mono">04</span><h3>הכל נשאר בבעלות שלך</h3><p>החשבונות, הדאטה והמערכות. אתה אף פעם לא שבוי.</p></div>
+      </div>
+      <p class="contrast reveal">מה שסוכנות עושה בשלוש מחלקות ושבעה מיילים קורה כאן בשיחה אחת.</p>
+    </div>
+  </section>
+
+  <!-- ============ FOUNDER ============ -->
+  <section id="founder">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono p">/ FOUNDER</span>
+        <h2>האיש מאחורי הנקודה</h2>
+      </div>
+      <div class="card kcard reveal">
+        <div class="bigdot" aria-hidden="true"></div>
+        <div>
+          <h3 style="font-size:1.6rem;font-weight:900">שניר זיו</h3>
+          <div class="role">מייסד SNIR</div>
+          <blockquote>אני לא מוכר שעות. אני בונה מכונה שעובדת בשבילך.</blockquote>
+          <p class="lead">מאז 2014 אני בונה מנועי צמיחה לעסקים. רואה קמפיין או גרף ומבין בדקות איפה הבעיה, בונה את הטכנולוגיה שסוגרת אותה, ונשאר עד שהמספר זז.</p>
+          <div class="chips">
+            <span>פעיל מאז 2014</span>
+            <span>18 מותגים</span>
+            <span>מאות קמפיינים</span>
+            <a class="chips-a" href="https://wa.me/972543232999?text=%D7%94%D7%99%20SNIR" target="_blank" rel="noopener"><span style="border-color:rgba(153,0,192,.5)">וואטסאפ 054-323-2999</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section id="cta">
+    <div class="wrap">
+      <div class="cta-mark reveal" id="cta-mark">SNIR<span class="dot"></span></div>
+      <h2 class="reveal">המהלך הבא כבר שלך</h2>
+      <p class="lead reveal">שיחה ראשונה היא אבחון, לא מכירה. חוזרים תוך יום עסקים.</p>
+      <div class="cta-shell kcard reveal">
+        <form action="https://formsubmit.co/hello@snirdote.co.il" method="POST">
+          <input type="hidden" name="_subject" value="פנייה חדשה מ-snirdote.co.il">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none">
+          <div class="field"><label for="f-name">שם</label><input id="f-name" name="שם" type="text" required placeholder="איך קוראים לך"></div>
+          <div class="field"><label for="f-phone">טלפון</label><input id="f-phone" name="טלפון" type="tel" required placeholder="050-0000000"></div>
+          <div class="field"><label for="f-what">מה אתם מוכרים</label><input id="f-what" name="מה אתם מוכרים" type="text" placeholder="חנות, שירות, מוצר"></div>
+          <div class="cta-row">
+            <button type="submit" class="btn magnetic">בואו נבנה את המנוע</button>
+            <a href="https://wa.me/972543232999?text=%D7%94%D7%99%20SNIR" target="_blank" rel="noopener" class="btn ghost">וואטסאפ 054-323-2999</a>
+          </div>
+        </form>
+        <p class="note">הפרטים נשארים אצלי בלבד. בלי ספאם ובלי רשימות תפוצה.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <a href="#top" class="brand">SNIR<span class="dot"></span></a>
+  <span style="color:var(--mute);font-size:.9rem">© 2026 SNIR</span>
+  <div class="links">
+    <a href="https://wa.me/972543232999" target="_blank" rel="noopener">וואטסאפ</a>
+    <a href="mailto:hello@snirdote.co.il">אימייל</a>
+    <a href="https://instagram.com/snir.studio" target="_blank" rel="noopener">אינסטגרם</a>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/972543232999?text=%D7%94%D7%99%20SNIR" target="_blank" rel="noopener" aria-label="וואטסאפ">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.73-.85-2-.95-.27-.1-.46-.15-.66.15-.2.3-.76.95-.93 1.14-.17.2-.34.22-.63.07-.3-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.73-1.63-2.02-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.18-.24-.57-.48-.5-.66-.5l-.56-.01c-.2 0-.5.07-.77.37-.26.3-1 .98-1 2.4 0 1.4 1.03 2.76 1.17 2.95.15.2 2.03 3.1 4.92 4.35.69.3 1.22.47 1.64.6.69.22 1.31.19 1.8.11.55-.08 1.73-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.35zM12.02 21.5h-.01a9.44 9.44 0 01-4.82-1.32l-.34-.2-3.58.94.96-3.49-.22-.36a9.42 9.42 0 01-1.44-5.02c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 012.77 6.68c0 5.2-4.24 9.45-9.46 9.45zm8.04-17.49A11.36 11.36 0 0012.02.5C5.76.5.67 5.58.67 11.84c0 2 .53 3.96 1.53 5.68L.5 23.5l6.13-1.6a11.35 11.35 0 005.39 1.37h.01c6.26 0 11.35-5.09 11.35-11.35 0-3.03-1.18-5.88-3.32-8.02z"/></svg>
+</a>
+
+<script>
+(function(){
+'use strict';
+var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* nav toggle */
+var bar=document.getElementById('topbar');
+var tog=bar.querySelector('.nav-toggle');
+tog.addEventListener('click',function(){var o=bar.classList.toggle('open');tog.setAttribute('aria-expanded',o);});
+bar.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',function(){bar.classList.remove('open');});});
+
+/* logos marquee (doubled for loop) */
+var LOGOS=[["elal","אל על"],["1848","יקב 1848"],["nicolleti","Nicoletti"],["select","Select"],["sefer-atora","ספר התורה"],["barzilai","ברזילי"],["dori-kimhi","דורי קמחי"],["ilan-car-galss","אילן קאר גלאס"],["tapacula","Tapachula"],["ashuk-shel-givataim","השוק של גבעתיים"],["gilad-mor","גלעד מור"],["gilad_yazamut","גלעד יזמות"],["online-car-parts","Online Car Parts"],["tiltal","תלתל"],["aef","אפעל"],["be","Be"],["chill","Chill"],["shades","Shades"]];
+var row=document.getElementById('logo-row');
+row.innerHTML=LOGOS.concat(LOGOS).map(function(l){return '<img src="assets/logos/'+l[0]+'.jpg" alt="'+l[1]+'" loading="lazy">';}).join('');
+
+/* unified reveal */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}
+});},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+/* counters */
+function ease(t){return 1-Math.pow(2,-10*t);}
+function count(el){
+  var target=+el.dataset.count,pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';
+  if(reduced){el.textContent=pre+target+suf;return;}
+  var t0=null;
+  function frame(ts){
+    if(!t0)t0=ts;
+    var p=Math.min((ts-t0)/1400,1);
+    el.textContent=pre+Math.round(target*ease(p))+suf;
+    if(p<1)requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+var cio=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){count(e.target);cio.unobserve(e.target);}
+});},{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
+
+/* chart draw */
+var chart=document.getElementById('chart');
+if(chart){
+  var line=document.getElementById('chart-line');
+  var len=line.getTotalLength();
+  line.style.setProperty('--len',len);
+  var chio=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){line.classList.add('go');chart.classList.add('on');chio.unobserve(chart);}
+  });},{threshold:.4});
+  chio.observe(chart);
+}
+
+/* ledclub feed */
+var feed=document.getElementById('feed');
+var fio=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){feed.classList.add('play');fio.unobserve(feed);}
+});},{threshold:.4});
+fio.observe(feed);
+document.getElementById('replay').addEventListener('click',function(){
+  feed.classList.remove('play');void feed.offsetWidth;feed.classList.add('play');
+});
+
+/* ecosystem hover */
+var stage=document.getElementById('eco-stage'),tip=document.getElementById('eco-tip');
+var tipDefault=tip.textContent;
+stage.querySelectorAll('.eco-node[data-i]').forEach(function(n){
+  function on(){
+    stage.classList.add('dimmed');
+    stage.querySelectorAll('.cl').forEach(function(l){l.classList.toggle('hot',l.dataset.l===n.dataset.i);});
+    tip.textContent=n.dataset.tip;
+  }
+  function off(){
+    stage.classList.remove('dimmed');
+    stage.querySelectorAll('.cl').forEach(function(l){l.classList.remove('hot');});
+    tip.textContent=tipDefault;
+  }
+  n.addEventListener('mouseenter',on);n.addEventListener('mouseleave',off);
+  n.addEventListener('focus',on);n.addEventListener('blur',off);
+  n.addEventListener('click',on);
+});
+
+/* method knight hop */
+var steps=document.querySelectorAll('.step'),knight=document.getElementById('knight');
+var sio=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){
+    steps.forEach(function(s){s.classList.remove('on');});
+    e.target.classList.add('on');
+    knight.style.top=(e.target.offsetTop+18)+'px';
+  }
+});},{threshold:.65});
+steps.forEach(function(s){sio.observe(s);});
+
+/* why cards light in sequence */
+var whyGrid=document.getElementById('why-grid');
+var wio=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){
+    whyGrid.querySelectorAll('.why').forEach(function(c,i){
+      setTimeout(function(){c.classList.add('lit');},i*420);
+    });
+    wio.unobserve(whyGrid);
+  }
+});},{threshold:.3});
+wio.observe(whyGrid);
+
+/* cta ring */
+var mark=document.getElementById('cta-mark');
+var mio=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){mark.classList.add('on');mio.unobserve(mark);}
+});},{threshold:.7});
+mio.observe(mark);
+
+/* signal thread + cursor glow, one rAF loop */
+var fill=document.querySelector('#thread .fill'),head=document.querySelector('#thread .head');
+var cursor=document.getElementById('cursor');
+var mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
+addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;},{passive:true});
+var prog=0,target=0;
+addEventListener('scroll',function(){
+  var h=document.documentElement;
+  target=h.scrollTop/(h.scrollHeight-h.clientHeight);
+},{passive:true});
+if(!reduced){
+  (function loop(){
+    prog+=(target-prog)*.08;
+    fill.style.transform='scaleY('+prog+')';
+    head.style.top=(prog*100)+'%';
+    cx+=(mx-cx)*.12;cy+=(my-cy)*.12;
+    cursor.style.left=cx+'px';cursor.style.top=cy+'px';
+    requestAnimationFrame(loop);
+  })();
+}else{
+  fill.style.transform='scaleY(1)';head.style.display='none';
+}
+
+/* magnetic CTAs (desktop only) */
+if(matchMedia('(hover:hover)').matches&&!reduced){
+  document.querySelectorAll('.btn.magnetic').forEach(function(b){
+    b.addEventListener('mousemove',function(e){
+      var r=b.getBoundingClientRect();
+      var dx=(e.clientX-r.left-r.width/2)/r.width,dy=(e.clientY-r.top-r.height/2)/r.height;
+      b.style.transform='translate('+(dx*6)+'px,'+(dy*6)+'px)';
+    });
+    b.addEventListener('mouseleave',function(){b.style.transform='';});
+  });
+}
+})();
+</script>
+</body>
+</html>
