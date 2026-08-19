@@ -279,7 +279,9 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
   border-radius:14px;opacity:0;transition:opacity .5s .15s}
 .serp.show .serp-skel{opacity:.55}
 .serp-skel i{display:block;height:9px;border-radius:5px;background:rgba(255,255,255,.08)}
-.ranks{display:flex;flex-direction:column;gap:.8rem}
+.ranks{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem}
+.ranks .ranks-note{grid-column:1/-1}
+@media(max-width:560px){.ranks{grid-template-columns:1fr}}
 .rank{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem}
 .rank .rk{font-family:var(--mono);font-size:1.25rem;color:var(--pink);border:1px solid rgba(153,0,192,.5);
   border-radius:10px;width:2em;height:2em;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
@@ -625,10 +627,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
         <div class="ranks reveal" data-d="1">
-          <div class="rank kcard"><span class="rk">1</span><div><b>הובלות לעסקים</b><span>שהם הובלות</span></div></div>
-          <div class="rank kcard"><span class="rk">1</span><div><b>שיש למטבח</b><span>שיש אלחי</span></div></div>
+          <div class="rank kcard"><span class="rk">1</span><div><b>גמילה מקטמין, הרואין וקוקאין</b><span>מרכז גמילה פניקס</span></div></div>
+          <div class="rank kcard"><span class="rk">1</span><div><b>השתלת שיער ללא כאבים</b><span>פול הייר</span></div></div>
+          <div class="rank kcard"><span class="rk">1</span><div><b>אחסון משרדים</b><span>שהם הובלות</span></div></div>
+          <div class="rank kcard"><span class="rk">1</span><div><b>שחזור שלט לרכב</b><span>אבי מנעולן</span></div></div>
+          <div class="rank kcard"><span class="rk">1</span><div><b>סימון מגרשי ספורט</b><span>פיינטגול, מקום ראשון גם בחידוש ובנייה</span></div></div>
           <div class="rank kcard"><span class="rk">1</span><div><b>רכבים לפירוק</b><span>מתנאל, מקומות ראשונים בכל ביטויי התחום</span></div></div>
-          <div class="rank kcard"><span class="rk">1</span><div><b>גמילה פרטית</b><span>מרכז פניקס, מקום ראשון בכל ביטויי התחום</span></div></div>
+          <div class="rank kcard"><span class="rk">2</span><div><b>שיש למטבח</b><span>שיש אלחי</span></div></div>
+          <div class="rank kcard"><span class="rk">2</span><div><b>הובלות לעסקים</b><span>שהם הובלות</span></div></div>
           <p class="ranks-note">ומאחורי כל מיקום, תוכן ותשתית שנבנים חודש אחרי חודש. אותו מנוע שהביא ‎+151% קליקים בשלושה חודשים.</p>
         </div>
       </div>
@@ -756,7 +762,10 @@ var CLIENTS=[
   ["צ׳אטוצ׳אק","מסעדת שף תאילנדית","טאביט ואירועים"],
   ["אודל","בוטיק פרימיום בראשון לציון","מכירות מהאינטרנט ב-ROAS גבוה"],
   ["מתנאל","רכבים לפירוק","ממומן ואורגני, מקומות ראשונים בכל הביטויים"],
-  ["שיש אלחי","עבודות שיש","ממומן ואורגני, מקום ראשון בשיש למטבח"]
+  ["שיש אלחי","עבודות שיש","ממומן ואורגני, מיקומים גבוהים בביטויי שיש"],
+  ["פול הייר","השתלות שיער","אורגני, מקום ראשון בהשתלת שיער ללא כאבים"],
+  ["אבי מנעולן","מנעולן ושלטי רכב","אורגני, מקום ראשון בשחזור שלטים"],
+  ["פיינטגול","מגרשי ספורט","אורגני, מקום ראשון בכל ביטויי התחום"]
 ];
 function chip(c){return '<div class="cchip"><b>'+c[0]+'</b>'+(c[1]?'<span>'+c[1]+'</span>':'')+(c[2]?'<i>'+c[2]+'</i>':'')+'</div>';}
 var half=Math.ceil(CLIENTS.length/2);
@@ -888,8 +897,10 @@ if(!reduced){
   var serp=document.getElementById('serp');if(!serp)return;
   var qEl=document.getElementById('serp-q'),cEl=document.getElementById('serp-client');
   var DATA=[
-    ["הובלות לעסקים","שהם הובלות"],
-    ["שיש למטבח","שיש אלחי"],
+    ["השתלת שיער ללא כאבים","פול הייר"],
+    ["אחסון משרדים","שהם הובלות"],
+    ["סימון מגרשי ספורט","פיינטגול"],
+    ["שחזור שלט לרכב","אבי מנעולן"],
     ["רכבים לפירוק","מתנאל רכבים לפירוק"]
   ];
   if(reduced){qEl.textContent=DATA[0][0];cEl.textContent=DATA[0][1];serp.classList.add('show');return;}
