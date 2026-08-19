@@ -179,6 +179,7 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .cchip b{font-size:.95rem;font-weight:700;color:var(--text)}
 .cchip span{font-size:.78rem;color:var(--mute)}
 .cchip i{font-style:normal;font-size:.78rem;color:var(--purple-soft);margin-top:.15rem}
+.cchip .yrs{text-decoration:none;font-family:var(--mono);font-size:.62rem;color:var(--dim);border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:.1rem .4rem;margin-inline-start:.35rem;vertical-align:middle}
 
 /* ============ ecosystem ============ */
 .eco-stage{position:relative;max-width:680px;margin-inline:auto}
@@ -256,6 +257,20 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .replay{margin-top:1.2rem;background:none;border:1px solid rgba(255,255,255,.15);color:var(--dim);border-radius:999px;
   padding:.45rem 1.1rem;font-family:var(--sans);font-size:.85rem;cursor:pointer;transition:color .2s,border-color .2s}
 .replay:hover{color:#fff;border-color:var(--purple-soft)}
+
+/* ecommerce band */
+.ecom-band{margin-top:1.4rem;display:grid;grid-template-columns:auto 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:center;padding:clamp(1.5rem,3.5vw,2.4rem)}
+@media(max-width:760px){.ecom-band{grid-template-columns:1fr}}
+.eb-stat{text-align:center;padding-inline-end:clamp(1rem,3vw,2.5rem);border-inline-end:1px solid rgba(255,255,255,.08)}
+@media(max-width:760px){.eb-stat{border-inline-end:none;padding-inline-end:0;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:1.2rem}}
+.eb-num{font-weight:900;font-size:clamp(2.2rem,5vw,3.2rem);line-height:1.1;direction:ltr;
+  background:linear-gradient(92deg,var(--purple-soft),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.eb-lbl{color:var(--dim);font-size:.9rem;margin-top:.4rem;max-width:22ch;margin-inline:auto}
+.eb-body p{color:var(--dim);font-size:1rem;max-width:60ch}
+.eb-chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.1rem}
+.eb-chips span{display:inline-flex;align-items:center;gap:.5rem;background:var(--raise);border:1px solid rgba(255,255,255,.09);
+  border-radius:999px;padding:.4rem .9rem;font-size:.88rem;font-weight:700}
+.eb-chips b{font-family:var(--mono);font-weight:400;font-size:.62rem;color:var(--dim);border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:.1rem .4rem}
 
 /* ============ organic serp ============ */
 .serp-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:1.4rem;align-items:start}
@@ -597,6 +612,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button class="replay" id="replay" type="button">הפעל שוב</button>
         </div>
       </div>
+      <div class="ecom-band kcard reveal" data-d="2">
+        <div class="eb-stat">
+          <span class="mono">ECOMMERCE</span>
+          <div class="eb-num">ROAS 15+</div>
+          <div class="eb-lbl">ממוצע על תיק האיקומרס, לאורך שנים</div>
+        </div>
+        <div class="eb-body">
+          <p>שישה מותגי איקומרס רצים איתי שנים ברציפות. לקוח שנשאר שלוש שנים אומר דבר אחד, הקמפיינים מרוויחים. המספרים המלאים של כל מותג נשארים ביני ובין הלקוח.</p>
+          <div class="eb-chips">
+            <span>בלי קמח<b>3+ שנים</b></span>
+            <span>שני מנצור<b>3+ שנים</b></span>
+            <span>C Clair<b>2+ שנים</b></span>
+            <span>אודל<b>1+ שנים</b></span>
+            <span>לד קלאב<b>1+ שנים</b></span>
+            <span>צימרלי<b>1+ שנים</b></span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -739,11 +772,13 @@ bar.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',fun
 /* clients marquee (doubled rows for loop) */
 var CLIENTS=[
   ["מכון צמיחה","טיפול רגשי בילדים","מאות לידים לעסק חדש"],
-  ["C Clair","תכשיטים אונליין","הגדלת מכירות ו-ROAS"],
-  ["בלי קמח","מאפייה ללא גלוטן","שיפור יחס ההמרה בחנות"],
+  ["C Clair","תכשיטים אונליין","הגדלת מכירות ו-ROAS","2+"],
+  ["בלי קמח","מאפייה ללא גלוטן","שיפור יחס ההמרה בחנות","3+"],
+  ["לד קלאב","תאורת LED אונליין","אוטומציית הזמנות מלאה","1+"],
+  ["צימרלי","פורטל צימרים","תוכן ואורגני","1+"],
   ["כרישים בניקיון","שירותי ניקיון","קמפיין לידים בתקציב גבוה"],
   ["מבטח קרנות 770","משכנתאות ופיננסים","לידים לייעוץ משכנתאות"],
-  ["שני מנצור","קוסמטיקה","לידים ו-ROAS גבוה"],
+  ["שני מנצור","קוסמטיקה","לידים ומכירות באתר, ROAS גבוה","3+"],
   ["אמבר אמריקה","נדל״ן בארה״ב","לידים למשקיעים"],
   ["בואו","מסעדה","מילוי מקומות דרך טאביט"],
   ["Play Ground","מסעדה","מילוי מקומות דרך טאביט"],
@@ -760,14 +795,14 @@ var CLIENTS=[
   ["סו סושי","מסעדת סושי","מילוי מקומות דרך טאביט"],
   ["מונטסורי יער","בית ספר פרטי","פרויקט בהתנדבות"],
   ["צ׳אטוצ׳אק","מסעדת שף תאילנדית","טאביט ואירועים"],
-  ["אודל","בוטיק פרימיום בראשון לציון","מכירות מהאינטרנט ב-ROAS גבוה"],
+  ["אודל","בוטיק פרימיום בראשון לציון","מכירות מהאינטרנט ב-ROAS גבוה","1+"],
   ["מתנאל","רכבים לפירוק","ממומן ואורגני, מקומות ראשונים בכל הביטויים"],
   ["שיש אל חי","משטחי שיש ואבן","ממומן ואורגני, מיקומים גבוהים בביטויי שיש"],
   ["פול הייר","השתלות שיער","אורגני, מקום ראשון בהשתלת שיער ללא כאבים"],
   ["אבי מנעולן","מנעולן ושלטי רכב","אורגני, מקום ראשון בשחזור שלטים"],
   ["פיינטגול","מגרשי ספורט","אורגני, מקום ראשון בכל ביטויי התחום"]
 ];
-function chip(c){return '<div class="cchip"><b>'+c[0]+'</b>'+(c[1]?'<span>'+c[1]+'</span>':'')+(c[2]?'<i>'+c[2]+'</i>':'')+'</div>';}
+function chip(c){return '<div class="cchip"><b>'+c[0]+(c[3]?' <u class="yrs">'+c[3]+' שנים</u>':'')+'</b>'+(c[1]?'<span>'+c[1]+'</span>':'')+(c[2]?'<i>'+c[2]+'</i>':'')+'</div>';}
 var half=Math.ceil(CLIENTS.length/2);
 var rowA=CLIENTS.slice(0,half), rowB=CLIENTS.slice(half);
 document.getElementById('cli-row-a').innerHTML=rowA.concat(rowA).map(chip).join('');
