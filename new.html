@@ -257,6 +257,36 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
   padding:.45rem 1.1rem;font-family:var(--sans);font-size:.85rem;cursor:pointer;transition:color .2s,border-color .2s}
 .replay:hover{color:#fff;border-color:var(--purple-soft)}
 
+/* ============ organic serp ============ */
+.serp-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:1.4rem;align-items:start}
+@media(max-width:900px){.serp-grid{grid-template-columns:1fr}}
+.serp{padding:clamp(1.4rem,3vw,2rem)}
+.serp-bar{display:flex;align-items:center;gap:.7rem;background:var(--bg);border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;padding:.8rem 1.2rem;color:var(--dim)}
+.serp-q{font-size:1rem;color:var(--text);font-weight:500;min-height:1.5em}
+.serp-caret{width:2px;height:1.1em;background:var(--purple-soft);animation:caret 1s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+.serp-results{margin-top:1.3rem;display:flex;flex-direction:column;gap:.9rem}
+.serp-hit{display:flex;gap:.9rem;align-items:flex-start;background:var(--raise);border:1px solid rgba(153,0,192,.4);
+  border-radius:14px;padding:1rem 1.1rem;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.serp.show .serp-hit{opacity:1;transform:none}
+.serp-pos{font-family:var(--mono);font-weight:500;font-size:1.05rem;color:var(--pink);border:1px solid rgba(153,0,192,.5);
+  border-radius:8px;width:1.9em;height:1.9em;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.serp-hit-body{display:flex;flex-direction:column;gap:.25rem}
+.serp-hit-body b{font-size:1.05rem}
+.serp-tag{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--dim)}
+.serp-skel{display:flex;flex-direction:column;gap:.5rem;padding:.9rem 1.1rem;border:1px solid rgba(255,255,255,.05);
+  border-radius:14px;opacity:0;transition:opacity .5s .15s}
+.serp.show .serp-skel{opacity:.55}
+.serp-skel i{display:block;height:9px;border-radius:5px;background:rgba(255,255,255,.08)}
+.ranks{display:flex;flex-direction:column;gap:.8rem}
+.rank{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem}
+.rank .rk{font-family:var(--mono);font-size:1.25rem;color:var(--pink);border:1px solid rgba(153,0,192,.5);
+  border-radius:10px;width:2em;height:2em;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.rank b{display:block;font-size:1.02rem}
+.rank span{display:block;color:var(--mute);font-size:.85rem}
+.ranks-note{color:var(--mute);font-size:.9rem;margin-top:.6rem}
+
 /* ============ why ============ */
 .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
 @media(max-width:980px){.why-grid{grid-template-columns:repeat(2,1fr)}}
@@ -568,6 +598,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <!-- ============ ORGANIC ============ -->
+  <section id="organic" style="background:var(--panel)">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="mono p">/ ORGANIC</span>
+        <h2>מקום ראשון בגוגל</h2>
+        <p class="lead" style="margin-top:1rem">קידום אורגני הוא נכס. הלקוחות שלי יושבים במקומות הראשונים בביטויים שמכניסים כסף, בלי לשלם על הקליק.</p>
+      </div>
+      <div class="serp-grid">
+        <div class="serp kcard reveal" id="serp" aria-hidden="true">
+          <div class="serp-bar">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+            <span class="serp-q" id="serp-q"></span><span class="serp-caret"></span>
+          </div>
+          <div class="serp-results" id="serp-results">
+            <div class="serp-hit">
+              <span class="serp-pos">1</span>
+              <div class="serp-hit-body">
+                <b id="serp-client">שהם הובלות</b>
+                <span class="serp-tag">הלקוח שלי<span class="dot" style="width:6px;height:6px"></span></span>
+              </div>
+            </div>
+            <div class="serp-skel"><i style="width:62%"></i><i style="width:84%"></i></div>
+            <div class="serp-skel"><i style="width:55%"></i><i style="width:78%"></i></div>
+          </div>
+        </div>
+        <div class="ranks reveal" data-d="1">
+          <div class="rank kcard"><span class="rk">1</span><div><b>הובלות לעסקים</b><span>שהם הובלות</span></div></div>
+          <div class="rank kcard"><span class="rk">1</span><div><b>שיש למטבח</b><span>שיש אלחי</span></div></div>
+          <div class="rank kcard"><span class="rk">1</span><div><b>רכבים לפירוק</b><span>מתנאל, מקומות ראשונים בכל ביטויי התחום</span></div></div>
+          <div class="rank kcard"><span class="rk">1</span><div><b>גמילה פרטית</b><span>מרכז פניקס, מקום ראשון בכל ביטויי התחום</span></div></div>
+          <p class="ranks-note">ומאחורי כל מיקום, תוכן ותשתית שנבנים חודש אחרי חודש. אותו מנוע שהביא ‎+151% קליקים בשלושה חודשים.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ WHY ============ -->
   <section id="why" style="background:var(--panel)">
     <div class="wrap">
@@ -815,6 +882,42 @@ if(!reduced){
 }else{
   fill.style.transform='scaleY(1)';head.style.display='none';
 }
+
+/* organic serp: type query, client appears at position 1 */
+(function(){
+  var serp=document.getElementById('serp');if(!serp)return;
+  var qEl=document.getElementById('serp-q'),cEl=document.getElementById('serp-client');
+  var DATA=[
+    ["הובלות לעסקים","שהם הובלות"],
+    ["שיש למטבח","שיש אלחי"],
+    ["רכבים לפירוק","מתנאל רכבים לפירוק"]
+  ];
+  if(reduced){qEl.textContent=DATA[0][0];cEl.textContent=DATA[0][1];serp.classList.add('show');return;}
+  var qi=0,started=false;
+  function type(str,done){
+    var i=0;
+    (function step(){
+      qEl.textContent=str.slice(0,++i);
+      if(i<str.length)setTimeout(step,65);else done();
+    })();
+  }
+  function cycle(){
+    var d=DATA[qi];
+    serp.classList.remove('show');
+    setTimeout(function(){
+      qEl.textContent='';
+      cEl.textContent=d[1];
+      type(d[0],function(){
+        setTimeout(function(){serp.classList.add('show');},250);
+        setTimeout(function(){qi=(qi+1)%DATA.length;cycle();},4200);
+      });
+    },450);
+  }
+  var oio=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting&&!started){started=true;cycle();oio.unobserve(serp);}
+  });},{threshold:.4});
+  oio.observe(serp);
+})();
 
 /* optimization loop: one active step at a time, chip follows */
 (function(){
