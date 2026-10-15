@@ -2,12 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://snirdote.co.il/</loc>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-10-15</lastmod>
     <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://snirdote.co.il/about.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
 </urlset>

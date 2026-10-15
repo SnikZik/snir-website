@@ -12,7 +12,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SNIR. · מנוע צמיחה, דאטה ואוטומציה</title>
-  <meta name="description" content="שניר זיו מחבר פרסום ממומן, דאטה, CRO ואוטומציה למערכת אחת שמייצרת צמיחה. מאז 2014, עם שליטה מלאה בכל המספרים.">
+  <meta name="description" content="שניר זיו מחבר פרסום ממומן, דאטה, CRO ואוטומציה למערכת אחת שהופכת קליקים להכנסה. מלווה עסקים ומותגים מאז 2014, עם שליטה מלאה בכל המספרים.">
   <meta name="theme-color" content="#101014">
   <link rel="canonical" href="https://snirdote.co.il/">
   <meta property="og:type" content="website">
@@ -21,6 +21,9 @@
   <meta property="og:description" content="קמפיינים הם רק ההתחלה. פרפורמנס, דאטה, CRO ואוטומציה במערכת אחת, מהקליק ועד להכנסה.">
   <meta property="og:image" content="https://snirdote.co.il/assets/brand/snir-seal.png">
   <meta property="og:locale" content="he_IL">
+  <meta property="og:site_name" content="SNIR">
+  <meta property="og:image:alt" content="החותם של SNIR, פרש שחמט בתוך עיגול">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="assets/brand/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +34,7 @@
 :root{
   --bg:#101014; --panel:#16181D; --card:#1D2026; --raise:#26262E;
   --purple:#9900C0; --purple-soft:#B84AD6; --blue:#2E7CF6; --pink:#C77DFF;
-  --text:#ECEAF2; --dim:#A6A6B0; --mute:#6E6E78;
+  --text:#ECEAF2; --dim:#A6A6B0; --mute:#9090A0;
   --mono:'IBM Plex Mono',monospace; --sans:'Heebo',system-ui,sans-serif;
   --maxw:1200px; --pad:clamp(1.25rem,4.5vw,4rem);
   --keyline:linear-gradient(90deg,transparent,rgba(153,0,192,.55),transparent);
@@ -45,7 +48,7 @@ img{max-width:100%}
 section{padding-block:clamp(5rem,11vw,10rem);position:relative}
 h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;line-height:1.15}
 .lead{color:var(--dim);font-size:clamp(1rem,2.2vw,1.15rem);max-width:56ch}
-.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mute);display:block;direction:ltr;unicode-bidi:isolate}
+.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mute);display:block;direction:ltr;unicode-bidi:isolate;text-align:match-parent}
 .mono.p{color:var(--mute)}
 .grad{background:linear-gradient(92deg,var(--purple-soft),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
 .dot{display:inline-block;width:.16em;height:.16em;border-radius:50%;background:var(--purple);vertical-align:baseline;margin-inline-start:.08em;box-shadow:0 0 14px rgba(153,0,192,.8)}
@@ -92,7 +95,7 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
   .topbar nav{display:none;position:absolute;top:100%;inset-inline:0;background:rgba(16,16,20,.97);flex-direction:column;padding:1.4rem var(--pad);gap:1.1rem;border-bottom:1px solid rgba(255,255,255,.07)}
   .topbar.open nav{display:flex}
   .nav-toggle{display:block}
-  .topbar .btn{display:none}
+  .topbar .btn{padding:.6rem 1.1rem;font-size:.9rem}
 }
 
 /* ============ hero ============ */
@@ -126,14 +129,14 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .eng-live .pdot{width:7px;height:7px;border-radius:50%;background:#4ADE80;opacity:.75;animation:livepulse 2.4s infinite}
 @keyframes livepulse{0%,100%{opacity:.75}50%{opacity:.35}}
 .eng-flow{position:relative;display:flex;flex-direction:column;gap:.35rem;padding-inline-start:6px;padding-inline-end:30px}
-.eng-line{position:absolute;top:14px;bottom:52px;inset-inline-start:13px;width:2px;
+.eng-line{position:absolute;top:14px;bottom:52px;inset-inline-start:20px;width:2px;
   background:rgba(255,255,255,.12)}
 .eng-return{position:absolute;top:14px;bottom:52px;inset-inline-end:6px;width:20px;
   border:1px dashed rgba(255,255,255,.14);border-inline-start:none;
   border-start-end-radius:12px;border-end-end-radius:12px}
 .eng-return-label{position:absolute;inset-inline-end:-6px;top:50%;transform:translateY(-50%) rotate(90deg);
   font-size:.6rem;color:var(--mute);letter-spacing:.12em;white-space:nowrap}
-.sig{position:absolute;inset-inline-start:9.5px;top:0;width:8px;height:8px;border-radius:50%;
+.sig{position:absolute;inset-inline-start:17px;top:0;width:8px;height:8px;border-radius:50%;
   background:var(--blue);box-shadow:0 0 7px 1px rgba(46,124,246,.45);animation:sigfall 4.2s linear infinite;opacity:0}
 .sig.s2{animation-delay:2.1s;background:rgba(184,74,214,.85);box-shadow:0 0 7px 1px rgba(153,0,192,.4)}
 @keyframes sigfall{0%{top:2%;opacity:0}10%{opacity:1}80%{opacity:1}92%{top:82%;opacity:0}100%{top:82%;opacity:0}}
@@ -151,7 +154,7 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .emono{font-family:var(--mono);font-size:.56rem;letter-spacing:.22em;color:var(--mute);direction:ltr;text-align:start;unicode-bidi:isolate;align-self:flex-start}
 .loop-chip-wrap{display:flex;justify-content:flex-end;margin-top:.6rem;min-height:2.1em}
 .echip{font-family:var(--mono);font-size:.7rem;color:var(--dim);background:var(--bg);
-  border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:.3rem .7rem;direction:ltr;white-space:nowrap;
+  border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:.3rem .7rem;direction:rtl;white-space:nowrap;
   transition:opacity .3s}
 .echip.swap{opacity:0}
 @media(max-width:900px){
@@ -221,7 +224,7 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .step{padding:1.6rem 1.6rem;opacity:.5;transition:opacity .4s,background .4s}
 .step.on{opacity:1;background:var(--raise)}
 .step .n{font-family:var(--mono);color:var(--mute);font-size:.8rem;letter-spacing:.25em}
-.step.on .n{color:var(--purple-soft)}
+.step.on .n{color:var(--pink)}
 .step h3{font-size:1.25rem;font-weight:800;margin:.35rem 0 .4rem}
 .step p{color:var(--dim);font-size:.97rem}
 
@@ -242,9 +245,9 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .chart .line.go{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:drawline 1.6s .2s cubic-bezier(.5,0,.3,1) forwards}
 .chip{position:absolute;background:var(--raise);border:1px solid rgba(255,255,255,.1);border-radius:999px;
   padding:.3rem .8rem;font-size:.82rem;font-weight:700;white-space:nowrap;opacity:0;transform:translateY(6px);
-  transition:opacity .5s,transform .5s;direction:ltr}
+  transition:opacity .5s,transform .5s;direction:rtl}
 .chart.on .chip{opacity:1;transform:none}
-.chip b{color:var(--pink)}
+.chip b{color:var(--pink);direction:ltr;unicode-bidi:isolate}
 /* ledclub feed */
 .feed{display:flex;flex-direction:column;gap:.7rem}
 .bub{background:var(--raise);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:.85rem 1.1rem;
@@ -254,7 +257,7 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .feed.play .bub:nth-child(2){transition-delay:.7s}
 .feed.play .bub:nth-child(3){transition-delay:1.3s}
 .feed.play .bub:nth-child(4){transition-delay:1.9s}
-.bub .t{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;color:var(--purple-soft);display:block;margin-bottom:.15rem}
+.bub .t{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;color:var(--pink);display:block;margin-bottom:.15rem}
 .case-nums{display:flex;gap:1.6rem;margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.07);flex-wrap:wrap}
 .cn{display:flex;flex-direction:column}
 .cn .v{font-weight:900;font-size:2rem;line-height:1;direction:ltr}
@@ -328,7 +331,7 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .bigdot{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#C24BE0,var(--purple) 65%);
   box-shadow:0 0 80px 10px rgba(153,0,192,.5);animation:breathe 8s ease-in-out infinite;justify-self:center}
 @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-#founder .role{color:var(--purple-soft);font-weight:700;margin:.2rem 0 .9rem}
+#founder .role{color:var(--pink);font-weight:700;margin:.2rem 0 .9rem}
 #founder blockquote{font-size:clamp(1.15rem,2.4vw,1.5rem);font-weight:800;line-height:1.45;margin-bottom:1rem}
 .chips{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.1rem}
 .chips span{background:var(--raise);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:.4rem 1rem;font-size:.88rem;color:var(--dim)}
@@ -379,6 +382,21 @@ footer .links a:hover{color:var(--text)}
   #cursor{display:none}
 }
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":["Organization","ProfessionalService"],"@id":"https://snirdote.co.il/#org",
+  "name":"SNIR","url":"https://snirdote.co.il/",
+  "logo":"https://snirdote.co.il/assets/brand/snir-seal.png",
+  "image":"https://snirdote.co.il/assets/brand/snir-seal.png",
+  "telephone":"+972543232999","email":"hello@snirdote.co.il",
+  "foundingDate":"2014",
+  "sameAs":["https://instagram.com/snir.studio"],
+  "founder":{"@id":"https://snirdote.co.il/#snir"}},
+ {"@type":"Person","@id":"https://snirdote.co.il/#snir",
+  "name":"שניר זיו","jobTitle":"מייסד SNIR",
+  "worksFor":{"@id":"https://snirdote.co.il/#org"}}
+]}
+</script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -396,6 +414,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="#method">המנוע</a>
     <a href="#results">תוצאות</a>
     <a href="#founder">מי מאחורי זה</a>
+    <a href="#cta">בואו נדבר</a>
   </nav>
   <a href="#cta" class="btn">בואו נדבר</a>
   <button class="nav-toggle" aria-label="תפריט" aria-expanded="false">
@@ -413,7 +432,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="line"><span>קמפיינים הם רק ההתחלה.</span></span>
           <span class="line"><span>אנחנו בונים את מנוע הצמיחה<span class="hdot"></span></span></span>
         </h1>
-        <p class="lead sub">מנהלים מדיה חזק, ואז ממשיכים הלאה. דאטה, CRO, אוטומציה ו-CRM מתחברים למערכת אחת שהופכת קליקים להכנסה.</p>
+        <p class="lead sub">מנהלים מדיה חזק, ואז ממשיכים הלאה. דאטה, CRO, CRM ואוטומציה מתחברים למערכת אחת שהופכת קליקים להכנסה.</p>
         <div class="ctas">
           <a href="#cta" class="btn magnetic">בואו נצמח</a>
           <a href="#method" class="btn ghost">ראו איך זה עובד</a>
@@ -423,7 +442,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="engine kcard" aria-hidden="true">
         <div class="eng-head">
           <span class="mono">GROWTH ENGINE</span>
-          <span class="eng-live"><span class="pdot"></span>LIVE</span>
         </div>
         <div class="eng-flow" id="loop">
           <span class="eng-line"></span>
@@ -434,11 +452,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="edot"></span>
             <div class="etxt"><b>ניתוח</b><span class="emono">ANALYZE</span></div>
           </div>
-          <div class="erow" style="--d:1" data-chip="CR 3.1%">
+          <div class="erow" style="--d:1" data-chip="יחס ההמרה עולה">
             <span class="edot"></span>
             <div class="etxt"><b>טיפול CRO</b><span class="emono">CONVERT</span></div>
           </div>
-          <div class="erow" style="--d:2" data-chip="ROAS 4.2">
+          <div class="erow" style="--d:2" data-chip="ROAS 15+">
             <span class="edot"></span>
             <div class="etxt"><b>קמפיינים דיגיטליים</b><span class="emono">GOOGLE / META</span></div>
           </div>
@@ -454,7 +472,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="edot"></span>
             <div class="etxt"><b>אוטומציה</b><span class="emono">AUTOMATE</span></div>
           </div>
-          <div class="erow rev" style="--d:6" data-chip="₪184K">
+          <div class="erow rev" style="--d:6" data-chip="20K$ בשלושה חודשים">
             <span class="edot"></span>
             <div class="etxt"><b>מכירה</b><span class="emono">REVENUE</span></div>
           </div>
@@ -538,10 +556,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="method-sticky reveal">
         <span class="mono p">/ METHOD</span>
         <h2 style="margin-top:.9rem">המנוע נבנה בארבעה מהלכים</h2>
-        <p class="lead" style="margin-top:1.1rem">כל מהלך נשען על הקודם. בלי מדידה אין תנועה חכמה, בלי המרה אין הכנסה, בלי אוטומציה אין שקט.</p>
+        <p class="lead" style="margin-top:1.1rem">כל מהלך נשען על הקודם. בלי מדידה אין תנועה חכמה, ובלי המרה אין הכנסה. אוטומציה סוגרת את המעגל.</p>
       </div>
       <div class="steps" id="steps">
-        <div class="knight" id="knight"><img src="assets/hero/chess-knight.png" alt=""></div>
+        <div class="knight" id="knight"><img src="assets/hero/chess-knight-96.png" alt="" width="44" height="44" loading="lazy" decoding="async"></div>
         <div class="step kcard" data-step="0">
           <span class="n">01 / MEASURE</span>
           <h3>אבחון ומדידה</h3>
@@ -614,7 +632,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="cn"><span class="v" data-count="13">13</span><span class="l">הזמנות נפתחו אוטומטית</span></div>
             <div class="cn"><span class="v" data-count="4">4</span><span class="l">לקוחות תיקנו כתובת לפני משלוח</span></div>
             <div class="cn hot"><span class="v" data-count="0">0</span><span class="l">תקלות</span></div>
-            <div class="cn"><span class="v">20K$</span><span class="l">מכירות ב-3 החודשים הראשונים</span></div>
+            <div class="cn"><span class="v">20K$</span><span class="l">מכירות בשלושת החודשים הראשונים</span></div>
           </div>
           <button class="replay" id="replay" type="button">הפעל שוב</button>
         </div>
@@ -711,12 +729,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h3 style="font-size:1.6rem;font-weight:900">שניר זיו</h3>
           <div class="role">מייסד SNIR</div>
           <blockquote>אני לא מוכר שעות. אני בונה מכונה שעובדת בשבילך.</blockquote>
-          <p class="lead">מאז 2014 אני בונה מנועי צמיחה לעסקים. רואה קמפיין או גרף ומבין בדקות איפה הבעיה, בונה את הטכנולוגיה שסוגרת אותה, ונשאר עד שהמספר זז.</p>
+          <p class="lead">מאז 2014 אני בונה מנועי צמיחה לעסקים. רואה קמפיין או גרף ומבין בדקות איפה הבעיה. בונה את הטכנולוגיה שסוגרת אותה ונשאר עד שהמספר זז.</p>
           <div class="chips">
             <span>פעיל מאז 2014</span>
             <span>18 מותגים</span>
             <span>מאות קמפיינים</span>
-            <a class="chips-a" href="https://wa.me/972543232999?text=%D7%94%D7%99%20SNIR" target="_blank" rel="noopener"><span style="border-color:rgba(153,0,192,.5)">וואטסאפ 054-323-2999</span></a>
+            <a class="chips-a" href="https://wa.me/972543232999?text=%D7%94%D7%99%20%D7%A9%D7%A0%D7%99%D7%A8%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%99%D7%97%D7%AA%20%D7%90%D7%91%D7%97%D7%95%D7%9F%20%D7%9C%D7%A2%D7%A1%D7%A7%20%D7%A9%D7%9C%D7%99" target="_blank" rel="noopener"><span style="border-color:rgba(153,0,192,.5)">וואטסאפ 054 323 2999</span></a>
           </div>
         </div>
       </div>
@@ -728,19 +746,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="wrap">
       <div class="cta-mark reveal" id="cta-mark">SNIR<span class="dot"></span></div>
       <h2 class="reveal">המהלך הבא כבר שלך</h2>
-      <p class="lead reveal">שיחה ראשונה היא אבחון, לא מכירה. חוזרים תוך יום עסקים.</p>
+      <p class="lead reveal">שיחה ראשונה היא אבחון, לא מכירה. אני חוזר אליך תוך יום עסקים.</p>
       <div class="cta-shell kcard reveal">
         <form action="https://formsubmit.co/hello@snirdote.co.il" method="POST">
-          <input type="hidden" name="_subject" value="פנייה חדשה מ-snirdote.co.il">
+          <input type="hidden" name="_subject" value="פנייה חדשה מהאתר snirdote.co.il">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://snirdote.co.il/thanks.html">
           <input type="text" name="_honey" style="display:none">
-          <div class="field"><label for="f-name">שם</label><input id="f-name" name="שם" type="text" required placeholder="איך קוראים לך"></div>
-          <div class="field"><label for="f-phone">טלפון</label><input id="f-phone" name="טלפון" type="tel" required placeholder="050-0000000"></div>
-          <div class="field"><label for="f-what">מה אתם מוכרים</label><input id="f-what" name="מה אתם מוכרים" type="text" placeholder="חנות, שירות, מוצר"></div>
+          <div class="field"><label for="f-name">שם</label><input id="f-name" name="שם" type="text" required placeholder="איך קוראים לך" autocomplete="name"></div>
+          <div class="field"><label for="f-phone">טלפון</label><input id="f-phone" name="טלפון" type="tel" required placeholder="050 0000000" autocomplete="tel"></div>
+          <div class="field"><label for="f-what">מה אתה מוכר (לא חובה)</label><input id="f-what" name="מה אתה מוכר" type="text" placeholder="חנות, שירות, מוצר"></div>
           <div class="cta-row">
             <button type="submit" class="btn magnetic">בואו נבנה את המנוע</button>
-            <a href="https://wa.me/972543232999?text=%D7%94%D7%99%20SNIR" target="_blank" rel="noopener" class="btn ghost">וואטסאפ 054-323-2999</a>
+            <a href="https://wa.me/972543232999?text=%D7%94%D7%99%20%D7%A9%D7%A0%D7%99%D7%A8%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%99%D7%97%D7%AA%20%D7%90%D7%91%D7%97%D7%95%D7%9F%20%D7%9C%D7%A2%D7%A1%D7%A7%20%D7%A9%D7%9C%D7%99" target="_blank" rel="noopener" class="btn ghost">וואטסאפ 054 323 2999</a>
           </div>
         </form>
         <p class="note">הפרטים נשארים אצלי בלבד. בלי ספאם ובלי רשימות תפוצה.</p>
@@ -755,12 +774,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <span style="color:var(--mute);font-size:.9rem">© 2026 SNIR</span>
   <div class="links">
     <a href="https://wa.me/972543232999" target="_blank" rel="noopener">וואטסאפ</a>
+    <a href="tel:+972543232999">טלפון</a>
     <a href="mailto:hello@snirdote.co.il">אימייל</a>
     <a href="https://instagram.com/snir.studio" target="_blank" rel="noopener">אינסטגרם</a>
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/972543232999?text=%D7%94%D7%99%20SNIR" target="_blank" rel="noopener" aria-label="וואטסאפ">
+<a class="wa-float" href="https://wa.me/972543232999?text=%D7%94%D7%99%20%D7%A9%D7%A0%D7%99%D7%A8%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%99%D7%97%D7%AA%20%D7%90%D7%91%D7%97%D7%95%D7%9F%20%D7%9C%D7%A2%D7%A1%D7%A7%20%D7%A9%D7%9C%D7%99" target="_blank" rel="noopener" aria-label="וואטסאפ">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.73-.85-2-.95-.27-.1-.46-.15-.66.15-.2.3-.76.95-.93 1.14-.17.2-.34.22-.63.07-.3-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.73-1.63-2.02-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.18-.24-.57-.48-.5-.66-.5l-.56-.01c-.2 0-.5.07-.77.37-.26.3-1 .98-1 2.4 0 1.4 1.03 2.76 1.17 2.95.15.2 2.03 3.1 4.92 4.35.69.3 1.22.47 1.64.6.69.22 1.31.19 1.8.11.55-.08 1.73-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.35zM12.02 21.5h-.01a9.44 9.44 0 01-4.82-1.32l-.34-.2-3.58.94.96-3.49-.22-.36a9.42 9.42 0 01-1.44-5.02c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 012.77 6.68c0 5.2-4.24 9.45-9.46 9.45zm8.04-17.49A11.36 11.36 0 0012.02.5C5.76.5.67 5.58.67 11.84c0 2 .53 3.96 1.53 5.68L.5 23.5l6.13-1.6a11.35 11.35 0 005.39 1.37h.01c6.26 0 11.35-5.09 11.35-11.35 0-3.03-1.18-5.88-3.32-8.02z"/></svg>
 </a>
 
@@ -777,16 +797,16 @@ bar.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',fun
 
 /* clients marquee (doubled rows for loop) */
 var CLIENTS=[
-  ["מכון צמיחה","טיפול רגשי בילדים","500+ לידים ב-3 חודשים ראשונים"],
-  ["C Clair","תכשיטים אונליין","הגדלת מכירות ו-ROAS","2+"],
+  ["מכון צמיחה","טיפול רגשי בילדים","500+ לידים בשלושה חודשים ראשונים"],
+  ["C Clair","תכשיטים אונליין","הגדלת מכירות, ROAS בעלייה","2+"],
   ["בלי קמח","מאפייה ללא גלוטן","שיפור יחס ההמרה בחנות","3+"],
-  ["לד קלאב","תאורת LED אונליין","ליווי מלא, 20K$ מכירות ב-3 חודשים ראשונים","1+"],
+  ["לד קלאב","תאורת LED אונליין","ליווי מלא, 20K$ מכירות בשלושה חודשים ראשונים","1+"],
   ["צימרלי","פורטל צימרים","תוכן ואורגני","1+"],
   ["מבטח קרנות 770","בית סוכן, ביטוח ופיננסים","זרם לידים יומי בתחום","5+"],
   ["שני מנצור","קוסמטיקה","לידים ומכירות באתר, ROAS גבוה","3+"],
   ["אמבר אמריקה","נדל״ן בארה״ב","לידים למשקיעים"],
-  ["בואו","מסעדת השף תומר טל","מחזור הטאביט כמעט הוכפל ב-3 חודשים"],
-  ["Play Ground","מסעדה","מחזור הטאביט כמעט הוכפל ב-3 חודשים"],
+  ["בואו","מסעדת השף תומר טל","מחזור הטאביט כמעט הוכפל בשלושה חודשים"],
+  ["Play Ground","מסעדה","מחזור הטאביט כמעט הוכפל בשלושה חודשים"],
   ["קונטגארד","ניטור מטענים בזמן אמת","קידום אורגני"],
   ["ליאור רוזנטל","ליווי לגמילה מהימורים","קידום אורגני ותוכן"],
   ["ניב המנעולן","מנעולן 24/7","אתר, תשתית וקידום"],
@@ -797,10 +817,10 @@ var CLIENTS=[
   ["טום לייט לאבס EnoLed","פתרונות תאורת LED","קידום אורגני"],
   ["ואן לימוזין","הסעות VIP","ממומן בגוגל ואורגני","4+"],
   ["דביר נדלן","פרויקט הרצליה","קמפיין נדל״ן בפייסבוק"],
-  ["סו סושי","מסעדת סושי","מחזור הטאביט כמעט הוכפל ב-3 חודשים"],
+  ["סו סושי","מסעדת סושי","מחזור הטאביט כמעט הוכפל בשלושה חודשים"],
   ["מונטסורי יער","בית ספר פרטי","פרויקט בהתנדבות"],
-  ["צ׳אטוצ׳אק","מסעדת שף תאילנדית","מחזור הטאביט כמעט הוכפל ב-3 חודשים"],
-  ["אודל","בוטיק פרימיום בראשון לציון","מכירות מהאינטרנט ב-ROAS גבוה","1+"],
+  ["צ׳אטוצ׳אק","מסעדת שף תאילנדית","מחזור הטאביט כמעט הוכפל בשלושה חודשים"],
+  ["אודל","בוטיק פרימיום בראשון לציון","מכירות מהאינטרנט, ROAS גבוה","1+"],
   ["מתנאל","רכבים לפירוק","ממומן ואורגני, מקומות ראשונים בכל הביטויים"],
   ["שיש אל חי","משטחי שיש ואבן","ממומן ואורגני, מיקומים גבוהים בביטויי שיש"],
   ["אבי מנעולן","מנעולן ושלטי רכב","אורגני, מקום ראשון בשחזור שלטים"],
