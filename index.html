@@ -353,14 +353,11 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .contrast{margin-top:2.2rem;text-align:center;color:var(--mute);font-size:1rem}
 
 /* ============ founder ============ */
-#founder .card{display:grid;grid-template-columns:300px minmax(0,1fr);gap:clamp(1.6rem,4vw,3.2rem);align-items:center;
+#founder .card{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(1.6rem,4vw,3.2rem);align-items:center;
   padding:clamp(1.8rem,4vw,3rem);position:relative;overflow:hidden}
 @media(max-width:720px){#founder .card{grid-template-columns:1fr}}
-.fphoto{position:relative;width:100%;max-width:300px;margin:0 auto 1.2rem;justify-self:center}
-.fmain{width:100%;max-width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:20px;display:block;box-shadow:0 24px 50px -28px rgba(20,20,30,.55)}
-.fside{position:absolute;width:38%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:14px;inset-inline-end:-10%;bottom:-8%;
-  border:4px solid var(--card);box-shadow:0 14px 30px -14px rgba(0,0,0,.5);transform:rotate(-6deg)}
-@media(max-width:720px){.fside{inset-inline-end:4%}}50%{transform:scale(1.06)}}
+.favatar{width:160px;height:160px;border-radius:50%;object-fit:cover;object-position:50% 28%;display:block;justify-self:center;
+  box-shadow:0 0 0 4px var(--card),0 0 0 6px rgba(153,0,192,.45),0 18px 40px -22px rgba(0,0,0,.5)}50%{transform:scale(1.06)}}
 #founder .role{color:var(--pink);font-weight:700;margin:.2rem 0 .9rem}
 #founder blockquote{font-size:clamp(1.15rem,2.4vw,1.5rem);font-weight:800;line-height:1.45;margin-bottom:1rem}
 .chips{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.1rem}
@@ -520,16 +517,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2>האיש מאחורי הנקודה</h2>
       </div>
       <div class="card kcard reveal">
-        <figure class="fphoto">
-          <img class="fmain" src="assets/founder/snir.jpg" alt="שניר זיו" width="800" height="1000" loading="lazy" decoding="async">
-          <img class="fside" src="assets/founder/snir-barrel.jpg" alt="שניר גולש בתוך גל" width="640" height="640" loading="lazy" decoding="async">
-        </figure>
+        <img class="favatar" src="assets/founder/snir.jpg" alt="שניר זיו" width="160" height="160" loading="lazy" decoding="async">
         <div>
           <h3 style="font-size:1.6rem;font-weight:900">שניר זיו</h3>
           <div class="role">מייסד SNIR</div>
           <blockquote>אני לא מוכר שעות. אני בונה מכונה שעובדת בשבילך.</blockquote>
           <p class="lead">מאז 2014 אני בונה מנועי צמיחה לעסקים. רואה קמפיין או גרף ומבין בדקות איפה הבעיה. בונה את הטכנולוגיה שסוגרת אותה ונשאר עד שהמספר זז.</p>
-          <p class="lead" style="margin-top:.6rem">נשוי ואבא לשני ילדים, גר בלב תל אביב. המשרד שלי בשכונת נגה ביפו.</p>
+          <p class="lead" style="margin-top:.6rem">נשוי ואבא לשני ילדים, גר בלב תל אביב. המשרד שלי בשכונת נגה ביפו. גולש, ונכנס למשימות כמו שאני נכנס לצינור.</p>
           <div class="chips">
             <span>פעיל מאז 2014</span>
             <span>18 מותגים</span>
