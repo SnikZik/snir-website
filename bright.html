@@ -201,6 +201,14 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .ctile span{font-weight:900;font-size:2.6rem;opacity:.5}
 .ctile em{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--purple);inset-inline-end:14px;bottom:12px;box-shadow:0 0 12px rgba(153,0,192,.6)}
 .cbody{padding:.8rem 1.1rem 1rem;display:flex;flex-direction:column;gap:.15rem}
+.cwrap{position:relative}
+.clogo{position:absolute;bottom:8px;inset-inline-start:8px;background:#fff;border-radius:9px;
+  padding:4px 8px;display:flex;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.clogo img{height:22px;width:auto;max-width:92px;object-fit:contain;display:block}
+.clogo.dk{background:#17171C}
+.ltile{display:flex;align-items:center;justify-content:center;background:#FFFFFF}
+.ltile img{max-width:70%;max-height:62%;object-fit:contain}
+.ltile.dk{background:#17171C}
 /* featured clients */
 .fc-grid{max-width:1080px;margin:1rem auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
 @media(max-width:820px){.fc-grid{grid-template-columns:1fr}}
@@ -816,59 +824,59 @@ bar.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',fun
 /* clients marquee (doubled rows for loop) */
 var GROUPS=[
 ["קולינריה ומסעדנות",[
-  ["מושיק רוט", "קולינריה", "קידום ממומן", "", "assets/clients/moshik-roth.jpg"],
-  ["בואו", "מסעדת השף תומר טל", "קידום ממומן", "", "assets/clients/bou.jpg"],
-  ["Play Ground", "קולינריה מודרנית", "קידום ממומן", "", "assets/clients/playground.jpg"],
-  ["צ׳אטוצ׳אק", "מסעדת שף תאילנדית", "קידום ממומן", "", "assets/clients/chatuchak.jpg"],
-  ["ראונד טייבל", "קולינריה", "קידום ממומן", "", "assets/clients/roundtable.jpg"],
-  ["סו סושי", "מסעדת סושי", "קידום ממומן", "", "assets/clients/sosushi.jpg"]
+  ["מושיק רוט", "קולינריה", "קידום ממומן", "", "assets/clients/moshik-roth.jpg", "assets/clogos/moshik.svg", ""],
+  ["בואו", "מסעדת השף תומר טל", "קידום ממומן", "", "assets/clients/bou.jpg", "assets/clogos/bou.svg", ""],
+  ["Play Ground", "קולינריה מודרנית", "קידום ממומן", "", "assets/clients/playground.jpg", "assets/clogos/playground.webp", "dark"],
+  ["צ׳אטוצ׳אק", "מסעדת שף תאילנדית", "קידום ממומן", "", "assets/clients/chatuchak.jpg", "assets/clogos/chatuchak.png", "dark"],
+  ["ראונד טייבל", "קולינריה", "קידום ממומן", "", "assets/clients/roundtable.jpg", "", ""],
+  ["סו סושי", "מסעדת סושי", "קידום ממומן", "", "assets/clients/sosushi.jpg", "assets/clogos/sosushi.png", ""]
 ]],
 ["איקומרס ומותגים",[
-  ["בלי קמח", "מאפייה ללא גלוטן", "קידום ממומן ו-CRO", "3+", "assets/clients/blikemach.jpg"],
-  ["C Clair", "תכשיטים אונליין", "קידום ממומן", "2+", "assets/clients/cclair.jpg"],
-  ["שני מנצור", "קוסמטיקה", "קידום ממומן", "3+", "assets/clients/shani.jpg"],
-  ["לד קלאב", "תאורת LED אונליין", "קידום ממומן ואוטומציה", "1+", "assets/clients/ledclub.jpg"],
-  ["אודל", "בוטיק פרימיום בראשון לציון", "קידום ממומן", "1+", "assets/clients/odel.jpg"],
-  ["צימרלי", "פורטל צימרים", "קידום ממומן ואורגני", "1+", "assets/clients/zimmerli.jpg"],
-  ["הדס הלפרין", "איקומרס", "קידום ממומן", "", "assets/clients/hadas.jpg"]
+  ["בלי קמח", "מאפייה ללא גלוטן", "קידום ממומן ו-CRO", "3+", "assets/clients/blikemach.jpg", "assets/clogos/blikemach.svg", "dark"],
+  ["C Clair", "תכשיטים אונליין", "קידום ממומן", "2+", "assets/clients/cclair.jpg", "assets/clogos/cclair.svg", ""],
+  ["שני מנצור", "קוסמטיקה", "קידום ממומן", "3+", "assets/clients/shani.jpg", "assets/clogos/shani.png", ""],
+  ["לד קלאב", "תאורת LED אונליין", "קידום ממומן ואוטומציה", "1+", "assets/clients/ledclub.jpg", "assets/clogos/ledclub.png", "dark"],
+  ["אודל", "בוטיק פרימיום בראשון לציון", "קידום ממומן", "1+", "", "assets/clogos/odel.png", ""],
+  ["צימרלי", "פורטל צימרים", "קידום ממומן ואורגני", "1+", "assets/clients/zimmerli.jpg", "", ""],
+  ["הדס הלפרין", "איקומרס", "קידום ממומן", "", "assets/clients/hadas.jpg", "assets/clogos/hadas.png", ""]
 ]],
 ["בריאות וליווי אישי",[
-  ["מרכז גמילה פניקס", "מרכז גמילה פרטי", "קידום ממומן ואורגני", "7+", "assets/clients/phoenix.jpg"],
-  ["מכון צמיחה", "טיפול רגשי בילדים", "קידום ממומן", "", "assets/clients/machon.jpg"],
-  ["ליאור רוזנטל", "ליווי לגמילה מהימורים", "קידום ממומן ואורגני", "", "assets/clients/lior.jpg"]
+  ["מרכז גמילה פניקס", "מרכז גמילה פרטי", "קידום ממומן ואורגני", "7+", "assets/clients/phoenix.jpg", "assets/clogos/phoenix.png", ""],
+  ["מכון צמיחה", "טיפול רגשי בילדים", "קידום ממומן", "", "assets/clients/machon.jpg", "assets/clogos/machon.webp", ""],
+  ["ליאור רוזנטל", "ליווי לגמילה מהימורים", "קידום ממומן ואורגני", "", "assets/clients/lior.jpg", "assets/clogos/lior.png", ""]
 ]],
 ["רכב, הובלות ושירותים",[
-  ["גיא מצברים", "שירות מצברים לרכב", "קידום ממומן", "", ""],
-  ["גרר האחים", "גרירה ורכבים לפירוק", "הקמת אתר, קידום ממומן ואורגני", "", "assets/clients/gerer.jpg"],
-  ["אוזר רכבים", "גרירה ופירוק רכבים", "קידום ממומן", "", ""],
-  ["ש.ה.מ הובלות", "הובלות, אחסנה ומנופים", "קידום ממומן ואורגני", "", "assets/clients/shm.jpg"],
-  ["שיש אל חי", "משטחי שיש ואבן", "קידום ממומן ואורגני", "", "assets/clients/elchai.jpg"],
-  ["ואן לימוזין", "הסעות VIP", "קידום ממומן ואורגני", "4+", "assets/clients/vanlimousine.jpg"],
-  ["ניב המנעולן", "מנעולן 24/7", "הקמת אתר וקידום אורגני", "", "assets/clients/niv.jpg"],
-  ["אבי מנעולן", "מנעולן ושלטי רכב", "קידום ממומן ואורגני", "", "assets/clients/avi.jpg"],
-  ["פיינטגול", "מגרשי ספורט", "קידום ממומן ואורגני", "", "assets/clients/paintgoal.jpg"],
-  ["מתנאל", "רכבים לפירוק", "קידום ממומן ואורגני", "", "assets/clients/matanel.jpg"]
+  ["גיא מצברים", "שירות מצברים לרכב", "קידום ממומן", "", "", "assets/clogos/guy.png", ""],
+  ["גרר האחים", "גרירה ורכבים לפירוק", "הקמת אתר, קידום ממומן ואורגני", "", "assets/clients/gerer.jpg", "assets/clogos/gerer.webp", ""],
+  ["אוזר רכבים", "גרירה ופירוק רכבים", "קידום ממומן", "", "", "", ""],
+  ["ש.ה.מ הובלות", "הובלות, אחסנה ומנופים", "קידום ממומן ואורגני", "", "assets/clients/shm.jpg", "assets/clogos/shm.jpg", ""],
+  ["שיש אל חי", "משטחי שיש ואבן", "קידום ממומן ואורגני", "", "assets/clients/elchai.jpg", "assets/clogos/elchai.png", ""],
+  ["ואן לימוזין", "הסעות VIP", "קידום ממומן ואורגני", "4+", "assets/clients/vanlimousine.jpg", "assets/clogos/van.png", ""],
+  ["ניב המנעולן", "מנעולן 24/7", "הקמת אתר וקידום אורגני", "", "assets/clients/niv.jpg", "assets/clogos/niv.png", ""],
+  ["אבי מנעולן", "מנעולן ושלטי רכב", "קידום ממומן ואורגני", "", "assets/clients/avi.jpg", "assets/clogos/avi.png", ""],
+  ["פיינטגול", "מגרשי ספורט", "קידום ממומן ואורגני", "", "assets/clients/paintgoal.jpg", "assets/clogos/paintgoal.png", ""],
+  ["מתנאל", "רכבים לפירוק", "קידום ממומן ואורגני", "", "assets/clients/matanel.jpg", "", ""]
 ]],
 ["נדל״ן",[
-  ["דביר נדלן", "פרויקט הרצליה", "קידום ממומן", "", "assets/clients/dvir.jpg"],
-  ["אמבר אמריקה", "נדל״ן בארה״ב", "קידום ממומן", "", "assets/clients/imbar.jpg"]
+  ["דביר נדלן", "פרויקט הרצליה", "קידום ממומן", "", "", "assets/clogos/dvir.png", "dark"],
+  ["אמבר אמריקה", "נדל״ן בארה״ב", "קידום ממומן", "", "assets/clients/imbar.jpg", "", ""]
 ]],
 ["פיננסים",[
-  ["מבטח קרנות 770", "בית סוכן, ביטוח ופיננסים", "קידום ממומן", "5+", ""]
+  ["מבטח קרנות 770", "בית סוכן, ביטוח ופיננסים", "קידום ממומן", "5+", "", "assets/clogos/mivtah.svg", ""]
 ]],
 ["B2B וגלובלי",[
-  ["קונטגארד", "ניטור מטענים בזמן אמת", "קידום ממומן ואורגני", "", "assets/clients/contguard.jpg"],
-  ["IGL", "מעבדה גמולוגית ומכללה ליהלומנות", "קידום ממומן ואורגני", "5+", "assets/clients/igl.jpg"],
-  ["טום לייט לאבס EnoLed", "פתרונות תאורת LED", "קידום ממומן ואורגני", "", "assets/clients/enoled.jpg"],
-  ["AmbienTech", "בקרת תאורה חכמה", "קידום ממומן", "5+", "assets/clients/ambientech.jpg"]
+  ["קונטגארד", "ניטור מטענים בזמן אמת", "קידום ממומן ואורגני", "", "assets/clients/contguard.jpg", "assets/clogos/contguard.svg", "dark"],
+  ["IGL", "מעבדה גמולוגית ומכללה ליהלומנות", "קידום ממומן ואורגני", "5+", "assets/clients/igl.jpg", "assets/clogos/igl.png", ""],
+  ["טום לייט לאבס EnoLed", "פתרונות תאורת LED", "קידום ממומן ואורגני", "", "assets/clients/enoled.jpg", "assets/clogos/enoled.svg", "dark"],
+  ["AmbienTech", "בקרת תאורה חכמה", "קידום ממומן", "5+", "", "assets/clogos/ambientech.svg", "dark"]
 ]],
 ["חינוך, ספורט וקהילה",[
-  ["מונטסורי יער", "בית ספר פרטי", "פרויקט בהתנדבות", "", "assets/clients/montessori.jpg"],
-  ["פאדל אזור", "מועדון פאדל", "הקמת אתר וקידום ממומן", "", "assets/clients/padel.jpg"],
-  ["ברק", "מכון לאגרוף תאילנדי בראשון לציון", "קידום ממומן", "", ""]
+  ["מונטסורי יער", "בית ספר פרטי", "פרויקט בהתנדבות", "", "assets/clients/montessori.jpg", "", ""],
+  ["פאדל אזור", "מועדון פאדל", "הקמת אתר וקידום ממומן", "", "assets/clients/padel.jpg", "assets/clogos/padel.png", ""],
+  ["ברק", "מכון לאגרוף תאילנדי בראשון לציון", "קידום ממומן", "", "", "", ""]
 ]]
 ];
-function chip(c){var media=c[4]?'<img class="cmedia" src="'+c[4]+'" alt="'+c[0]+'" loading="lazy" decoding="async">':'<div class="cmedia ctile"><span>'+c[0].charAt(0)+'</span><em></em></div>';return '<div class="cchip">'+media+'<div class="cbody"><b>'+c[0]+(c[3]?' <u class="yrs">'+c[3]+' שנים</u>':'')+'</b>'+(c[1]?'<span>'+c[1]+'</span>':'')+(c[2]?'<i>'+c[2]+'</i>':'')+'</div></div>';}
+function chip(c){var media;if(c[4]){media='<div class="cwrap"><img class="cmedia" src="'+c[4]+'" alt="'+c[0]+'" loading="lazy" decoding="async">'+(c[5]?'<span class="clogo'+(c[6]?' dk':'')+'"><img src="'+c[5]+'" alt="" loading="lazy"></span>':'')+'</div>';}else if(c[5]){media='<div class="cmedia ltile'+(c[6]?' dk':'')+'"><img src="'+c[5]+'" alt="'+c[0]+'" loading="lazy"></div>';}else{media='<div class="cmedia ctile"><span>'+c[0].charAt(0)+'</span><em></em></div>';}return '<div class="cchip">'+media+'<div class="cbody"><b>'+c[0]+(c[3]?' <u class="yrs">'+c[3]+' שנים</u>':'')+'</b>'+(c[1]?'<span>'+c[1]+'</span>':'')+(c[2]?'<i>'+c[2]+'</i>':'')+'</div></div>';}
 document.getElementById('client-groups').innerHTML=GROUPS.map(function(g,gi){
   return '<div class="cgroup reveal" style="--i:'+(gi%3)+'"><div class="cg-title"><span class="dot"></span>'+g[0]+'</div><div class="cg-grid">'+g[1].map(chip).join('')+'</div></div>';
 }).join('');
