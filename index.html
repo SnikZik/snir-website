@@ -99,7 +99,7 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 }
 
 /* ============ hero ============ */
-.hero{min-height:100svh;display:flex;align-items:center;padding-top:5.5rem;
+.hero{min-height:min(100svh,820px);display:flex;align-items:center;padding-top:5.5rem;padding-bottom:1rem;
   background:
     radial-gradient(52vw 46vh at 12% 8%,rgba(199,125,255,.05),transparent 60%),
     radial-gradient(44vw 40vh at 88% 82%,rgba(153,0,192,.06),transparent 60%),
@@ -356,6 +356,7 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 #founder .card{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(1.6rem,4vw,3.2rem);align-items:center;
   padding:clamp(1.8rem,4vw,3rem);position:relative;overflow:hidden}
 @media(max-width:720px){#founder .card{grid-template-columns:1fr}}
+#founder{padding-block-start:clamp(2.5rem,5vw,4rem)}
 .favatar{width:160px;height:160px;border-radius:50%;object-fit:cover;object-position:50% 28%;display:block;justify-self:center;
   box-shadow:0 0 0 4px var(--card),0 0 0 6px rgba(153,0,192,.45),0 18px 40px -22px rgba(0,0,0,.5)}50%{transform:scale(1.06)}}
 #founder .role{color:var(--pink);font-weight:700;margin:.2rem 0 .9rem}
