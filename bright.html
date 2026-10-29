@@ -338,7 +338,21 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .serp.show .serp-skel{opacity:.55}
 .serp-skel i{display:block;height:9px;border-radius:5px;background:rgba(0,0,0,0.1)}
 .ranks{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem}
-.ranks .ranks-note{grid-column:1/-1}
+.ranks .serp-grid{grid-template-columns:1fr}
+.org-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.4rem}
+@media(max-width:820px){.org-grid{grid-template-columns:1fr}}
+.op{padding:1.3rem 1.3rem 1.2rem}
+.op-head{display:flex;align-items:baseline;justify-content:space-between;gap:.8rem;flex-wrap:wrap}
+.op-head b{font-size:1.1rem;font-weight:800}
+.op-head span{color:var(--mute);font-size:.82rem}
+.op-sum{margin-top:.4rem;color:var(--dim);font-size:.92rem}
+.op-sum em{font-style:normal;font-weight:900;font-size:1.3rem;color:var(--pink);margin-inline-end:.25rem}
+.kws{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.9rem}
+.kw{display:inline-flex;align-items:center;gap:.45rem;font-size:.86rem;padding:.3rem .7rem .3rem .4rem;border-radius:999px;
+  background:var(--raise);border:1px solid rgba(128,128,140,.2)}
+.kw b{font-family:var(--mono);font-size:.72rem;width:1.5rem;height:1.5rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(128,128,140,.18);color:var(--text)}
+.kw.p1 b{background:var(--purple);color:#fff}
+.ranks-note{grid-column:1/-1}
 @media(max-width:560px){.ranks{grid-template-columns:1fr}}
 .rank{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem}
 .rank .rk{font-family:var(--mono);font-size:1.25rem;color:var(--pink);border:1px solid rgba(153,0,192,.5);
@@ -730,8 +744,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section id="organic" style="background:var(--panel)">
     <div class="wrap">
       <div class="sec-head reveal">
-        <h2>מקום ראשון בגוגל</h2>
-        <p class="lead" style="margin-top:1rem">קידום אורגני הוא נכס. הלקוחות שלי יושבים במקומות הראשונים בביטויים שמכניסים כסף, בלי לשלם על הקליק.</p>
+        <h2>מקומות ראשונים בגוגל</h2>
+        <p class="lead" style="margin-top:1rem">קידום אורגני הוא נכס. אלה הביטויים שהלקוחות שלי מחזיקים בשלושת המקומות הראשונים בגוגל, בלי לשלם על הקליק.</p>
       </div>
       <div class="serp-grid">
         <div class="serp kcard reveal" id="serp" aria-hidden="true">
@@ -751,15 +765,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="serp-skel"><i style="width:55%"></i><i style="width:78%"></i></div>
           </div>
         </div>
-        <div class="ranks reveal" data-d="1">
-          <div class="rank kcard"><span class="rk">1</span><div><b>גמילה מקטמין, הרואין וקוקאין</b><span>מרכז פניקס, מאפס לרוב הביטויים בעברית, אנגלית ורוסית</span></div></div>
-          <div class="rank kcard"><span class="rk">1</span><div><b>אחסון משרדים</b><span>ש.ה.מ הובלות</span></div></div>
-          <div class="rank kcard"><span class="rk">1</span><div><b>שחזור שלט לרכב</b><span>אבי מנעולן</span></div></div>
-          <div class="rank kcard"><span class="rk">1</span><div><b>סימון מגרשי ספורט</b><span>פיינטגול, מקום ראשון גם בחידוש ובנייה</span></div></div>
-          <div class="rank kcard"><span class="rk">1</span><div><b>רכבים לפירוק</b><span>מתנאל, מקומות ראשונים בכל ביטויי התחום</span></div></div>
-          <div class="rank kcard"><span class="rk">2</span><div><b>שיש למטבח</b><span>שיש אל חי</span></div></div>
-          <div class="rank kcard"><span class="rk">2</span><div><b>הובלות לעסקים</b><span>ש.ה.מ הובלות</span></div></div>
-          <p class="ranks-note">ומאחורי כל מיקום, תוכן ותשתית שנבנים חודש אחרי חודש. אותו מנוע שהביא ‎+151% קליקים בשלושה חודשים.</p>
+        <div class="org-grid">
+        <div class="op kcard reveal"><div class="op-head"><b>מרכז גמילה פניקס</b><span>אורגני 3 שנים</span></div><div class="op-sum"><em>5</em> ביטויים במקום הראשון</div><div class="kws"><span class="kw p1"><b>1</b>גמילה מקטמין</span><span class="kw p1"><b>1</b>גמילה MDMA</span><span class="kw p1"><b>1</b>גמילה מליריקה</span><span class="kw p1"><b>1</b>גמילה mmc</span><span class="kw p1"><b>1</b>גמילה מבסטים</span><span class="kw p2"><b>2</b>גמילה מדוקטור</span><span class="kw p2"><b>2</b>גמילה מהתמכרות לריטלין</span><span class="kw p2"><b>2</b>גמילה מפנטניל</span><span class="kw p2"><b>2</b>גמילה מטרמדקס</span><span class="kw p2"><b>2</b>גמילה מקריסטל מת</span><span class="kw p2"><b>2</b>התמכרות למאטדון</span><span class="kw p2"><b>2</b>גמילה מאוקסיקונטין</span><span class="kw p3"><b>3</b>גמילה מאקסטזי</span></div></div>
+        <div class="op kcard reveal"><div class="op-head"><b>פיינטגול</b><span>אורגני 3 שנים</span></div><div class="op-sum"><em>11</em> ביטויים במקום הראשון</div><div class="kws"><span class="kw p1"><b>1</b>סימון מגרשי ספורט</span><span class="kw p1"><b>1</b>חידוש מגרשי ספורט</span><span class="kw p1"><b>1</b>בניית מגרשי ספורט</span><span class="kw p1"><b>1</b>תכנון מגרש ספורט</span><span class="kw p1"><b>1</b>הקמת מגרש ספורט</span><span class="kw p1"><b>1</b>מגרש כדורגל בבית</span><span class="kw p1"><b>1</b>מגרש כדורגל ביתי</span><span class="kw p1"><b>1</b>חידוש מגרש כדורגל</span><span class="kw p1"><b>1</b>חידוש מגרש טניס</span><span class="kw p1"><b>1</b>ציפוי מגרש טניס</span><span class="kw p1"><b>1</b>ציפוי ספורט קורט</span><span class="kw p2"><b>2</b>הקמת מגרש טניס</span><span class="kw p2"><b>2</b>ציפוי מגרש ספורט</span><span class="kw p2"><b>2</b>בניית מגרש כדורסל ביתי</span><span class="kw p2"><b>2</b>מגרש כדורסל ביתי</span></div></div>
+        <div class="op kcard reveal"><div class="op-head"><b>2PHD</b><span>אורגני שנתיים</span></div><div class="op-sum"><em>7</em> ביטויים במקום הראשון</div><div class="kws"><span class="kw p1"><b>1</b>דוקטורט מחול</span><span class="kw p1"><b>1</b>PhD Profile</span><span class="kw p1"><b>1</b>דוקטורט PhD בלימודים מרחוק מאנגליה</span><span class="kw p1"><b>1</b>דוקטורט PhD בלימודים מרחוק בארה״ב</span><span class="kw p1"><b>1</b>דוקטורט PhD בקפריסין</span><span class="kw p1"><b>1</b>דוקטורט PhD בצפון קפריסין</span><span class="kw p1"><b>1</b>דוקטורט PhD בשווייץ</span><span class="kw p2"><b>2</b>דוקטורט מוכר בישראל</span><span class="kw p2"><b>2</b>דוקטורט PhD בצרפת</span><span class="kw p2"><b>2</b>דוקטורט PhD בגרמניה</span></div></div>
+        <div class="op kcard reveal"><div class="op-head"><b>שיש אל חי</b><span>אורגני 5 שנים</span></div><div class="op-sum"><em>3</em> ביטויים במקום הראשון</div><div class="kws"><span class="kw p1"><b>1</b>שיש למטבחים</span><span class="kw p1"><b>1</b>סוגי שיש למטבחים</span><span class="kw p1"><b>1</b>משטח שיש דקטון</span><span class="kw p2"><b>2</b>פורצלן אבן קיסר</span></div></div>
+        <div class="op kcard reveal"><div class="op-head"><b>ש.ה.מ הובלות</b><span>אורגני שנה</span></div><div class="op-sum"><em>3</em> ביטויים במקום הראשון</div><div class="kws"><span class="kw p1"><b>1</b>הובלת ציוד רגיש</span><span class="kw p1"><b>1</b>הובלת מכשור טכנולוגי</span><span class="kw p1"><b>1</b>הובלות לעסקים</span><span class="kw p2"><b>2</b>העברת משרדים גדולים</span><span class="kw p2"><b>2</b>הובלות משרדים לעסקים</span><span class="kw p3"><b>3</b>הובלת משרד לעסקים</span><span class="kw p3"><b>3</b>הובלת מעבדה</span></div></div>
+        <div class="op kcard reveal"><div class="op-head"><b>אבי מנעולן</b><span>אורגני מפברואר 2026</span></div><div class="op-sum"><em>2</em> ביטויים במקום הראשון</div><div class="kws"><span class="kw p1"><b>1</b>שכפול שלטים למונית</span><span class="kw p1"><b>1</b>שכפול שלט למונית, היה 3</span><span class="kw p2"><b>2</b>שחזור שלט לרכב, היה 3</span><span class="kw p3"><b>3</b>הזמנת מנעולן רכב, היה 5</span></div></div>
         </div>
       </div>
     </div>
@@ -902,6 +914,7 @@ var GROUPS=[
   ["ל.י.ב.א יזום פרויקטים", "ייזום ונדל״ן", "PPC", "", "", "assets/clogos/liba.svg", "dark"]
 ]],
 ["חינוך, ספורט וקהילה",[
+  ["2PHD", "ליווי לדוקטורט בחו״ל", "SEO + GEO", "2+", "", "", ""],
   ["מונטסורי יער", "בית ספר פרטי", "פרויקט בהתנדבות", "", "assets/clients/montessori.jpg", "", ""],
   ["פאדל אזור", "מועדון פאדל", "הקמת אתר, PPC", "", "assets/clients/padel.jpg", "assets/clogos/padel.png", ""]
 ]],
@@ -1038,10 +1051,12 @@ if(!reduced){
   var serp=document.getElementById('serp');if(!serp)return;
   var qEl=document.getElementById('serp-q'),cEl=document.getElementById('serp-client');
   var DATA=[
-    ["אחסון משרדים","ש.ה.מ הובלות"],
+    ["שיש למטבחים","שיש אל חי"],
     ["סימון מגרשי ספורט","פיינטגול"],
-    ["שחזור שלט לרכב","אבי מנעולן"],
-    ["רכבים לפירוק","מתנאל רכבים לפירוק"]
+    ["הובלת ציוד רגיש","ש.ה.מ הובלות"],
+    ["גמילה מקטמין","מרכז גמילה פניקס"],
+    ["דוקטורט מחול","2PHD"],
+    ["שכפול שלטים למונית","אבי מנעולן"]
   ];
   if(reduced){qEl.textContent=DATA[0][0];cEl.textContent=DATA[0][1];serp.classList.add('show');return;}
   var qi=0,started=false;
