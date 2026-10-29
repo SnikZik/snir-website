@@ -351,6 +351,10 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
   background:var(--raise);border:1px solid rgba(128,128,140,.2)}
 .kw b{font-family:var(--mono);font-size:.72rem;width:1.5rem;height:1.5rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(128,128,140,.18);color:var(--text)}
 .kw.p1 b{background:var(--purple);color:#fff}
+.kws.collapsed .kw:nth-child(n+3){display:none}
+.kw-more{margin-top:.8rem;background:none;border:1px solid rgba(153,0,192,.45);color:var(--purple-soft);border-radius:999px;
+  padding:.35rem .9rem;font-family:var(--sans);font-size:.82rem;font-weight:600;cursor:pointer;transition:background .2s,color .2s}
+.kw-more:hover{background:var(--purple);color:#fff}
 .ranks-note{grid-column:1/-1}
 @media(max-width:560px){.ranks{grid-template-columns:1fr}}
 .rank{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem}
@@ -1083,6 +1087,17 @@ if(!reduced){
   });},{threshold:.4});
   oio.observe(serp);
 })();
+
+/* organic panels: show 2 keywords, expand on demand */
+document.querySelectorAll('.op').forEach(function(op){
+  var kws=op.querySelector('.kws'); if(!kws) return;
+  var n=kws.querySelectorAll('.kw').length; if(n<=2) return;
+  kws.classList.add('collapsed');
+  var b=document.createElement('button'); b.type='button'; b.className='kw-more';
+  var more='עוד '+(n-2)+' ביטויים'; b.textContent=more;
+  b.addEventListener('click',function(){var open=kws.classList.toggle('collapsed')===false; b.textContent=open?'פחות':more;});
+  kws.after(b);
+});
 
 /* optimization loop: one active step at a time, chip follows */
 (function(){
