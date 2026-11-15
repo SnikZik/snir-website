@@ -85,6 +85,8 @@ h2{font-size:clamp(1.9rem,4.5vw,3.1rem);font-weight:900;letter-spacing:-.01em;li
 .topbar nav{display:flex;gap:1.8rem}
 .topbar nav a{color:var(--dim);font-size:.95rem;font-weight:500;transition:color .2s}
 .topbar nav a:hover{color:var(--text)}
+.topbar{transition:background-color .35s ease,border-color .35s ease,box-shadow .35s ease}
+.topbar.scrolled{background:rgba(236,233,246,.94);border-bottom-color:#DDD8EE;box-shadow:0 6px 24px -18px rgba(108,92,166,.45)}
 .topbar nav .nav-cta{display:none}
 @media(max-width:900px){.topbar nav .nav-cta{display:block}}
 .btn{display:inline-flex;align-items:center;gap:.55rem;background:var(--purple);color:#fff;font-weight:700;
@@ -1178,6 +1180,10 @@ document.querySelectorAll('.op').forEach(function(op){
   }).catch(function(){});
 })();
 
+/* topbar turns soft lavender once the page scrolls */
+(function(){var tb=document.getElementById('topbar');if(!tb)return;
+  function upd(){tb.classList.toggle('scrolled',window.scrollY>24);}
+  addEventListener('scroll',upd,{passive:true});upd();})();
 /* magnetic CTAs (desktop only) */
 if(matchMedia('(hover:hover)').matches&&!reduced){
   document.querySelectorAll('.btn.magnetic').forEach(function(b){
